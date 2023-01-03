@@ -1,0 +1,25 @@
+.ShortcutButton {
+  width: 100%;
+  height: 43px;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 1px 17px 1px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.ShortcutButton:hover {
+  background: var(--color-dark);
+  cursor: pointer;
+}
+
+.ShortcutButton img {
+  margin: 0 10px;
+  border-radius: 5px;
+}
+
+a:link {
+  text-decoration: none !important;
+}

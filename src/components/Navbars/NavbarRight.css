@@ -1,0 +1,35 @@
+.NavbarRight {
+  background: var(--color-darker);
+  height: var(--Navbar-height);
+  border-bottom: 1px solid var(--color-dark);
+  display: flex;
+  align-items: center;
+}
+
+.NavbarRight img {
+  width: var(--Navbar-logo-height);
+  height: var(--Navbar-logo-height);
+  border-radius: 100%;
+  margin-right: 25px;
+}
+
+.NavbarRight img:hover {
+  cursor: pointer;
+}
+
+.Icon {
+  width: var(--Navbar-icons-div-height);
+  height: var(--Navbar-icons-div-height);
+  border-radius: 100%;
+  background: var(--color-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--Navbar-icons-height);
+  color: var(--color-lighter);
+  margin-right: 10px;
+}
+
+.Messenger {
+  font-size: 19px;
+}

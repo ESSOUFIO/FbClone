@@ -1,0 +1,14 @@
+:root {
+  --color-dark-less: #4e4f50;
+  --color-dark: #3a3b3c;
+  --color-darker: #242526;
+  --color-darkest: #18191a;
+  --color-light: rgb(170, 170, 170);
+  --color-lighter: rgb(220, 220, 220);
+  --color-primary: #2374e1;
+
+  --Navbar-height: 56px;
+  --Navbar-logo-height: 41px;
+  --Navbar-icons-div-height: 40px;
+  --Navbar-icons-height: 26px;
+}

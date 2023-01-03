@@ -1,0 +1,57 @@
+.LeftSide {
+  padding: 0px;
+  margin: 0px;
+}
+
+.TopLeftWrapper {
+  width: 85%;
+  color: white;
+  margin-top: 20px;
+  margin-left: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--color-dark);
+}
+
+.SeeMoreIcon {
+  width: 28px;
+  height: 28px;
+  padding-top: 2px;
+  border-radius: 100%;
+  background: var(--color-dark-less);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-lighter);
+  font-weight: bolder;
+  margin: 1px 10px 1px 7px;
+}
+
+.SeeMoreBtn {
+  width: 100%;
+  height: 43px;
+  border-radius: 10px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  margin: 1px 17px 1px 0px;
+  display: flex;
+  align-items: center;
+}
+
+.SeeMoreBtn:hover {
+  background: var(--color-dark);
+  cursor: pointer;
+}
+
+.YourShortcutsWrap {
+  margin-top: 15px;
+  margin-left: 15px;
+  width: 85%;
+}
+
+.YourShortcutsWrap h6 {
+  color: var(--color-light);
+  font-size: 17px;
+  font-weight: bolder;
+  margin: 5px 10px 15px 10px;
+}

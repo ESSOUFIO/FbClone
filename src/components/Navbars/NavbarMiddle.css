@@ -1,0 +1,41 @@
+.NavbarMiddle {
+  background: var(--color-darker);
+  height: var(--Navbar-height);
+  border-bottom: 1px solid var(--color-dark);
+  padding: 0px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.MainIcons {
+  font-size: 26px;
+  width: 16%;
+  margin: 0 4px;
+  height: 85%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--color-light);
+  border-radius: 10px;
+}
+
+.MainIcons:first-of-type {
+  color: var(--color-primary);
+  border-radius: 0px;
+  border-bottom: 3px solid var(--color-primary);
+  height: 100%;
+}
+
+.MainIcons:first-of-type:hover {
+  background: transparent;
+}
+
+.MainIcons:last-of-type {
+  font-size: 20px;
+}
+
+.MainIcons:hover {
+  background: var(--color-dark);
+  cursor: pointer;
+}
