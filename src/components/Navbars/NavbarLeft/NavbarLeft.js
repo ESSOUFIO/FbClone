@@ -1,7 +1,8 @@
 import "./NavbarLeft.css";
-import logo from "../../assets/images/logo.png";
+import logo from "../../../assets/images/fbLogo-light.png";
 import { FiSearch } from "react-icons/fi";
 
+/** Internal Component */
 const Search = () => {
   return (
     <div className="Search">
@@ -13,6 +14,7 @@ const Search = () => {
   );
 };
 
+/*** ======= NavbarLeft ===== */
 export const NavbarLeft = () => {
   return (
     <div className="NavbarLeft">

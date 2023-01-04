@@ -1,0 +1,24 @@
+.FriendRequestBtn {
+  display: flex;
+  align-items: center;
+  color: var(--color-lighter);
+  padding: 7px;
+  margin-left: 5px;
+  border-radius: 10px;
+}
+
+.FriendRequestBtn > div {
+  margin-left: 10px;
+}
+
+.buttons {
+  display: flex !important;
+  justify-content: space-evenly;
+  gap: 8px;
+  margin-top: 9px;
+}
+
+.FriendRequestBtn:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}

@@ -55,3 +55,28 @@
   font-weight: bolder;
   margin: 5px 10px 15px 10px;
 }
+
+.footerSideWrap {
+  margin-left: 15px;
+  margin-top: 15px;
+  width: 85%;
+}
+
+.footerSide,
+.footerSideWrap {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--color-light);
+}
+
+.footerSide:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.GlobalSide {
+  /* height: 100vh; */
+}
+.GlobalSide:hover {
+  /* overflow: scroll; */
+}

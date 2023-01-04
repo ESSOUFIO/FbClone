@@ -1,9 +1,15 @@
 import "./LeftSide.css";
-import { NavbarLeft } from "../../components/index";
-import { SideButtons } from "../../components/index";
-import { IoIosArrowDown } from "react-icons/io";
-import { ShortcutButton } from "../../components/Buttons/ShortcutButton";
 
+/** Local Components */
+import { NavbarLeft } from "../../components/Navbars";
+import { SideButtons } from "../../components/Buttons";
+import { ShortcutButton } from "../../components/Buttons";
+import { TitleSection } from "../../components/Titles/TitleSection";
+
+/** Icons from react-icons */
+import { IoIosArrowDown } from "react-icons/io";
+
+/*** Images */
 import Profile from "../../assets/images/profile.png";
 import Friends from "../../assets/images/Friends.png";
 import Groups from "../../assets/images/Groups.png";
@@ -15,6 +21,7 @@ import WorldStreet from "../../assets/images/WorldStreet.png";
 import WorldCup from "../../assets/images/2022-WorldCup.jpg";
 import Flowers from "../../assets/images/flowers.jpg";
 
+/** Internal Components */
 const TopLeftWrapper = (props) => {
   return <div className="TopLeftWrapper">{props.children}</div>;
 };
@@ -33,47 +40,72 @@ const SeeMoreBtn = () => {
 const YourShortcutsWrap = (props) => {
   return <div className="YourShortcutsWrap">{props.children}</div>;
 };
+
+const FooterSide = ({ text }) => {
+  return <span className="footerSide">{text} . </span>;
+};
+
+/** ======= LeftSide ======= */
 export const LeftSide = () => {
   return (
     <div className="LeftSide col-3 text-left">
       <NavbarLeft />
-      <TopLeftWrapper>
-        <SideButtons image={Profile} text={"Omar ESSOUFI"} height={"28px"} />
-        <SideButtons image={Friends} text={"Friends"} height={"23px"} />
-        <SideButtons image={Groups} text={"Groups"} height={"23px"} />
-        <SideButtons
-          image={MostRecents}
-          text={"Most Recents"}
-          height={"23px"}
-        />
-        <SideButtons image={Marketplace} text={"Marketplace"} height={"23px"} />
-        <SideButtons image={Watch} text={"Watch"} height={"23px"} />
-        <SeeMoreBtn />
-      </TopLeftWrapper>
-      <YourShortcutsWrap>
-        <h6>Your shortcuts</h6>
-        <ShortcutButton
-          image={Aljazeera}
-          text={"Al Jazeera قناة الجزيرة"}
-          height={"26px"}
-        />
-        <ShortcutButton
-          image={WorldStreet}
-          text={"World Street English"}
-          height={"26px"}
-        />
-        <ShortcutButton
-          image={WorldCup}
-          text={"FIFA World Cup Qatar 2022"}
-          height={"26px"}
-        />
-        <ShortcutButton
-          image={Flowers}
-          text={"الكلم الطيب من القلب"}
-          height={"26px"}
-        />
-        <SeeMoreBtn />
-      </YourShortcutsWrap>
+      <div className="GlobalSide">
+        {/* ==== First Section === */}
+
+        <TopLeftWrapper>
+          <SideButtons image={Profile} text={"Omar ESSOUFI"} height={"28px"} />
+          <SideButtons image={Friends} text={"Friends"} height={"23px"} />
+          <SideButtons image={Groups} text={"Groups"} height={"23px"} />
+          <SideButtons
+            image={MostRecents}
+            text={"Most Recents"}
+            height={"23px"}
+          />
+          <SideButtons
+            image={Marketplace}
+            text={"Marketplace"}
+            height={"23px"}
+          />
+          <SideButtons image={Watch} text={"Watch"} height={"23px"} />
+          <SeeMoreBtn />
+        </TopLeftWrapper>
+
+        {/* ==== Second Section === */}
+
+        <YourShortcutsWrap>
+          <TitleSection text={"Your shortcuts"} colour="var(--color-light)" />
+          <ShortcutButton
+            image={Aljazeera}
+            text={"Al Jazeera قناة الجزيرة"}
+            height={"26px"}
+          />
+          <ShortcutButton
+            image={WorldStreet}
+            text={"World Street English"}
+            height={"26px"}
+          />
+          <ShortcutButton
+            image={WorldCup}
+            text={"FIFA World Cup Qatar 2022"}
+            height={"26px"}
+          />
+          <ShortcutButton
+            image={Flowers}
+            text={"الكلم الطيب من القلب"}
+            height={"26px"}
+          />
+          <SeeMoreBtn />
+        </YourShortcutsWrap>
+        <div className="footerSideWrap">
+          <FooterSide text="Privacy" />
+          <FooterSide text="Terms" />
+          <FooterSide text="Advertising" />
+          <FooterSide text="Ad Choices" />
+          <FooterSide text="Cookies" />
+          <FooterSide text="Privacy" /> · Meta © 2023
+        </div>
+      </div>
     </div>
   );
 };

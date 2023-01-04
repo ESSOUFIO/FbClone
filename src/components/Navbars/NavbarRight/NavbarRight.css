@@ -30,6 +30,11 @@
   margin-right: 10px;
 }
 
+.Icon:hover {
+  cursor: pointer;
+  background: var(--color-dark-less);
+}
+
 .Messenger {
   font-size: 19px;
 }

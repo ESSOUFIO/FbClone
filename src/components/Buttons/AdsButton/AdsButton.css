@@ -1,0 +1,26 @@
+.AdsButton {
+  display: flex;
+  align-items: center;
+  color: white;
+  margin-left: 10px;
+}
+
+.AdsButton img {
+  height: 110px;
+  border-radius: 10px;
+}
+
+.AdsButton div {
+  width: 120px;
+  margin-left: 10px;
+  line-height: 2;
+}
+
+.AdsButton div p {
+  color: gray;
+  margin-bottom: 5px;
+}
+
+h6 {
+  margin-bottom: 0;
+}

@@ -1,0 +1,27 @@
+.TitleSection {
+  margin: 3px 10px 15px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.TitleSection > p {
+  font-size: 17px;
+  font-weight: bolder;
+  margin: 0;
+}
+
+.more {
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+.more:hover {
+  cursor: pointer;
+  background: var(--color-darker);
+}

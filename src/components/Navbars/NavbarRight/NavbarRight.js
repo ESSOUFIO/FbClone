@@ -1,9 +1,12 @@
 import "./NavbarRight.css";
-import ProfilePic from "../../assets/images/omar.jpg";
+import ProfilePic from "../../../assets/images/omar.jpg";
+
+/** Icons from react-icons */
 import { IoIosNotifications } from "react-icons/io";
 import { BsMessenger } from "react-icons/bs";
 import { CgMenuGridR } from "react-icons/cg";
 
+/** Internal Components */
 const ProfilePicture = ({ picture }) => {
   return (
     <div>
@@ -36,6 +39,7 @@ const Menu = () => {
   );
 };
 
+/** ==== NavbarRight ===== */
 export const NavbarRight = () => {
   return (
     <div className="NavbarRight">

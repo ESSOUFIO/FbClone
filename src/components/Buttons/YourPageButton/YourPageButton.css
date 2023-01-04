@@ -1,0 +1,25 @@
+.YourPageButton {
+  width: 90%;
+  height: 33px;
+  display: flex;
+  align-items: center;
+  color: var(--color-light);
+  font-size: 22px;
+  padding: 0px 10px;
+  border-radius: 7px;
+  margin: 0;
+  float: right;
+}
+
+.YourPageButton div {
+  margin: 0;
+}
+.YourPageButton h6 {
+  margin: 0 10px;
+  font-size: 14px;
+}
+
+.YourPageButton:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}
