@@ -1,0 +1,20 @@
+.NewPost {
+  background: var(--color-darker);
+  color: var(--color-light);
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 15px;
+  min-height: 100px;
+  width: 490px;
+  border-radius: 7px;
+  flex-wrap: nowrap;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  padding: 10px 15px;
+}
+
+.NPButtonsWrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

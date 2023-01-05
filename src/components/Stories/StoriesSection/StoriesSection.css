@@ -1,0 +1,50 @@
+.StoriesSection {
+  background: var(--color-darker);
+  color: var(--color-light);
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  width: 490px;
+  border-radius: 7px;
+  flex-wrap: nowrap;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.ButtonsWrap {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  border-bottom: 1px solid var(--color-dark);
+  margin-top: 5px;
+}
+
+.StrButton {
+  padding: 15px 55px;
+  border-radius: 8px;
+  margin-bottom: 0px;
+}
+
+.StrButton:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}
+
+.StrButtonFirst {
+  padding: 15px 55px;
+  margin-bottom: 0px;
+  color: var(--color-primary-text);
+  border-bottom: 3px solid var(--color-primary);
+}
+
+.StrButtonFirst:hover {
+  background: transparent;
+}
+
+/** STORIES */
+.StoriesWrap {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+  margin: 15px 0 10px 7px;
+}

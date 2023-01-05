@@ -17,3 +17,7 @@ function App() {
 }
 
 export default App;
+
+// TODO: scroll bars
+// TODO: First item in StorieElement
+// TODO: make the stories buttons work

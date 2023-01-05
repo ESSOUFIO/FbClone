@@ -1,0 +1,23 @@
+.BouttonsNavRight {
+  width: 48px;
+  height: 48px;
+  background: var(--color-dark);
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 999;
+  font-size: 22px;
+}
+
+.BouttonsNavRight {
+  right: 15px;
+  top: 152px;
+  padding-left: 0px;
+}
+
+.BouttonsNavRight:hover {
+  cursor: pointer;
+  background: var(--color-dark-less);
+}

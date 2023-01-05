@@ -50,7 +50,7 @@ const ContactsWrap = (props) => {
 const ContactsList = () => {
   return Contacts.map((item, i) => {
     let link = "https://picsum.photos/20" + i;
-    return <ContactButton image={link} text={item} height={"30px"} />;
+    return <ContactButton key={i} image={link} text={item} height={"30px"} />;
   });
 };
 

@@ -1,0 +1,28 @@
+.NPButtons {
+  width: 100%;
+  border-radius: 10px;
+  color: var(--color-light);
+  font-size: 15px;
+  font-weight: 600;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1 1 150px;
+  padding: 7px 10px;
+  margin-top: 10px;
+}
+
+.NPButtons:hover {
+  background: var(--color-dark);
+  cursor: pointer;
+}
+
+.NPButtons img {
+  margin-right: 10px;
+  height: 25px;
+  width: 25px;
+}
+
+a:link {
+  text-decoration: none !important;
+}
