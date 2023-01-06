@@ -16,6 +16,10 @@ import {
 import logoPage from "../../assets/images/logoPage-light.png";
 import ImageProfile from "../../assets/images/FriendPicture.png";
 import BirthdayImg from "../../assets/images/birthday.png";
+import MessageIco from "../.././assets/images/Messages.png";
+import NotificationIco from "../.././assets/images/Notifications.png";
+import SwitchIco from "../.././assets/images/SwitchIntoPage.png";
+import PromoIco from "../.././assets/images/Promotions.png";
 
 //* === Icons from React-icons ==== */
 import { TiMessages } from "react-icons/ti";
@@ -86,16 +90,10 @@ export const RightSide = () => {
           <SideButtons image={logoPage} height="30px" text="Creative D2H" />
           <div className="d-flex flex-column justify-content-end">
             <div>
-              <YourPageButton icon={<TiMessages />} text="13 Messages" />
-              <YourPageButton
-                icon={<IoIosNotificationsOutline />}
-                text="20+ Notifications"
-              />
-              <YourPageButton icon={<CgProfile />} text="Switch into Page" />
-              <YourPageButton
-                icon={<MdOutlineCampaign />}
-                text="Create promotion"
-              />
+              <YourPageButton icon={MessageIco} text="13 Messages" />
+              <YourPageButton icon={NotificationIco} text="20+ Notifications" />
+              <YourPageButton icon={SwitchIco} text="Switch into Page" />
+              <YourPageButton icon={PromoIco} text="Create promotion" />
             </div>
           </div>
         </YourPagesWrap>

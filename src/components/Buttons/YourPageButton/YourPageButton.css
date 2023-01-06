@@ -10,7 +10,9 @@
   margin: 0;
   float: right;
 }
-
+.YourPageButton > img {
+  filter: invert(70%);
+}
 .YourPageButton div {
   margin: 0;
 }

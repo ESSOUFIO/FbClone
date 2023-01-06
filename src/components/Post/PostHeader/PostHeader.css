@@ -1,0 +1,56 @@
+.PostHeader {
+  display: flex;
+  justify-content: space-between;
+}
+
+.Button {
+  height: 35px;
+  width: 35px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+  font-size: 21px;
+}
+
+.Button:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}
+
+/* === USER PROFILE ==== */
+.UserProfile {
+  margin-left: 15px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.UserProfile img {
+  width: 45px;
+  height: 45px;
+}
+
+.UserProfile .Text {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  color: var(--color-lighter);
+  margin-left: 5px;
+}
+
+.Text > span {
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.UserProfile img:hover {
+  cursor: pointer;
+  filter: brightness(110%);
+}
+
+.Text h6:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
