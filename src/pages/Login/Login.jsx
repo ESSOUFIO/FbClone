@@ -1,5 +1,5 @@
 import "./Login.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import logo from "../../assets/icons/Facebook-logo-light.png";
 import { useNavigate } from "react-router-dom";
 import { useGlobalUI } from "../../context/UIProvider";
@@ -18,7 +18,6 @@ const TitlesWrap = () => {
 };
 
 const FormCard = (props) => {
-  const navigate = useNavigate();
   const [userName, SetUserName] = useState("");
   const [password, SetPassword] = useState("");
 

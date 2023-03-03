@@ -1,3 +1,23 @@
+:root {
+  --color-dark-less: #4e4f50;
+  --color-dark: #3a3b3c;
+  --color-darker: #242624;
+  --color-darkest: #18191a;
+  --color-light: rgb(170, 170, 170);
+  --color-lighter: rgb(220, 220, 220);
+  --color-primary: #2374e1;
+  --color-primary-text: #2d85f8;
+  --color-secondary: #42b72a;
+  --color-back-login: #f0f2f5;
+
+  --Navbar-height: 56px;
+  --Navbar-logo-height: 41px;
+  --Navbar-icons-div-height: 40px;
+  --Navbar-icons-height: 26px;
+
+  --MiddleContainer-witdh: 490px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",

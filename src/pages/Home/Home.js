@@ -6,6 +6,7 @@ import { useSession } from "../../context/UserProvider";
 
 export const Home = () => {
   const { user } = useSession();
+  console.log("Home: ", user);
 
   return (
     <div className="Home row d-flex">

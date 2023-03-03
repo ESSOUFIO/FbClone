@@ -22,10 +22,6 @@ import SwitchIco from "../.././assets/images/SwitchIntoPage.png";
 import PromoIco from "../.././assets/images/Promotions.png";
 
 //* === Icons from React-icons ==== */
-import { TiMessages } from "react-icons/ti";
-import { IoIosNotificationsOutline } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
-import { MdOutlineCampaign } from "react-icons/md";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { FaSearch } from "react-icons/fa";
 import { RiVideoAddFill } from "react-icons/ri";
