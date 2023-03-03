@@ -34,7 +34,7 @@ const GetPosts = ({ page }) => {
       postTime = post.created_at;
       NbrComments = post.comments_count;
       AuthorID = post.author.id;
-      console.log(id);
+      // console.log(id);
       return (
         <Post
           key={id}
@@ -49,7 +49,7 @@ const GetPosts = ({ page }) => {
       );
     });
 
-    console.log(data.data.meta.last_page);
+    // console.log(data.data.meta.last_page);
     localStorage.setItem("lastPage", data.data.meta.last_page);
   }
 
@@ -68,7 +68,7 @@ export const FillPosts = () => {
   ]);
 
   lastPage = lastPage === 1 ? localStorage.getItem("lastPage") : 1;
-  console.log(lastPage);
+  // console.log(lastPage);
   window.addEventListener("scroll", (event) => {
     const endOfPage =
       window.innerHeight + window.pageYOffset >= document.body.scrollHeight;

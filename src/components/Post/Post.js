@@ -3,7 +3,7 @@ import { PostFooter } from "./PostFooter/PostFooter";
 import { PostHeader } from "./PostHeader/PostHeader";
 
 function PostClicked() {
-  console.log("PostClicked :");
+  // console.log("PostClicked :");
 }
 
 const PostImage = ({ image, id }) => {

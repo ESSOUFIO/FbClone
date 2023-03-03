@@ -1,0 +1,12 @@
+header .subTitleModal {
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.btnSignup {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 3px 50px;
+  background: var(--color-secondary);
+  border: none;
+}
