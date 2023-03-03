@@ -73,10 +73,3 @@
   cursor: pointer;
   text-decoration: underline;
 }
-
-.GlobalSide {
-  /* height: 100vh; */
-}
-.GlobalSide:hover {
-  /* overflow: scroll; */
-}

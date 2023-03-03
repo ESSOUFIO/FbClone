@@ -14,14 +14,17 @@
 .PostImage {
   margin-top: 15px;
   margin-bottom: 10px;
-  height: 500px;
-  background: no-repeat center center;
-  background-size: cover;
+  width: 100%;
 }
 
 .InteractionStat {
   text-align: right;
   margin: 0 15px 10px 15px;
+}
+
+.PostBody {
+  margin: 15px 15px;
+  color: var(--color-light);
 }
 
 .InteractionStat span:hover {

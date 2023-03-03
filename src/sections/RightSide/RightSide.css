@@ -16,9 +16,8 @@
   border-bottom: 1px solid var(--color-dark);
 }
 
-.GlobalSide {
-  /* height: 100vh; */
-}
-.GlobalSide:hover {
-  /* overflow: scroll; */
+@media (max-width: 1100px) {
+  .RightSide {
+    display: none !important;
+  }
 }

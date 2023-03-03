@@ -1,0 +1,122 @@
+/** === Background page === **/
+.Login {
+  background: var(--color-back-login);
+  height: 100vh;
+  display: flex;
+}
+
+/** === LEFT Side === **/
+.TitlesWrap {
+  width: 110%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Title {
+  width: 500px;
+  margin-left: 120px;
+  margin-bottom: 70px;
+}
+.Title img {
+  height: 55px;
+}
+.Title h2 {
+  margin-top: 15spx;
+  font-size: 28px;
+  font-weight: 500;
+}
+
+/** === RIGHT Side === **/
+.FormWrap {
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: left;
+  flex-direction: column;
+}
+
+.FormCard {
+  background: white;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  width: 400px;
+  height: 330px;
+  flex-direction: column;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0 0 0 / 10%);
+  padding: 15px;
+}
+
+.FormCard form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  height: 180px;
+  margin-bottom: 15px;
+}
+
+input {
+  flex: 1 1 100%;
+  border: 1px solid #bbbbbb;
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 17px;
+}
+
+input:focus {
+  outline: none !important;
+  border: 1px solid var(--color-primary);
+  box-shadow: 0 0 2px var(--color-primary);
+}
+.LoginBtn {
+  flex: 1 1 100%;
+  border: none;
+  border-radius: 5px;
+  background: var(--color-primary);
+  color: white;
+  font-weight: bold;
+  font-size: 19px;
+}
+
+hr {
+  width: "90%";
+  background-color: "gray";
+  border-color: "lightgray";
+  height: "2px";
+  margin-bottom: 25px;
+}
+
+.RegisterBtn {
+  border: none;
+  border-radius: 5px;
+  background: var(--color-secondary);
+  color: white;
+  font-weight: bold;
+  font-size: 17px;
+  padding: 10px 16px;
+  margin-bottom: 15px;
+}
+
+.FormCard a {
+  font-size: 14px;
+}
+
+.FormWrapFooter {
+  margin-top: 20px;
+  text-align: center;
+  width: 400px;
+  font-size: 14px;
+}
+
+.FormWrapFooter a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}

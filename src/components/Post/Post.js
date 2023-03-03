@@ -2,12 +2,16 @@ import "./Post.css";
 import { PostFooter } from "./PostFooter/PostFooter";
 import { PostHeader } from "./PostHeader/PostHeader";
 
-const PostImage = ({ image }) => {
+function PostClicked() {
+  console.log("PostClicked :");
+}
+
+const PostImage = ({ image, id }) => {
   return (
-    <div
-      className="PostImage"
-      style={{ backgroundImage: `url(${image})` }}
-    ></div>
+    <div className="PostImage">
+      <img src={image} alt="" width={"100%"} />
+      <button onClick={PostClicked}>tst</button>
+    </div>
   );
 };
 
@@ -20,11 +24,25 @@ const InteractionStat = ({ NbrComments }) => {
   );
 };
 
-export const Post = ({ UserName, PostTime, NbrComments, UserPic, image }) => {
+const PostBody = ({ Text }) => {
+  return <div className="PostBody">{Text}</div>;
+};
+
+/** ========= MAIN ========== */
+export const Post = ({
+  id,
+  UserName,
+  PostTime,
+  Text,
+  NbrComments,
+  UserPic,
+  image,
+}) => {
   return (
     <div className="Post">
       <PostHeader UserName={UserName} PostTime={PostTime} UserPic={UserPic} />
-      <PostImage image={image} />
+      <PostBody Text={Text} />
+      <PostImage image={image} id={id} />
       <InteractionStat NbrComments={NbrComments} />
       <PostFooter />
     </div>

@@ -30,6 +30,7 @@
 .UserProfile img {
   width: 45px;
   height: 45px;
+  border-radius: 100%;
 }
 
 .UserProfile .Text {
