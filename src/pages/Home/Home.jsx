@@ -3,8 +3,9 @@ import { LeftSide } from "../../sections/index";
 import { MainContent } from "../../sections/index";
 import { RightSide } from "../../sections/index";
 import { useSession } from "../../context/UserProvider";
+import withGuard from "../../utils/withGuard";
 
-export const Home = () => {
+const Home = () => {
   const { user } = useSession();
   console.log("Home: ", user);
 
@@ -16,3 +17,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default withGuard(Home);

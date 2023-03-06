@@ -9,16 +9,13 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setSession({ user, isLoadding: false });
-      }
+      setSession({ user, isLoadding: false });
     });
-    return unsub;
+    return () => unsub();
   }, []);
 
-  console.log("context: ", session);
   return (
-    <userContext.Provider value={{ ...session }}>
+    <userContext.Provider value={session}>
       {!session.isLoadding && children}
     </userContext.Provider>
   );

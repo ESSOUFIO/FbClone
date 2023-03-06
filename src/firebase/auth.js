@@ -1,5 +1,7 @@
 import {
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
+  signInWithEmailAndPassword,
   signOut,
   updateProfile,
 } from "firebase/auth";
@@ -16,6 +18,15 @@ export const signup = async ({ username, email, password }) => {
   );
 };
 
-export const signout = () => {
-  signOut(auth);
+export const signout = async () => {
+  await signOut(auth);
+};
+
+export const signin = async (email, password) => {
+  const resp = await signInWithEmailAndPassword(auth, email, password);
+  return resp.user;
+};
+
+export const forgotAccount = async (email) => {
+  await sendPasswordResetEmail(auth, email);
 };

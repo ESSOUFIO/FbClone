@@ -1,10 +1,12 @@
 import "./Login.css";
 import React, { useState } from "react";
 import logo from "../../assets/icons/Facebook-logo-light.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useGlobalUI } from "../../context/UIProvider";
 import Signup from "./Signup";
-import { useSession } from "../../context/UserProvider";
+import { signin } from "../../firebase/auth";
+import AlertMessage from "../../components/AlertMessage";
+import { Form, Card, Button } from "react-bootstrap";
 
 const TitlesWrap = () => {
   return (
@@ -17,42 +19,68 @@ const TitlesWrap = () => {
   );
 };
 
-const FormCard = (props) => {
-  const [userName, SetUserName] = useState("");
-  const [password, SetPassword] = useState("");
+const FormCard = () => {
+  const [email, SetEmail] = useState("omar.essoufi@gmail.com");
+  const [password, SetPassword] = useState("111222");
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   const { showModalSignup } = useGlobalUI();
-  const loginHandler = (e) => {
+  const loginHandler = async (e) => {
     e.preventDefault();
+    setError("");
+    document.body.style.cursor = "wait";
+    try {
+      await signin(email, password);
+      setTimeout(() => {
+        navigate("/");
+      }, 200);
+    } catch (error) {
+      setError(error.message);
+    }
+    document.body.style.cursor = "default";
   };
 
   return (
     <>
-      <div className="FormCard">
-        <form onSubmit={loginHandler}>
-          <input
-            type="text"
-            value={userName}
-            onChange={(event) => SetUserName(event.target.value)}
-            placeholder="Username or phone number"
-            autoFocus
-          />
-          <input
-            type="password"
-            value={password}
-            onChange={(event) => SetPassword(event.target.value)}
-            placeholder="Password"
-          />
-          <button type="submit" className="LoginBtn">
-            Log In
-          </button>
-        </form>
-        <a href="https://">Forgot password?</a>
-        <hr style={{}} />
-        <button className="RegisterBtn" onClick={showModalSignup}>
-          Create new account
-        </button>
-      </div>
+      <Card className="FormCard">
+        <Card.Body>
+          <Form onSubmit={loginHandler}>
+            {!!error && <AlertMessage variant={"danger"} message={error} />}
+            <Form.Group className="mb-1">
+              <Form.Control
+                type="email"
+                placeholder="Enter email"
+                value={email}
+                onChange={(event) => SetEmail(event.target.value)}
+                autoFocus
+                style={{ height: "50px" }}
+              />
+            </Form.Group>
+            <Form.Group className="mb-1">
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(event) => SetPassword(event.target.value)}
+                placeholder="Password"
+                style={{ height: "50px" }}
+              />
+            </Form.Group>
+            <Button className="LoginBtn" type="submit" variant="primary">
+              Log In
+            </Button>
+          </Form>
+          <div className="text-center">
+            <Link to="/login/forgot-account">Forgot Account?</Link>
+          </div>
+          <hr />
+          <div className="text-center">
+            <Button className="RegisterBtn" onClick={showModalSignup}>
+              Create new account
+            </Button>
+          </div>
+        </Card.Body>
+      </Card>
       <Signup />
     </>
   );
@@ -68,11 +96,6 @@ const FormWrapFooter = () => {
 };
 
 export const Login = () => {
-  const navigate = useNavigate();
-  const { user } = useSession();
-  console.log("from Login: ", user);
-
-  if (user) navigate("/home");
   return (
     <div className="Login">
       <TitlesWrap />

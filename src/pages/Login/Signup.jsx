@@ -45,7 +45,6 @@ const Signup = () => {
     const username = newUser.firstName + " " + newUser.lastName;
     const email = newUser.email;
     const password = newUser.password;
-    console.log({ username, email, password });
     try {
       await signup({ username, email, password });
     } catch (error) {
@@ -279,7 +278,7 @@ const Signup = () => {
                     name="gender"
                     type="radio"
                     id="female"
-                    className="form-check-input"
+                    className="form-radio-input"
                     ref={femaleRef}
                   />
                 </div>
@@ -296,7 +295,7 @@ const Signup = () => {
                     name="gender"
                     type="radio"
                     id="male"
-                    className="form-check-input"
+                    className="form-radio-input"
                     ref={maleRef}
                   />
                 </div>
@@ -310,7 +309,7 @@ const Signup = () => {
                   <input
                     name="gender"
                     type="radio"
-                    className="form-check-input"
+                    className="form-radio-input"
                     disabled
                   />
                 </div>
@@ -318,6 +317,7 @@ const Signup = () => {
             </Row>
 
             {/* Text footer */}
+
             <div style={{ fontSize: "11px" }}>
               People who use our service may have uploaded your contact
               information to Facebook.
