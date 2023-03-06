@@ -2,7 +2,7 @@ import React, { useRef, useState } from "react";
 import { Form, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useGlobalUI } from "../../context/UIProvider";
+import { useGlobalState } from "../../context/GlobalProvider";
 import { RiCloseFill } from "react-icons/ri";
 import { IoMdHelpCircle } from "react-icons/io";
 import "./Signup.css";
@@ -28,29 +28,50 @@ const Header = ({ closeModal }) => {
 };
 
 const Signup = () => {
-  const { modalSignup, hideModalSignup } = useGlobalUI();
+  const { modalSignup, hideModalSignup } = useGlobalState();
   const maleRef = useRef();
   const femaleRef = useRef();
   const [newUser, setNewUser] = useState(null);
 
   const formHandler = ({ target }) => {
-    setNewUser({
-      ...newUser,
-      [target.id]: target.value,
-    });
+    if (target.id === "male") {
+      setNewUser({
+        ...newUser,
+        male: !!target.value,
+        female: !target.value,
+      });
+    } else if (target.id === "female") {
+      setNewUser({
+        ...newUser,
+        male: !target.value,
+        female: !!target.value,
+      });
+    } else {
+      setNewUser({
+        ...newUser,
+        [target.id]: target.value,
+      });
+    }
   };
 
   const signupHandler = async (e) => {
     e.preventDefault();
     const username = newUser.firstName + " " + newUser.lastName;
     const email = newUser.email;
-    const password = newUser.password;
+    const pass = newUser.password;
+
     try {
-      await signup({ username, email, password });
+      await signup({ username, email, pass, newUser });
+      // const resp = await signup({ username, email, pass });
+      // let { password, ...user } = { ...newUser };
+      // user.uid = resp.uid;
+      // console.log(user);
+      // await addUserDocument(user);
     } catch (error) {
       console.log("Error: ", error);
     }
   };
+
   return (
     <>
       <Modal show={modalSignup} onHide={hideModalSignup}>
@@ -103,7 +124,11 @@ const Signup = () => {
               </span>
             </div>
             <Row>
-              <Form.Group className="col mb-2" controlId="day">
+              <Form.Group
+                className="col mb-2"
+                controlId="day"
+                onChange={formHandler}
+              >
                 <Form.Select>
                   <option>Day</option>
                   <option value="01">01</option>
@@ -139,7 +164,11 @@ const Signup = () => {
                   <option value="31">31</option>
                 </Form.Select>
               </Form.Group>
-              <Form.Group className="col mb-2" controlId="month">
+              <Form.Group
+                className="col mb-2"
+                controlId="month"
+                onChange={formHandler}
+              >
                 <Form.Select>
                   <option>Month</option>
                   <option value="01">January</option>
@@ -156,7 +185,11 @@ const Signup = () => {
                   <option value="12">December</option>
                 </Form.Select>
               </Form.Group>
-              <Form.Group className="col mb-2" controlId="year">
+              <Form.Group
+                className="col mb-2"
+                controlId="year"
+                onChange={formHandler}
+              >
                 <Form.Select>
                   <option>Year</option>
                   <option value="1940">1940</option>
@@ -280,6 +313,7 @@ const Signup = () => {
                     id="female"
                     className="form-radio-input"
                     ref={femaleRef}
+                    onChange={formHandler}
                   />
                 </div>
               </Form.Group>
@@ -297,6 +331,7 @@ const Signup = () => {
                     id="male"
                     className="form-radio-input"
                     ref={maleRef}
+                    onChange={formHandler}
                   />
                 </div>
               </Form.Group>

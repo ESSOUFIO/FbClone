@@ -116,6 +116,9 @@ hr {
   padding: 10px 16px;
   margin-bottom: 15px;
 }
+.RegisterBtn:hover {
+  background: rgb(2, 154, 2);
+}
 
 .FormCard a {
   font-size: 14px;

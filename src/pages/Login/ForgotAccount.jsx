@@ -130,10 +130,11 @@ const ForgotAccount = () => {
             <Form className="mb-3" onSubmit={onSubmit}>
               <Form.Group className="px-3  mb-1">
                 <Form.Control
-                  style={{ padding: "15px 10px" }}
+                  style={{ padding: "12px 12px" }}
                   type="email"
                   placeholder="Email or Phone number"
                   ref={emailRef}
+                  autoFocus
                 />
               </Form.Group>
               <hr

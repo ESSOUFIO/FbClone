@@ -2,11 +2,12 @@ import "./Login.css";
 import React, { useState } from "react";
 import logo from "../../assets/icons/Facebook-logo-light.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useGlobalUI } from "../../context/UIProvider";
+import { useGlobalState } from "../../context/GlobalProvider";
 import Signup from "./Signup";
 import { signin } from "../../firebase/auth";
 import AlertMessage from "../../components/AlertMessage";
 import { Form, Card, Button } from "react-bootstrap";
+import protectAfterLogin from "../../utils/protectAfterLogin";
 
 const TitlesWrap = () => {
   return (
@@ -21,11 +22,11 @@ const TitlesWrap = () => {
 
 const FormCard = () => {
   const [email, SetEmail] = useState("omar.essoufi@gmail.com");
-  const [password, SetPassword] = useState("111222");
+  const [password, SetPassword] = useState("111111");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const { showModalSignup } = useGlobalUI();
+  const { showModalSignup } = useGlobalState();
   const loginHandler = async (e) => {
     e.preventDefault();
     setError("");
@@ -95,7 +96,8 @@ const FormWrapFooter = () => {
   );
 };
 
-export const Login = () => {
+const Login = () => {
+  console.log("login");
   return (
     <div className="Login">
       <TitlesWrap />
@@ -106,3 +108,5 @@ export const Login = () => {
     </div>
   );
 };
+
+export default protectAfterLogin(Login);

@@ -4,7 +4,7 @@ import logo from "../../assets/icons/Facebook-logo-light.png";
 import { useNavigate } from "react-router-dom";
 import { useGlobalUI } from "../../context/UIProvider";
 import Signup from "./Signup";
-import { useSession } from "../../context/UserProvider";
+import { useGlobalState } from "../../context/GlobalProvider";
 import { signin } from "../../firebase/auth";
 import AlertMessage from "../../components/AlertMessage";
 const TitlesWrap = () => {
@@ -80,7 +80,7 @@ const FormWrapFooter = () => {
 
 export const Login = () => {
   const navigate = useNavigate();
-  const { user } = useSession();
+  const { user } = useGlobalState();
   console.log("from Login: ", user);
 
   if (user) navigate("/home");
