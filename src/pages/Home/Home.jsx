@@ -2,10 +2,12 @@ import "./Home.css";
 import { LeftSide } from "../../sections/index";
 import { MainContent } from "../../sections/index";
 import { RightSide } from "../../sections/index";
-import { useSession } from "../../context/UserProvider";
+import { useGlobalState } from "../../context/GlobalProvider";
+import withGuard from "../../utils/withGuard";
 
-export const Home = () => {
-  const { user } = useSession();
+const Home = () => {
+  const { user } = useGlobalState();
+  console.log("Home: ", user);
 
   return (
     <div className="Home row d-flex">
@@ -15,3 +17,5 @@ export const Home = () => {
     </div>
   );
 };
+
+export default withGuard(Home);

@@ -1,5 +1,7 @@
 import "./NavbarRight.css";
 import ProfilePic from "../../../assets/images/omar.jpg";
+import { signout } from "../../../firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 /** Icons from react-icons */
 import { IoIosNotifications } from "react-icons/io";
@@ -16,8 +18,17 @@ const ProfilePicture = ({ picture }) => {
 };
 
 const Notifications = () => {
+  const navigate = useNavigate();
+  const logoutHandler = async () => {
+    try {
+      await signout();
+      navigate("/login");
+    } catch (error) {
+      console.log("Error signout: ", error);
+    }
+  };
   return (
-    <div className="Icon">
+    <div className="Icon" onClick={logoutHandler}>
       <IoIosNotifications />
     </div>
   );
