@@ -1,11 +1,10 @@
 import "./NPButtons.css";
-import { Link } from "react-router-dom";
 
-export const NPButtons = ({ image, text, height, toPage }) => {
+export const NPButtons = ({ image, text, height, showAddPost }) => {
   return (
-    <Link to={toPage} className="NPButtons">
+    <div className="NPButtons" onClick={showAddPost}>
       <img src={image} alt="" height={height} />
       <span>{text}</span>
-    </Link>
+    </div>
   );
 };

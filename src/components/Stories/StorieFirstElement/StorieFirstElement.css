@@ -38,7 +38,7 @@
   position: relative;
   top: -20px;
   left: 35px;
-  z-index: 999999;
+  z-index: 9;
 }
 
 .StorieFirstElement:hover {
