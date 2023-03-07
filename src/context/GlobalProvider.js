@@ -27,8 +27,7 @@ const GlobalProvider = ({ children }) => {
     <globalContext.Provider
       value={{ ...session, modalSignup, showModalSignup, hideModalSignup }}
     >
-      {/* {!session.isLoadding && children} */}
-      {children}
+      {!session.isLoadding && children}
     </globalContext.Provider>
   );
 };

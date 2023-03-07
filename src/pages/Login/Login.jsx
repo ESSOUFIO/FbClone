@@ -22,7 +22,7 @@ const TitlesWrap = () => {
 
 const FormCard = () => {
   const [email, SetEmail] = useState("omar.essoufi@gmail.com");
-  const [password, SetPassword] = useState("111111");
+  const [password, SetPassword] = useState("111222");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 

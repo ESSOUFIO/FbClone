@@ -31,3 +31,7 @@
   cursor: pointer;
   filter: brightness(110%);
 }
+
+.NPInputWrap > input:focus {
+  box-shadow: none;
+}

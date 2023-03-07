@@ -1,0 +1,99 @@
+.modal-content,
+.modal-content .card,
+.modal-content .card-body {
+  background: var(--color-darkest);
+  border-radius: 10px;
+  border: 2px solid var(--color-darkest);
+  color: var(--color-lighter);
+}
+
+.AddPost .closeBtn {
+  color: rgb(198, 198, 198);
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background: var(--color-dark);
+  border-radius: 50%;
+}
+
+.AddPost .closeBtn:hover {
+  background: var(--color-dark-less);
+  cursor: pointer;
+}
+
+.AddPost .profileBtn {
+  width: 85px;
+  margin-top: 4px;
+  padding-bottom: 1px;
+  padding-left: 5px;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--color-dark);
+  border-radius: 5px;
+}
+
+.AddPost .profileBtn:hover {
+  background: var(--color-dark-less);
+  cursor: pointer;
+}
+
+.AddPost .InputText {
+  width: 100%;
+  margin-top: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--color-lighter);
+}
+
+.AddPost .InputText:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+#Menu {
+  border: 1px solid var(--color-dark);
+  padding: 12px 15px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--color-lighter);
+}
+
+.AddPost .moreBtn {
+  margin-left: 6px;
+  color: rgb(198, 198, 198);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  border-radius: 50%;
+  color: var(--color-light);
+}
+
+.AddPost .moreBtn:hover {
+  cursor: pointer;
+  background: var(--color-darker);
+}
+
+.AddPost .Icon {
+  cursor: "pointer";
+  margin: 0 4px;
+  width: 37px;
+  height: 37px;
+  background: none;
+}
+
+.AddPost .Icon:hover {
+  background: var(--color-darker);
+}
