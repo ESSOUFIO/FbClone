@@ -1,19 +1,24 @@
-import React from "react";
+import "./AddPost.css";
 import { useState } from "react";
 import { Modal, Card, Button } from "react-bootstrap";
+/** icons */
 import { MdOutlineClose } from "react-icons/md";
-import profileImg from "../../assets/images/profile.png";
 import { HiGlobe } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import { GrEmoji } from "react-icons/gr";
 import { FiMoreHorizontal } from "react-icons/fi";
+/** images */
+import profileImg from "../../assets/images/profile.png";
 import squareBg from "../../assets/images/square-bg.png";
 import photoIcon from "../../assets/images/photo-video.png";
 import share from "../../assets/images/share-with.png";
 import feeling from "../../assets/images/PostFeeling.png";
 import checkin from "../../assets/images/checkin.png";
 import flag from "../../assets/images/flag.png";
-import "./AddPost.css";
+
+/** other */
+import { useGlobalState } from "../../context/GlobalProvider";
+import { addPost } from "../../firebase/post";
 
 const Icon = ({ image }) => {
   return (
@@ -63,7 +68,6 @@ const InputArea = ({ postText }) => {
     <div className="mb-2">
       <textarea
         type="text"
-        f
         rows={3}
         className="InputText"
         placeholder="What's on your mind, Omar?"
@@ -118,15 +122,35 @@ const Menu = () => {
 
 const AddPost = ({ addPostV, hideAddPost }) => {
   const [text, setText] = useState("");
+  const disab = text ? false : true;
+  const variant = text ? "primary" : "secondary";
+  const { user } = useGlobalState();
 
   const postText = (text) => {
     setText(text);
   };
-  const disab = text ? false : true;
-  const variant = text ? "primary" : "secondary";
+
+  const onSubmit = async () => {
+    const d = new Date();
+
+    try {
+      const newPost = {
+        uid: user.uid,
+        time: d.getTime(),
+        text: text,
+        photo: "",
+        nbrComments: 0,
+      };
+      await addPost(newPost);
+      hideAddPost();
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   return (
-    <Modal show={addPostV} onHide={hideAddPost} centered>
-      <Card className="AddPost">
+    <Modal className="AddPost" show={addPostV} onHide={hideAddPost} centered>
+      <Card>
         <Header hideModal={hideAddPost} />
         <div className="p-3">
           <Profile />
@@ -137,6 +161,7 @@ const AddPost = ({ addPostV, hideAddPost }) => {
             className="mt-3 w-100"
             style={{ fontWeight: "500" }}
             disabled={disab}
+            onClick={onSubmit}
           >
             Post
           </Button>

@@ -1,6 +1,6 @@
-.modal-content,
-.modal-content .card,
-.modal-content .card-body {
+.AddPost .modal-content,
+.AddPost .modal-content .card,
+.AddPost .modal-content .card-body {
   background: var(--color-darkest);
   border-radius: 10px;
   border: 2px solid var(--color-darkest);

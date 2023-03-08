@@ -1,18 +1,44 @@
 import "./NavbarRight.css";
-import ProfilePic from "../../../assets/images/omar.jpg";
 import { signout } from "../../../firebase/auth";
 import { useNavigate } from "react-router-dom";
-
+import { useRef, useState } from "react";
+import { useGlobalState } from "../../../context/GlobalProvider";
 /** Icons from react-icons */
 import { IoIosNotifications } from "react-icons/io";
 import { BsMessenger } from "react-icons/bs";
 import { CgMenuGridR } from "react-icons/cg";
+import { uploadImage } from "../../../firebase/user";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase/config";
 
 /** Internal Components */
-const ProfilePicture = ({ picture }) => {
+const ProfilePicture = ({ uid }) => {
+  const { userDoc } = useGlobalState();
+  const fileRef = useRef();
+  const [imageUrl, setImageUrl] = useState(userDoc.picture);
+
+  const fileChange = async (files) => {
+    const downloadUrl = await uploadImage(uid, files[0]);
+    setImageUrl(downloadUrl);
+
+    //** Upload user.picture */
+    const userRef = doc(db, "users", uid);
+    await updateDoc(userRef, {
+      ...userDoc,
+      picture: downloadUrl,
+    });
+  };
+
   return (
     <div>
-      <img src={picture} alt="" />
+      <input
+        type="file"
+        accept=".png,.jpg"
+        style={{ display: "none" }}
+        ref={fileRef}
+        onChange={(e) => fileChange(e.target.files)}
+      />
+      <img src={imageUrl} alt="" onClick={() => fileRef.current.click()} />
     </div>
   );
 };
@@ -52,9 +78,10 @@ const Menu = () => {
 
 /** ==== NavbarRight ===== */
 export const NavbarRight = () => {
+  const { user } = useGlobalState();
   return (
     <div className="NavbarRight">
-      <ProfilePicture picture={ProfilePic} />
+      <ProfilePicture uid={user.uid} />
       <Notifications />
       <Messenger />
       <Menu />

@@ -5,16 +5,18 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+
 import { auth } from "./config";
 import { addUserDocument } from "./user";
 
 export const signup = async ({ username, email, pass, newUser }) => {
   // let resp;
+
   await createUserWithEmailAndPassword(auth, email, pass);
   const user = auth.currentUser;
-  console.log(user, { uid: user.uid, ...newUser });
   await updateProfile(user, { displayName: username });
-  await addUserDocument({ uid: user.uid, ...newUser });
+  const ProfilePic = "../assets/images/defProfile.jpg";
+  await addUserDocument({ uid: user.uid, picture: ProfilePic, ...newUser });
   return user;
 };
 

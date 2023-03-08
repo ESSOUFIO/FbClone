@@ -1,10 +1,12 @@
 import "./NPInputWrap.css";
-import UserPic from "../../../assets/images/profile.png";
+import { useGlobalState } from "../../../context/GlobalProvider";
 
 export const NPInputWrap = ({ showAddPost }) => {
+  const { userDoc } = useGlobalState();
+
   return (
     <div className="NPInputWrap">
-      <img src={UserPic} alt="" />
+      <img src={userDoc.picture} alt="" />
       <input
         type="text"
         placeholder="What's on your mind, Omar?"

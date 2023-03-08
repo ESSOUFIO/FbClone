@@ -62,11 +62,6 @@ const Signup = () => {
 
     try {
       await signup({ username, email, pass, newUser });
-      // const resp = await signup({ username, email, pass });
-      // let { password, ...user } = { ...newUser };
-      // user.uid = resp.uid;
-      // console.log(user);
-      // await addUserDocument(user);
     } catch (error) {
       console.log("Error: ", error);
     }

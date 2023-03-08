@@ -2,16 +2,22 @@ import "./PostHeader.css";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { VscChromeClose } from "react-icons/vsc";
 import { MdOutlinePublic } from "react-icons/md";
-import defaultProfile from "../../../assets/images/defaultProfile.png";
+import ProfilePic from "../../../assets/images/defProfile.jpg";
+import { useEffect, useState } from "react";
+import { getUploadedProfilePic } from "../../../firebase/user";
 
-const UserProfile = ({ UserName, UserPic, PostTime }) => {
-  if (typeof UserPic === "object") {
-    UserPic = defaultProfile;
-  }
+const UserProfile = ({ uid, UserName, PostTime }) => {
+  const [imageUrl, setImageUrl] = useState(ProfilePic);
+
+  useEffect(() => {
+    getUploadedProfilePic(uid).then((URL) => {
+      !!URL && setImageUrl(URL);
+    });
+  }, [uid]);
 
   return (
     <div className="UserProfile">
-      <img src={UserPic} alt="" />
+      <img src={imageUrl} alt="" />
       <div className="Text">
         <h6>{UserName}</h6>
         <span>
@@ -22,10 +28,15 @@ const UserProfile = ({ UserName, UserPic, PostTime }) => {
   );
 };
 
-export const PostHeader = ({ UserName, UserPic, PostTime }) => {
+export const PostHeader = ({ uid, UserName, UserPic, PostTime }) => {
   return (
     <div className="PostHeader">
-      <UserProfile UserName={UserName} UserPic={UserPic} PostTime={PostTime} />
+      <UserProfile
+        uid={uid}
+        UserName={UserName}
+        UserPic={UserPic}
+        PostTime={PostTime}
+      />
       <div className="d-flex">
         <div className="Button">
           <TfiMoreAlt />

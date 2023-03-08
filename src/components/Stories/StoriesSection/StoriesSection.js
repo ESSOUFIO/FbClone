@@ -1,12 +1,13 @@
 import "./StoriesSection.css";
-
-import UserPicture from "../../../assets/images/omar.jpg";
-
+import ProfilePic from "../../../assets/images/defProfile.jpg";
+import { getUploadedProfilePic, getUser } from "../../../firebase/user";
+import { useGlobalState } from "../../../context/GlobalProvider";
 /*** Local Componants */
 import { BouttonsNavLeft } from "..";
 import { BouttonsNavRight } from "..";
 import { StorieElement } from "..";
 import { StorieFirstElement } from "..";
+import { useEffect, useState } from "react";
 
 const ButtonsWrap = (props) => {
   return <div className="ButtonsWrap">{props.children}</div>;
@@ -33,8 +34,10 @@ const ButtonsNav = () => {
 };
 
 //* ===  Stories List ==== */
+export const StoriesSection = ({ uid }) => {
+  // const [imageUrl, setImageUrl] = useState(ProfilePic);
+  const { userDoc } = useGlobalState();
 
-export const StoriesSection = () => {
   const StoriesList = [
     {
       name: "Atiel Ompore",
@@ -64,7 +67,10 @@ export const StoriesSection = () => {
   ];
 
   //** Mapping Storie Elements */
-  let StorieContentFirst = <StorieFirstElement UserPhoto={UserPicture} />;
+
+  const StorieContentFirst = userDoc && (
+    <StorieFirstElement UserPhoto={userDoc.picture} />
+  );
   let StorieContent = StoriesList.map((item, i) => (
     <StorieElement
       key={i}

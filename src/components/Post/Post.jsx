@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { getUser } from "../../firebase/user";
 import "./Post.css";
 import { PostFooter } from "./PostFooter/PostFooter";
 import { PostHeader } from "./PostHeader/PostHeader";
@@ -8,9 +10,8 @@ function PostClicked() {
 
 const PostImage = ({ image, id }) => {
   return (
-    <div className="PostImage">
+    <div className="PostImage" onClick={PostClicked}>
       <img src={image} alt="" width={"100%"} />
-      <button onClick={PostClicked}>tst</button>
     </div>
   );
 };
@@ -29,22 +30,26 @@ const PostBody = ({ Text }) => {
 };
 
 /** ========= MAIN ========== */
-export const Post = ({
-  id,
-  UserName,
-  PostTime,
-  Text,
-  NbrComments,
-  UserPic,
-  image,
-}) => {
+const Post = ({ uid, PostTime, Text, NbrComments, photo }) => {
+  const [userName, setUserName] = useState(null);
+  getUser(uid).then((user) =>
+    setUserName(user.firstName + " " + user.lastName)
+  );
+
   return (
     <div className="Post">
-      <PostHeader UserName={UserName} PostTime={PostTime} UserPic={UserPic} />
+      <PostHeader
+        uid={uid}
+        UserName={userName}
+        PostTime={PostTime}
+        UserPic={""}
+      />
       <PostBody Text={Text} />
-      <PostImage image={image} id={id} />
+      <PostImage image={photo} id={uid} />
       <InteractionStat NbrComments={NbrComments} />
       <PostFooter />
     </div>
   );
 };
+
+export default Post;
