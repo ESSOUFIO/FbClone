@@ -8,7 +8,6 @@ import {
   query,
   doc,
 } from "firebase/firestore";
-import { getUser } from "../firebase/user";
 
 const globalContext = createContext();
 

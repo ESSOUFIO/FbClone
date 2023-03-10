@@ -36,16 +36,7 @@ export const FillPosts = () => {
     <>
       {posts.map((post) => {
         const postTime = calcTime(post.time);
-        return (
-          <Post
-            key={post.id}
-            uid={post.uid}
-            PostTime={postTime}
-            Text={post.text}
-            photo={post.photo}
-            NbrComments={post.nbrComments}
-          />
-        );
+        return <Post key={post.id} post={post} PostTime={postTime} />;
       })}
     </>
   );

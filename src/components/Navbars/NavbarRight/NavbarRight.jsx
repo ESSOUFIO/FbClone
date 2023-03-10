@@ -15,13 +15,13 @@ import { db } from "../../../firebase/config";
 const ProfilePicture = ({ uid }) => {
   const { userDoc } = useGlobalState();
   const fileRef = useRef();
-  const [imageUrl, setImageUrl] = useState(userDoc.picture);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const fileChange = async (files) => {
     const downloadUrl = await uploadImage(uid, files[0]);
     setImageUrl(downloadUrl);
 
-    //** Upload user.picture */
+    //** Update user.picture */
     const userRef = doc(db, "users", uid);
     await updateDoc(userRef, {
       ...userDoc,
@@ -38,7 +38,11 @@ const ProfilePicture = ({ uid }) => {
         ref={fileRef}
         onChange={(e) => fileChange(e.target.files)}
       />
-      <img src={imageUrl} alt="" onClick={() => fileRef.current.click()} />
+      <img
+        src={imageUrl ? imageUrl : userDoc.picture}
+        alt=""
+        onClick={() => fileRef.current.click()}
+      />
     </div>
   );
 };

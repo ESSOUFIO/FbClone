@@ -28,20 +28,15 @@ const UserProfile = ({ uid, UserName, PostTime }) => {
   );
 };
 
-export const PostHeader = ({ uid, UserName, UserPic, PostTime }) => {
+export const PostHeader = ({ uid, UserName, PostTime, hidePost }) => {
   return (
     <div className="PostHeader">
-      <UserProfile
-        uid={uid}
-        UserName={UserName}
-        UserPic={UserPic}
-        PostTime={PostTime}
-      />
-      <div className="d-flex">
+      <UserProfile uid={uid} UserName={UserName} PostTime={PostTime} />
+      <div className="d-flex me-2">
         <div className="Button">
           <TfiMoreAlt />
         </div>
-        <div className="Button">
+        <div className="Button" onClick={hidePost}>
           <VscChromeClose />
         </div>
       </div>

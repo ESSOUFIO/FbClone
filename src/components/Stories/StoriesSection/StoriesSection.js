@@ -1,13 +1,10 @@
 import "./StoriesSection.css";
-import ProfilePic from "../../../assets/images/defProfile.jpg";
-import { getUploadedProfilePic, getUser } from "../../../firebase/user";
 import { useGlobalState } from "../../../context/GlobalProvider";
 /*** Local Componants */
 import { BouttonsNavLeft } from "..";
 import { BouttonsNavRight } from "..";
 import { StorieElement } from "..";
 import { StorieFirstElement } from "..";
-import { useEffect, useState } from "react";
 
 const ButtonsWrap = (props) => {
   return <div className="ButtonsWrap">{props.children}</div>;

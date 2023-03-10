@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { getUser } from "../../firebase/user";
 import "./Post.css";
+import { useEffect, useState } from "react";
+import { getUser } from "../../firebase/user";
 import { PostFooter } from "./PostFooter/PostFooter";
 import { PostHeader } from "./PostHeader/PostHeader";
+import { addHiddenPost, checkHiddenPost } from "../../firebase/post";
 
 function PostClicked() {
   // console.log("PostClicked :");
 }
 
-const PostImage = ({ image, id }) => {
+const PostImage = ({ image }) => {
   return (
     <div className="PostImage" onClick={PostClicked}>
       <img src={image} alt="" width={"100%"} />
@@ -30,23 +31,56 @@ const PostBody = ({ Text }) => {
 };
 
 /** ========= MAIN ========== */
-const Post = ({ uid, PostTime, Text, NbrComments, photo }) => {
+const Post = ({ post, PostTime }) => {
   const [userName, setUserName] = useState(null);
-  getUser(uid).then((user) =>
+  const [hidden, setHidden] = useState(false);
+  const [toConfHide, setToConfHide] = useState(false);
+
+  getUser(post.uid).then((user) =>
     setUserName(user.firstName + " " + user.lastName)
   );
 
+  const hidePost = async () => {
+    await addHiddenPost(post.uid, post.id);
+    setHidden(true);
+    setToConfHide(true);
+  };
+
+  useEffect(() => {
+    const check = async () => {
+      const isHidden = await checkHiddenPost(post.uid, post.id);
+      if (isHidden) setHidden(true);
+    };
+    check();
+  }, [post]);
+
+  if (toConfHide)
+    return (
+      <div className="Post">
+        <PostHeader
+          uid={post.uid}
+          UserName={userName}
+          PostTime={PostTime}
+          hidePost={hidePost}
+        />
+        <PostBody Text={post.text} />
+        <InteractionStat NbrComments={post.NbrComments} />
+        <PostFooter />
+      </div>
+    );
+
+  if (hidden) return null;
   return (
     <div className="Post">
       <PostHeader
-        uid={uid}
+        uid={post.uid}
         UserName={userName}
         PostTime={PostTime}
-        UserPic={""}
+        hidePost={hidePost}
       />
-      <PostBody Text={Text} />
-      <PostImage image={photo} id={uid} />
-      <InteractionStat NbrComments={NbrComments} />
+      <PostBody Text={post.text} />
+      {!hidden && !toConfHide && <PostImage image={post.photo} />}
+      <InteractionStat NbrComments={post.NbrComments} />
       <PostFooter />
     </div>
   );
