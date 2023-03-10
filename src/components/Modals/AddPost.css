@@ -1,6 +1,6 @@
-.modal-content,
-.modal-content .card,
-.modal-content .card-body {
+.AddPost .modal-content,
+.AddPost .modal-content .card,
+.AddPost .modal-content .card-body {
   background: var(--color-darkest);
   border-radius: 10px;
   border: 2px solid var(--color-darkest);
@@ -48,7 +48,6 @@
   margin-top: 15px;
   background: none;
   border: none;
-  font-size: 20px;
   color: var(--color-lighter);
 }
 
@@ -96,4 +95,30 @@
 
 .AddPost .Icon:hover {
   background: var(--color-darker);
+}
+
+.photoWrap {
+  border: 1px solid var(--color-dark);
+  border-radius: 7px;
+  position: relative;
+}
+
+.AddPost .closeBtnPhoto {
+  color: rgb(198, 198, 198);
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px;
+  background: var(--color-dark);
+  border-radius: 50%;
+}
+
+.AddPost .closeBtnPhoto:hover {
+  background: var(--color-dark-less);
+  cursor: pointer;
 }

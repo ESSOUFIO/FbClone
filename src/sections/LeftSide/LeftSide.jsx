@@ -10,7 +10,6 @@ import { TitleSection } from "../../components/Titles/TitleSection";
 import { IoIosArrowDown } from "react-icons/io";
 
 /*** Images */
-import Profile from "../../assets/images/profile.png";
 import Friends from "../../assets/images/Friends.png";
 import Groups from "../../assets/images/Groups.png";
 import MostRecents from "../../assets/images/Most recents.png";
@@ -20,6 +19,7 @@ import Aljazeera from "../../assets/images/AlJazeera.jpg";
 import WorldStreet from "../../assets/images/WorldStreet.png";
 import WorldCup from "../../assets/images/2022-WorldCup.jpg";
 import Flowers from "../../assets/images/flowers.jpg";
+import { useGlobalState } from "../../context/GlobalProvider";
 
 /** Internal Components */
 const TopLeftWrapper = (props) => {
@@ -47,6 +47,8 @@ const FooterSide = ({ text }) => {
 
 /** ======= LeftSide ======= */
 export const LeftSide = () => {
+  const { userDoc } = useGlobalState();
+  const userName = userDoc.firstName + " " + userDoc.lastName;
   return (
     <div className="LeftSide col-3 text-left">
       <NavbarLeft />
@@ -54,7 +56,11 @@ export const LeftSide = () => {
         {/* ==== First Section === */}
 
         <TopLeftWrapper>
-          <SideButtons image={Profile} text={"Omar ESSOUFI"} height={"28px"} />
+          <SideButtons
+            image={userDoc.picture}
+            text={userName}
+            height={"29px"}
+          />
           <SideButtons image={Friends} text={"Friends"} height={"23px"} />
           <SideButtons image={Groups} text={"Groups"} height={"23px"} />
           <SideButtons

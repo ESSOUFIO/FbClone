@@ -1,7 +1,5 @@
 import "./StoriesSection.css";
-
-import UserPicture from "../../../assets/images/omar.jpg";
-
+import { useGlobalState } from "../../../context/GlobalProvider";
 /*** Local Componants */
 import { BouttonsNavLeft } from "..";
 import { BouttonsNavRight } from "..";
@@ -33,8 +31,10 @@ const ButtonsNav = () => {
 };
 
 //* ===  Stories List ==== */
+export const StoriesSection = ({ uid }) => {
+  // const [imageUrl, setImageUrl] = useState(ProfilePic);
+  const { userDoc } = useGlobalState();
 
-export const StoriesSection = () => {
   const StoriesList = [
     {
       name: "Atiel Ompore",
@@ -64,7 +64,10 @@ export const StoriesSection = () => {
   ];
 
   //** Mapping Storie Elements */
-  let StorieContentFirst = <StorieFirstElement UserPhoto={UserPicture} />;
+
+  const StorieContentFirst = userDoc && (
+    <StorieFirstElement UserPhoto={userDoc.picture} />
+  );
   let StorieContent = StoriesList.map((item, i) => (
     <StorieElement
       key={i}
