@@ -9,7 +9,7 @@ import {
   deleteHiddenPost,
 } from "../../firebase/post";
 import { Button } from "react-bootstrap";
-import { FaRegWindowClose } from "react-icons/fa";
+import hideIcon from "../../assets/images/hidden.png";
 
 function PostClicked() {
   // console.log("PostClicked :");
@@ -43,8 +43,8 @@ const PostHidden = ({ UndoPostHidden }) => {
       style={{ height: "70px" }}
     >
       <div className="d-flex gap-3" style={{ color: "var(--color-lighter)" }}>
-        <div className="fs-5">
-          <FaRegWindowClose />
+        <div className="">
+          <img src={hideIcon} alt="" style={{ filter: "invert(80%)" }} />
         </div>
         <div>
           <h6 style={{ fontWeight: "600" }}>Post hidden</h6>
@@ -105,6 +105,7 @@ const Post = ({ post, PostTime }) => {
         PostTime={PostTime}
         hidePost={hidePost}
       />
+
       <PostBody Text={post.text} />
       {!hidden && !toConfHide && <PostImage image={post.photo} />}
       <InteractionStat NbrComments={post.NbrComments} />
