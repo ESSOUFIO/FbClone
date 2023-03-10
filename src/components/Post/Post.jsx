@@ -10,6 +10,7 @@ import {
 } from "../../firebase/post";
 import { Button } from "react-bootstrap";
 import hideIcon from "../../assets/images/hidden.png";
+import DeletePost from "./Modals/DeletePost";
 
 function PostClicked() {
   // console.log("PostClicked :");
@@ -65,6 +66,15 @@ const Post = ({ post, PostTime }) => {
   const [userName, setUserName] = useState(null);
   const [hidden, setHidden] = useState(false);
   const [toConfHide, setToConfHide] = useState(false);
+  const [DeletePostV, setDeletePostV] = useState(false);
+
+  const hideDeletePost = () => {
+    setDeletePostV(false);
+  };
+
+  const showDeletePost = () => {
+    setDeletePostV(true);
+  };
 
   getUser(post.uid).then((user) =>
     setUserName(user.firstName + " " + user.lastName)
@@ -98,19 +108,27 @@ const Post = ({ post, PostTime }) => {
 
   //* Post wasn't hide
   return (
-    <div className="Post">
-      <PostHeader
-        uid={post.uid}
-        UserName={userName}
-        PostTime={PostTime}
-        hidePost={hidePost}
-      />
+    <>
+      <div className="Post">
+        <PostHeader
+          uid={post.uid}
+          UserName={userName}
+          PostTime={PostTime}
+          hidePost={hidePost}
+          showDeletePost={showDeletePost}
+        />
 
-      <PostBody Text={post.text} />
-      {!hidden && !toConfHide && <PostImage image={post.photo} />}
-      <InteractionStat NbrComments={post.NbrComments} />
-      <PostFooter />
-    </div>
+        <PostBody Text={post.text} />
+        <PostImage image={post.photo} />
+        <InteractionStat NbrComments={post.NbrComments} />
+        <PostFooter />
+      </div>
+      <DeletePost
+        DeletePostV={DeletePostV}
+        hideDeletePost={hideDeletePost}
+        postId={post.id}
+      />
+    </>
   );
 };
 

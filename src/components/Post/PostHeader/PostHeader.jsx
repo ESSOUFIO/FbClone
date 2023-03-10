@@ -2,14 +2,17 @@ import "./PostHeader.css";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { VscChromeClose } from "react-icons/vsc";
 import { MdOutlinePublic } from "react-icons/md";
-import ProfilePic from "../../../assets/images/defProfile.jpg";
 import { useEffect, useRef, useState } from "react";
 import { getUploadedProfilePic } from "../../../firebase/user";
 import { Dropdown } from "react-bootstrap";
+
+//** icons */
+import ProfilePic from "../../../assets/images/defProfile.jpg";
 import saveIcon from "../../../assets/images/save.png";
 import hideIcon from "../../../assets/images/hidden.png";
 import reportIcon from "../../../assets/images/report.png";
 import trashIcon from "../../../assets/images/trash.png";
+import { useGlobalState } from "../../../context/GlobalProvider";
 
 const UserProfile = ({ uid, UserName, PostTime }) => {
   const [imageUrl, setImageUrl] = useState(ProfilePic);
@@ -33,14 +36,32 @@ const UserProfile = ({ uid, UserName, PostTime }) => {
   );
 };
 
-export const PostHeader = ({ uid, UserName, PostTime, hidePost }) => {
+export const PostHeader = ({
+  uid,
+  UserName,
+  PostTime,
+  hidePost,
+  showDeletePost,
+}) => {
+  const [myPost, setMyPost] = useState(false);
+  const { user } = useGlobalState();
   const btnRef = useRef();
+
+  useEffect(() => {
+    if (user.uid === uid) {
+      setMyPost(true);
+    }
+  }, [user, uid]);
+
   return (
     <div className="PostHeader">
       <UserProfile uid={uid} UserName={UserName} PostTime={PostTime} />
 
       <div className="d-flex me-2 position-relative">
-        <Dropdown className="dropdownWrap">
+        <Dropdown
+          className="dropdownWrap"
+          style={{ right: myPost ? "85px" : "125px" }}
+        >
           <Dropdown.Toggle
             id="dropdown-basic"
             style={{ visibility: "hidden" }}
@@ -50,36 +71,52 @@ export const PostHeader = ({ uid, UserName, PostTime, hidePost }) => {
           </Dropdown.Toggle>
 
           <Dropdown.Menu className="downdropMenu">
-            <div className="downdropItem" onClick={() => console.log("save")}>
-              <div>
-                <img src={saveIcon} alt="" style={{ filter: "invert(70%)" }} />
+            <div>
+              <div className="downdropItem" onClick={() => console.log("save")}>
+                <div>
+                  <img
+                    src={saveIcon}
+                    alt=""
+                    style={{ filter: "invert(70%)" }}
+                  />
+                </div>
+                <div>
+                  <h6>Save post</h6>
+                  <p>Add this to your saved items</p>
+                </div>
               </div>
-              <div>
-                <h6>Save post</h6>
-                <p>Add this to your saved items</p>
-              </div>
+              <hr
+                style={{
+                  borderTop: "1px solid var(--color-light)",
+                  margin: "5px 10px",
+                }}
+              />
             </div>
-            <hr
-              style={{
-                borderTop: "1px solid var(--color-light)",
-                margin: "5px 10px",
-              }}
-            />
-            <div className="downdropItem" onClick={() => console.log("Hide")}>
+
+            {!myPost && (
               <div>
-                <img src={hideIcon} alt="" style={{ filter: "invert(70%)" }} />
+                <div className="downdropItem" onClick={hidePost}>
+                  <div>
+                    <img
+                      src={hideIcon}
+                      alt=""
+                      style={{ filter: "invert(70%)" }}
+                    />
+                  </div>
+                  <div>
+                    <h6>Hide</h6>
+                    <p>See fewer posts like this.</p>
+                  </div>
+                </div>
+                <hr
+                  style={{
+                    borderTop: "1px solid var(--color-light)",
+                    margin: "5px 10px",
+                  }}
+                />
               </div>
-              <div>
-                <h6>Hide</h6>
-                <p>See fewer posts like this.</p>
-              </div>
-            </div>
-            <hr
-              style={{
-                borderTop: "1px solid var(--color-light)",
-                margin: "5px 10px",
-              }}
-            />
+            )}
+
             <div className="downdropItem" onClick={() => console.log("report")}>
               <div>
                 <img
@@ -93,30 +130,41 @@ export const PostHeader = ({ uid, UserName, PostTime, hidePost }) => {
                 <p>I'm concerned about this post.</p>
               </div>
             </div>
-            <hr
-              style={{
-                borderTop: "1px solid var(--color-light)",
-                margin: "5px 10px",
-              }}
-            />
-            <div className="downdropItem" onClick={() => console.log("trash")}>
+
+            {myPost && (
               <div>
-                <img src={trashIcon} alt="" style={{ filter: "invert(70%)" }} />
+                <hr
+                  style={{
+                    borderTop: "1px solid var(--color-light)",
+                    margin: "5px 10px",
+                  }}
+                />
+                <div className="downdropItem" onClick={showDeletePost}>
+                  <div>
+                    <img
+                      src={trashIcon}
+                      alt=""
+                      style={{ filter: "invert(70%)" }}
+                    />
+                  </div>
+                  <div>
+                    <h6>Move to trash</h6>
+                    <p>Items in your trash are deleted after 30 days.</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h6>Move to trash</h6>
-                <p>Items in your trash are deleted after 30 days.</p>
-              </div>
-            </div>
+            )}
           </Dropdown.Menu>
         </Dropdown>
 
         <div className="Button" onClick={() => btnRef.current.click()}>
           <TfiMoreAlt />
         </div>
-        <div className="Button" onClick={hidePost}>
-          <VscChromeClose />
-        </div>
+        {!myPost && (
+          <div className="Button" onClick={hidePost}>
+            <VscChromeClose />
+          </div>
+        )}
       </div>
     </div>
   );

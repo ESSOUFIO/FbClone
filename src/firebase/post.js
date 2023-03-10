@@ -15,14 +15,19 @@ export const addPost = async (newPost) => {
 };
 
 export const addHiddenPost = async (uid, postId) => {
-  const collRef = doc(db, "users", uid, "hiddenPosts", postId);
-  const resp = await setDoc(collRef, { postId: postId });
+  const docRef = doc(db, "users", uid, "hiddenPosts", postId);
+  const resp = await setDoc(docRef, { postId: postId });
   return resp;
 };
 
 export const deleteHiddenPost = async (uid, postId) => {
-  const collRef = doc(db, "users", uid, "hiddenPosts", postId);
-  await deleteDoc(collRef);
+  const docRef = doc(db, "users", uid, "hiddenPosts", postId);
+  await deleteDoc(docRef);
+};
+
+export const deletePost = async (postId) => {
+  const docRef = doc(db, "posts", postId);
+  await deleteDoc(docRef);
 };
 
 export const checkHiddenPost = async (uid, postId) => {

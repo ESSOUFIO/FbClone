@@ -1,13 +1,17 @@
 .AddPost .modal-content,
 .AddPost .modal-content .card,
-.AddPost .modal-content .card-body {
-  background: var(--color-darkest);
+.AddPost .modal-content .card-body,
+.DeletePost .modal-content,
+.DeletePost .modal-content .card,
+.DeletePost .modal-content .card-body {
+  background: var(--color-darker);
   border-radius: 10px;
-  border: 2px solid var(--color-darkest);
+  border: 2px solid var(--color-darker);
   color: var(--color-lighter);
 }
 
-.AddPost .closeBtn {
+.AddPost .closeBtn,
+.DeletePost .closeBtn {
   color: rgb(198, 198, 198);
   width: 34px;
   height: 34px;
@@ -22,7 +26,8 @@
   border-radius: 50%;
 }
 
-.AddPost .closeBtn:hover {
+.AddPost .closeBtn:hover,
+.DeletePost .closeBtn:hover {
   background: var(--color-dark-less);
   cursor: pointer;
 }
@@ -121,4 +126,18 @@
 .AddPost .closeBtnPhoto:hover {
   background: var(--color-dark-less);
   cursor: pointer;
+}
+
+.cancelBtn {
+  color: var(--color-primary);
+  font-weight: 600;
+  background: transparent;
+  border: none;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.cancelBtn:hover {
+  background: var(--color-dark);
+  color: var(--color-primary);
 }
