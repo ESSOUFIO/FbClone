@@ -5,7 +5,7 @@ import { NavbarMiddle } from "../../components/Navbars";
 import { StoriesSection } from "../../components/Stories";
 import { NewPost } from "../../components/NewPost/NewPost";
 import { FillPosts } from "../../components/Post/FillPosts";
-import AddPost from "../../components/Modals/AddPost";
+import AddPost from "../../components/Post/Modals/AddPost";
 import { useState } from "react";
 import { useGlobalState } from "../../context/GlobalProvider";
 

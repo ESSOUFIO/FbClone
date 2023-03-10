@@ -1,4 +1,11 @@
-import { collection, addDoc, doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  doc,
+  getDoc,
+  setDoc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "../firebase/config";
 
 export const addPost = async (newPost) => {
@@ -8,9 +15,19 @@ export const addPost = async (newPost) => {
 };
 
 export const addHiddenPost = async (uid, postId) => {
-  const collRef = doc(db, "users", uid, "hiddenPosts", postId);
-  const resp = await setDoc(collRef, { postId: postId });
+  const docRef = doc(db, "users", uid, "hiddenPosts", postId);
+  const resp = await setDoc(docRef, { postId: postId });
   return resp;
+};
+
+export const deleteHiddenPost = async (uid, postId) => {
+  const docRef = doc(db, "users", uid, "hiddenPosts", postId);
+  await deleteDoc(docRef);
+};
+
+export const deletePost = async (postId) => {
+  const docRef = doc(db, "posts", postId);
+  await deleteDoc(docRef);
 };
 
 export const checkHiddenPost = async (uid, postId) => {

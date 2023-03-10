@@ -1,4 +1,4 @@
-import "./AddPost.css";
+import "./PostModals.css";
 import { useRef, useState } from "react";
 import { Modal, Card, Button } from "react-bootstrap";
 /** icons */
@@ -8,19 +8,19 @@ import { IoIosArrowDown } from "react-icons/io";
 import { GrEmoji } from "react-icons/gr";
 import { FiMoreHorizontal } from "react-icons/fi";
 /** images */
-import squareBg from "../../assets/images/square-bg.png";
-import photoIcon from "../../assets/images/photo-video.png";
-import share from "../../assets/images/share-with.png";
-import feeling from "../../assets/images/PostFeeling.png";
-import checkin from "../../assets/images/checkin.png";
-import flag from "../../assets/images/flag.png";
+import squareBg from "../../../assets/images/square-bg.png";
+import photoIcon from "../../../assets/images/photo-video.png";
+import share from "../../../assets/images/share-with.png";
+import feeling from "../../../assets/images/PostFeeling.png";
+import checkin from "../../../assets/images/checkin.png";
+import flag from "../../../assets/images/flag.png";
 
 /** other */
-import { useGlobalState } from "../../context/GlobalProvider";
-import { addPost } from "../../firebase/post";
-import { uploadPostPhoto } from "../../firebase/user";
+import { useGlobalState } from "../../../context/GlobalProvider";
+import { addPost } from "../../../firebase/post";
+import { uploadPostPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { db } from "../../../firebase/config";
 
 const Icon = ({ image, openWindow }) => {
   return (
@@ -85,6 +85,7 @@ const InputArea = ({ postText, text, photoUrl, style }) => {
         onChange={(e) => postText(e.target.value)}
         value={text}
         style={{ fontSize: fontSize }}
+        autoFocus
       />
       {!photoUrl && (
         <div className="d-flex justify-content-between">
@@ -215,6 +216,9 @@ const AddPost = ({ addPostV, hideAddPost }) => {
           });
         });
       }
+      setText("");
+      setPhoto(null);
+      setPhotoUrl(null);
       document.body.style.cursor = "default";
       hideAddPost();
     } catch (error) {

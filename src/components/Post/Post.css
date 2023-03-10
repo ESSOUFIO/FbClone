@@ -4,7 +4,7 @@
   font-size: 15px;
   font-weight: 500;
   margin-top: 15px;
-  min-height: 100px;
+  min-height: 50px;
   width: var(--MiddleContainer-witdh);
   border-radius: 7px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
@@ -34,4 +34,14 @@
 
 .PostImage:hover {
   cursor: pointer;
+}
+
+.btnUndo {
+  background: var(--color-dark);
+  border: none;
+  font-weight: 500;
+}
+
+.btnUndo:hover {
+  background: var(--color-dark-less);
 }
