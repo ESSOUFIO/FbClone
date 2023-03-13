@@ -1,0 +1,28 @@
+.MyModal .modal-content,
+.MyModal .modal-content .card,
+.MyModal .modal-content .card-body {
+  background: var(--color-darker);
+  border-radius: 10px;
+  border: 2px solid var(--color-darker);
+  color: var(--color-lighter);
+}
+
+.MyModal .closeBtn {
+  color: rgb(198, 198, 198);
+  width: 34px;
+  height: 34px;
+  position: absolute;
+  top: 11px;
+  right: 11px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  background: var(--color-dark);
+  border-radius: 50%;
+}
+
+.MyModal .closeBtn:hover {
+  background: var(--color-dark-less);
+  cursor: pointer;
+}

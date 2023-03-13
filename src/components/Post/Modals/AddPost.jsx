@@ -1,6 +1,6 @@
 import "./PostModals.css";
 import { useRef, useState } from "react";
-import { Modal, Card, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 /** icons */
 import { MdOutlineClose } from "react-icons/md";
 import { HiGlobe } from "react-icons/hi";
@@ -21,26 +21,13 @@ import { addPost } from "../../../firebase/post";
 import { uploadPostPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
+import MyModal from "../../MyModal/MyModal";
 
 const Icon = ({ image, openWindow }) => {
   return (
     <div className="Icon" onClick={openWindow}>
       <img src={image} alt="" width={25} />
     </div>
-  );
-};
-
-const Header = ({ hideModal }) => {
-  return (
-    <>
-      <header className="d-flex my-2 py-1">
-        <h5 className="text-center w-100">Create Post</h5>
-        <div className="closeBtn" onClick={hideModal}>
-          <MdOutlineClose />
-        </div>
-      </header>
-      <hr style={{ borderTop: "1px solid gray", margin: "0" }} />
-    </>
   );
 };
 
@@ -228,28 +215,25 @@ const AddPost = ({ addPostV, hideAddPost }) => {
   };
 
   return (
-    <Modal className="AddPost" show={addPostV} onHide={hideAddPost} centered>
-      <Card>
-        <Header hideModal={hideAddPost} />
-        <div className="p-3">
-          <Profile userDoc={userDoc} />
-          <InputArea postText={postText} text={text} photoUrl={photoUrl} />
-          {photoUrl && (
-            <PhotoWrap photoUrl={photoUrl} removePhoto={removePhoto} />
-          )}
-          <Menu getPhoto={getPhoto} />
-          <Button
-            variant={variant}
-            className="mt-3 w-100"
-            style={{ fontWeight: "500" }}
-            disabled={disab}
-            onClick={onSubmit}
-          >
-            Post
-          </Button>
-        </div>
-      </Card>
-    </Modal>
+    <MyModal showModal={addPostV} hideFunc={hideAddPost} Title={"Create Post"}>
+      <div className="AddPost p-3">
+        <Profile userDoc={userDoc} />
+        <InputArea postText={postText} text={text} photoUrl={photoUrl} />
+        {photoUrl && (
+          <PhotoWrap photoUrl={photoUrl} removePhoto={removePhoto} />
+        )}
+        <Menu getPhoto={getPhoto} />
+        <Button
+          variant={variant}
+          className="mt-3 w-100"
+          style={{ fontWeight: "500" }}
+          disabled={disab}
+          onClick={onSubmit}
+        >
+          Post
+        </Button>
+      </div>
+    </MyModal>
   );
 };
 

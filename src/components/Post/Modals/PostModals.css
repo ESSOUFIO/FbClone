@@ -1,37 +1,3 @@
-.AddPost .modal-content,
-.AddPost .modal-content .card,
-.AddPost .modal-content .card-body,
-.DeletePost .modal-content,
-.DeletePost .modal-content .card,
-.DeletePost .modal-content .card-body {
-  background: var(--color-darker);
-  border-radius: 10px;
-  border: 2px solid var(--color-darker);
-  color: var(--color-lighter);
-}
-
-.AddPost .closeBtn,
-.DeletePost .closeBtn {
-  color: rgb(198, 198, 198);
-  width: 34px;
-  height: 34px;
-  position: absolute;
-  top: 11px;
-  right: 11px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  background: var(--color-dark);
-  border-radius: 50%;
-}
-
-.AddPost .closeBtn:hover,
-.DeletePost .closeBtn:hover {
-  background: var(--color-dark-less);
-  cursor: pointer;
-}
-
 .AddPost .profileBtn {
   width: 85px;
   margin-top: 4px;

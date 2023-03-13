@@ -117,7 +117,6 @@ const Post = ({ post, PostTime }) => {
           hidePost={hidePost}
           showDeletePost={showDeletePost}
         />
-
         <PostBody Text={post.text} />
         <PostImage image={post.photo} />
         <InteractionStat NbrComments={post.NbrComments} />
