@@ -1,8 +1,7 @@
 .NavbarRight {
-  background: var(--color-darker);
-  height: var(--Navbar-height);
-  border-bottom: 1px solid var(--color-dark);
   display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-around;
   align-items: center;
 }
 

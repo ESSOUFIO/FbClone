@@ -1,7 +1,6 @@
 import "./LeftSide.css";
 
 /** Local Components */
-import { NavbarLeft } from "../../components/Navbars";
 import { SideButtons } from "../../components/Buttons";
 import { ShortcutButton } from "../../components/Buttons";
 import { TitleSection } from "../../components/Titles/TitleSection";
@@ -53,7 +52,6 @@ export const LeftSide = () => {
 
   return (
     <div className="LeftSide col-3 text-left">
-      <NavbarLeft />
       <div className="GlobalSide">
         {/* ==== First Section === */}
 

@@ -9,11 +9,22 @@ import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import ForgotAccount from "./pages/Login/ForgotAccount";
 import Saved from "./pages/Saved/Saved";
+import RootLayout from "./pages/RootLayout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <RootLayout />,
+    children: [
+      {
+        index: true,
+        element: <Home />,
+      },
+      {
+        path: "saved",
+        element: <Saved />,
+      },
+    ],
   },
   {
     path: "/login",
@@ -22,10 +33,6 @@ const router = createBrowserRouter([
   {
     path: "/login/forgot-account",
     element: <ForgotAccount />,
-  },
-  {
-    path: "/saved",
-    element: <Saved />,
   },
 ]);
 

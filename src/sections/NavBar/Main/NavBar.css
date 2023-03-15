@@ -1,0 +1,11 @@
+.NavBar {
+  display: flex;
+  justify-content: space-between;
+  background: var(--color-darker);
+  height: var(--Navbar-height);
+  border-bottom: 1px solid var(--color-dark);
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  z-index: 9;
+}

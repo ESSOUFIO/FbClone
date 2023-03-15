@@ -1,7 +1,4 @@
 .NavbarLeft {
-  background: var(--color-darker);
-  height: var(--Navbar-height);
-  border-bottom: 1px solid var(--color-dark);
   display: flex;
   align-items: center;
 }

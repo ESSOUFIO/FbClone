@@ -1,11 +1,12 @@
 .MainContent {
+  margin-top: var(--Navbar-height);
   padding: 0px;
 }
 
 .Container {
-  padding-left: 13%;
+  /* padding-left: 13%; */
   margin-top: 25px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
 }
