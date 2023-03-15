@@ -9,6 +9,7 @@ import { Dropdown } from "react-bootstrap";
 //** icons */
 import ProfilePic from "../../../assets/images/defProfile.jpg";
 import saveIcon from "../../../assets/images/save.png";
+import unSaveIcon from "../../../assets/images/unsave.png";
 import hideIcon from "../../../assets/images/hidden.png";
 import reportIcon from "../../../assets/images/report.png";
 import trashIcon from "../../../assets/images/trash.png";
@@ -38,10 +39,14 @@ const UserProfile = ({ uid, UserName, PostTime }) => {
 
 export const PostHeader = ({
   uid,
+  postId,
   UserName,
   PostTime,
   hidePost,
   showDeletePost,
+  showSavePost,
+  unSavePost,
+  savedPost,
 }) => {
   const [myPost, setMyPost] = useState(false);
   const { user } = useGlobalState();
@@ -53,6 +58,15 @@ export const PostHeader = ({
     }
   }, [user, uid]);
 
+  const savePostHandler = () => {
+    btnRef.current.click();
+    showSavePost();
+  };
+
+  const unSavePostHandler = () => {
+    btnRef.current.click();
+    unSavePost();
+  };
   return (
     <div className="PostHeader">
       <UserProfile uid={uid} UserName={UserName} PostTime={PostTime} />
@@ -72,19 +86,36 @@ export const PostHeader = ({
 
           <Dropdown.Menu className="downdropMenu">
             <div>
-              <div className="downdropItem" onClick={() => console.log("save")}>
-                <div>
-                  <img
-                    src={saveIcon}
-                    alt=""
-                    style={{ filter: "invert(70%)" }}
-                  />
+              {!savedPost && (
+                <div className="downdropItem" onClick={savePostHandler}>
+                  <div>
+                    <img
+                      src={saveIcon}
+                      alt=""
+                      style={{ filter: "invert(70%)" }}
+                    />
+                  </div>
+                  <div>
+                    <h6>Save post</h6>
+                    <p>Add this to your saved items</p>
+                  </div>
                 </div>
-                <div>
-                  <h6>Save post</h6>
-                  <p>Add this to your saved items</p>
+              )}
+              {savedPost && (
+                <div className="downdropItem" onClick={unSavePostHandler}>
+                  <div>
+                    <img
+                      src={unSaveIcon}
+                      alt=""
+                      style={{ filter: "invert(70%)" }}
+                    />
+                  </div>
+                  <div>
+                    <h6>Unsave post</h6>
+                    <p>Remove this from your saved items</p>
+                  </div>
                 </div>
-              </div>
+              )}
               <hr
                 style={{
                   borderTop: "1px solid var(--color-light)",

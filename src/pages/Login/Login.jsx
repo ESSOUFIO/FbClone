@@ -5,7 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useGlobalState } from "../../context/GlobalProvider";
 import Signup from "./Signup";
 import { signin } from "../../firebase/auth";
-import AlertMessage from "../../components/AlertMessage";
+import AlertMessage from "../../components/Alerts/AlertMessage";
 import { Form, Card, Button } from "react-bootstrap";
 import protectAfterLogin from "../../utils/protectAfterLogin";
 

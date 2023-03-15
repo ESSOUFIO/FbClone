@@ -16,6 +16,13 @@ const GlobalProvider = ({ children }) => {
   const [content, setContent] = useState({ posts: [], isLoadding: true });
   const [modalSignup, setModalSignup] = useState(false);
   const [userDoc, setUserDoc] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertText, setAlertText] = useState("");
+
+  /** Alert */
+  const ShowAlert = () => setShowAlert(true);
+  const HideAlert = () => setShowAlert(false);
+  const SetAlertText = (text) => setAlertText(text);
 
   const showModalSignup = () => {
     setModalSignup(true);
@@ -62,6 +69,11 @@ const GlobalProvider = ({ children }) => {
         modalSignup,
         showModalSignup,
         hideModalSignup,
+        showAlert,
+        ShowAlert,
+        HideAlert,
+        alertText,
+        SetAlertText,
       }}
     >
       {!session.isLoadding && !content.isLoadding && children}

@@ -1,7 +1,6 @@
 import "./LeftSide.css";
 
 /** Local Components */
-import { NavbarLeft } from "../../components/Navbars";
 import { SideButtons } from "../../components/Buttons";
 import { ShortcutButton } from "../../components/Buttons";
 import { TitleSection } from "../../components/Titles/TitleSection";
@@ -19,6 +18,7 @@ import Aljazeera from "../../assets/images/AlJazeera.jpg";
 import WorldStreet from "../../assets/images/WorldStreet.png";
 import WorldCup from "../../assets/images/2022-WorldCup.jpg";
 import Flowers from "../../assets/images/flowers.jpg";
+import SavePage from "../../assets/images/save-page.png";
 import { useGlobalState } from "../../context/GlobalProvider";
 
 /** Internal Components */
@@ -49,9 +49,9 @@ const FooterSide = ({ text }) => {
 export const LeftSide = () => {
   const { userDoc } = useGlobalState();
   const userName = userDoc.firstName + " " + userDoc.lastName;
+
   return (
     <div className="LeftSide col-3 text-left">
-      <NavbarLeft />
       <div className="GlobalSide">
         {/* ==== First Section === */}
 
@@ -60,8 +60,15 @@ export const LeftSide = () => {
             image={userDoc.picture}
             text={userName}
             height={"29px"}
+            style={{ borderRadius: "100%" }}
           />
           <SideButtons image={Friends} text={"Friends"} height={"23px"} />
+          <SideButtons
+            image={SavePage}
+            text={"Saved"}
+            height={"23px"}
+            page={"/saved"}
+          />
           <SideButtons image={Groups} text={"Groups"} height={"23px"} />
           <SideButtons
             image={MostRecents}

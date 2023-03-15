@@ -3,7 +3,7 @@ import { Button, Card, Container, Form, Nav, Navbar } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/icons/Facebook-logo-light.png";
 import { forgotAccount, signin } from "../../firebase/auth";
-import AlertMessage from "../../components/AlertMessage";
+import AlertMessage from "../../components/Alerts/AlertMessage";
 
 const Header = () => {
   const [email, SetEmail] = useState("");

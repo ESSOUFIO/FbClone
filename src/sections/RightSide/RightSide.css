@@ -1,4 +1,8 @@
 .RightSide {
+  margin-top: var(--Navbar-height);
+  position: fixed;
+  top: 0;
+  right: 0;
   direction: rtl;
   padding: 0px;
 }

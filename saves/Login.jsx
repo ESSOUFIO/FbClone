@@ -6,7 +6,7 @@ import { useGlobalUI } from "../../context/UIProvider";
 import Signup from "./Signup";
 import { useGlobalState } from "../../context/GlobalProvider";
 import { signin } from "../../firebase/auth";
-import AlertMessage from "../../components/AlertMessage";
+import AlertMessage from "../../components/Alerts/AlertMessage";
 const TitlesWrap = () => {
   return (
     <div className="TitlesWrap">

@@ -1,7 +1,6 @@
 import "./MainContent.css";
 
 /** Local Components */
-import { NavbarMiddle } from "../../components/Navbars";
 import { StoriesSection } from "../../components/Stories";
 import { NewPost } from "../../components/NewPost/NewPost";
 import { FillPosts } from "../../components/Post/FillPosts";
@@ -21,7 +20,6 @@ export const MainContent = () => {
   return (
     <>
       <div className="MainContent col-6">
-        <NavbarMiddle />
         <Container>
           <StoriesSection uid={user.uid} />
           <NewPost showAddPost={showAddPost} />

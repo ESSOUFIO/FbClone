@@ -1,7 +1,6 @@
 import "./RightSide.css";
 
 //* ===  External Components ==== */
-import { NavbarRight } from "../../components/Navbars";
 import { TitleSection } from "../../components/Titles/TitleSection";
 import {
   AdsButton,
@@ -68,7 +67,6 @@ const Contacts = [
 export const RightSide = () => {
   return (
     <div className="RightSide col-3">
-      <NavbarRight />
       {/* This div may used to add scrolls after*/}
       <div className="GlobalSide">
         {/* ==== SponsoredWrap === */}
