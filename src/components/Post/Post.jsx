@@ -11,6 +11,7 @@ import {
 import { Button } from "react-bootstrap";
 import hideIcon from "../../assets/images/hidden.png";
 import DeletePost from "./Modals/DeletePost";
+import SavePost from "./Modals/SavePost";
 
 function PostClicked() {
   // console.log("PostClicked :");
@@ -67,6 +68,7 @@ const Post = ({ post, PostTime }) => {
   const [hidden, setHidden] = useState(false);
   const [toConfHide, setToConfHide] = useState(false);
   const [DeletePostV, setDeletePostV] = useState(false);
+  const [SavePostV, setSavePostV] = useState(false);
 
   const hideDeletePost = () => {
     setDeletePostV(false);
@@ -74,6 +76,14 @@ const Post = ({ post, PostTime }) => {
 
   const showDeletePost = () => {
     setDeletePostV(true);
+  };
+
+  const hideSavePost = () => {
+    setSavePostV(false);
+  };
+
+  const showSavePost = () => {
+    setSavePostV(true);
   };
 
   getUser(post.uid).then((user) =>
@@ -116,6 +126,7 @@ const Post = ({ post, PostTime }) => {
           PostTime={PostTime}
           hidePost={hidePost}
           showDeletePost={showDeletePost}
+          showSavePost={showSavePost}
         />
         <PostBody Text={post.text} />
         <PostImage image={post.photo} />
@@ -127,6 +138,7 @@ const Post = ({ post, PostTime }) => {
         hideDeletePost={hideDeletePost}
         postId={post.id}
       />
+      <SavePost SavePostV={SavePostV} hideSavePost={hideSavePost} />
     </>
   );
 };

@@ -107,3 +107,31 @@
   background: var(--color-dark);
   color: var(--color-primary);
 }
+
+.SavePost .form-check-input {
+  padding: 8px;
+  background-color: transparent;
+}
+
+.SaveCollection {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  margin-top: 5px;
+  border-radius: 8px;
+}
+
+.SaveCollection:hover {
+  background: var(--color-dark);
+  cursor: pointer;
+}
+
+.SavePost .addCollection {
+  font-size: 22px;
+  padding: 11px;
+  background: var(--color-dark-less);
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

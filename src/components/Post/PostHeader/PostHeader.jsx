@@ -42,6 +42,7 @@ export const PostHeader = ({
   PostTime,
   hidePost,
   showDeletePost,
+  showSavePost,
 }) => {
   const [myPost, setMyPost] = useState(false);
   const { user } = useGlobalState();
@@ -72,7 +73,7 @@ export const PostHeader = ({
 
           <Dropdown.Menu className="downdropMenu">
             <div>
-              <div className="downdropItem" onClick={() => console.log("save")}>
+              <div className="downdropItem" onClick={() => showSavePost()}>
                 <div>
                   <img
                     src={saveIcon}
