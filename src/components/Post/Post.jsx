@@ -6,7 +6,10 @@ import { PostHeader } from "./PostHeader/PostHeader";
 import {
   addHiddenPost,
   checkHiddenPost,
+  checkSavedPost,
   deleteHiddenPost,
+  savePost,
+  unSavePost,
 } from "../../firebase/post";
 import { Button } from "react-bootstrap";
 import hideIcon from "../../assets/images/hidden.png";
@@ -69,6 +72,7 @@ const Post = ({ post, PostTime }) => {
   const [toConfHide, setToConfHide] = useState(false);
   const [DeletePostV, setDeletePostV] = useState(false);
   const [SavePostV, setSavePostV] = useState(false);
+  const [savedPost, setSavedPost] = useState(false);
 
   const hideDeletePost = () => {
     setDeletePostV(false);
@@ -102,12 +106,34 @@ const Post = ({ post, PostTime }) => {
     setToConfHide(true);
   };
 
+  const onSavePost = async () => {
+    try {
+      await savePost(post.uid, post.id);
+      setSavedPost(true);
+    } catch (error) {}
+  };
+
+  const unSavePostHandler = async () => {
+    try {
+      await unSavePost(post.uid, post.id);
+      setSavedPost(false);
+    } catch (error) {}
+  };
+
   useEffect(() => {
     const check = async () => {
       const isHidden = await checkHiddenPost(post.uid, post.id);
       if (isHidden) setHidden(true);
     };
     check();
+  }, [post]);
+
+  useEffect(() => {
+    const isSavedPost = async () => {
+      const isSaved = await checkSavedPost(post.uid, post.id);
+      if (isSaved) setSavedPost(true);
+    };
+    isSavedPost();
   }, [post]);
 
   //* Post is recently hidden
@@ -122,11 +148,14 @@ const Post = ({ post, PostTime }) => {
       <div className="Post">
         <PostHeader
           uid={post.uid}
+          postId={post.id}
           UserName={userName}
           PostTime={PostTime}
           hidePost={hidePost}
           showDeletePost={showDeletePost}
           showSavePost={showSavePost}
+          unSavePost={unSavePostHandler}
+          savedPost={savedPost}
         />
         <PostBody Text={post.text} />
         <PostImage image={post.photo} />
@@ -138,7 +167,11 @@ const Post = ({ post, PostTime }) => {
         hideDeletePost={hideDeletePost}
         postId={post.id}
       />
-      <SavePost SavePostV={SavePostV} hideSavePost={hideSavePost} />
+      <SavePost
+        SavePostV={SavePostV}
+        hideSavePost={hideSavePost}
+        onSavePost={onSavePost}
+      />
     </>
   );
 };

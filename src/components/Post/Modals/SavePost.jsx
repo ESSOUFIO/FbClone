@@ -4,7 +4,7 @@ import favoris from "../../../assets/images/favoris.png";
 import { HiLockClosed } from "react-icons/hi";
 import { AiOutlinePlus } from "react-icons/ai";
 
-const SavePost = ({ SavePostV, hideSavePost }) => {
+const SavePost = ({ SavePostV, hideSavePost, onSavePost }) => {
   return (
     <MyModal showModal={SavePostV} hideFunc={hideSavePost} Title={"Save To"}>
       <div className="p-2 SavePost">
@@ -21,7 +21,7 @@ const SavePost = ({ SavePostV, hideSavePost }) => {
             </div>
           </div>
           <Form className="d-flex align-items-center me-2">
-            <Form.Check type="radio" id="radio" checked />
+            <Form.Check type="radio" id="radio" defaultChecked />
           </Form>
         </div>
         <hr
@@ -52,6 +52,10 @@ const SavePost = ({ SavePostV, hideSavePost }) => {
           <Button
             variant="primary"
             style={{ fontWeight: "600", padding: "4px 35px" }}
+            onClick={() => {
+              onSavePost();
+              hideSavePost();
+            }}
           >
             Done
           </Button>
