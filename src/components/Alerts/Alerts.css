@@ -1,0 +1,12 @@
+.AlertAutoDismiss {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  max-width: 300px;
+}
+.alert-dismissible .btn-close {
+  font-size: 12px;
+  padding: 8px;
+  top: 13px;
+  right: 10px;
+}

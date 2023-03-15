@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./pages/Login/Login";
 import Home from "./pages/Home/Home";
 import ForgotAccount from "./pages/Login/ForgotAccount";
+import Saved from "./pages/Saved/Saved";
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/login/forgot-account",
     element: <ForgotAccount />,
+  },
+  {
+    path: "/saved",
+    element: <Saved />,
   },
 ]);
 

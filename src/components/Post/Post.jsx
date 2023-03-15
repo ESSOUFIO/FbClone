@@ -15,6 +15,7 @@ import { Button } from "react-bootstrap";
 import hideIcon from "../../assets/images/hidden.png";
 import DeletePost from "./Modals/DeletePost";
 import SavePost from "./Modals/SavePost";
+import { useGlobalState } from "../../context/GlobalProvider";
 
 function PostClicked() {
   // console.log("PostClicked :");
@@ -73,6 +74,7 @@ const Post = ({ post, PostTime }) => {
   const [DeletePostV, setDeletePostV] = useState(false);
   const [SavePostV, setSavePostV] = useState(false);
   const [savedPost, setSavedPost] = useState(false);
+  const { ShowAlert, SetAlertText } = useGlobalState();
 
   const hideDeletePost = () => {
     setDeletePostV(false);
@@ -110,6 +112,8 @@ const Post = ({ post, PostTime }) => {
     try {
       await savePost(post.uid, post.id);
       setSavedPost(true);
+      SetAlertText(`Saved to Favoris`);
+      ShowAlert();
     } catch (error) {}
   };
 
@@ -117,6 +121,8 @@ const Post = ({ post, PostTime }) => {
     try {
       await unSavePost(post.uid, post.id);
       setSavedPost(false);
+      SetAlertText("Unsaved Post");
+      ShowAlert();
     } catch (error) {}
   };
 
