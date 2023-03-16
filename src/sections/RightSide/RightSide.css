@@ -5,6 +5,8 @@
   right: 0;
   direction: rtl;
   padding: 0px;
+  height: 100vh;
+  /* overflow: auto; */
 }
 
 .SponsoredWrap,

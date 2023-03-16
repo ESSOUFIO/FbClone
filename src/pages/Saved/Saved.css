@@ -8,7 +8,7 @@
   color: var(--color-lighter);
 }
 
-.Saved .SavedTitle {
+.Saved .SavedPosts {
   margin-top: 60px;
   padding: 25px;
   width: 100%;
@@ -16,7 +16,7 @@
 
 .Saved .SavedFilter {
   background: var(--color-dark);
-  padding: 10px;
+  padding: 12px;
   border-radius: 8px;
 }
 
@@ -95,4 +95,26 @@
 .Saved .NewCollectionBtn:hover {
   cursor: pointer;
   background: #50647d;
+}
+
+.PostSaved {
+  background: var(--color-darker);
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  gap: 15px;
+  color: var(--color-lighter);
+  font-weight: 500;
+}
+
+.PostSavedBtns {
+  background: var(--color-dark);
+  font-weight: 500;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.PostSavedBtns:hover {
+  cursor: pointer;
+  background: var(--color-dark-less);
 }
