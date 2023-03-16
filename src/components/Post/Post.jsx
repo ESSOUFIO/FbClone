@@ -74,7 +74,9 @@ const Post = ({ post, PostTime }) => {
   const [DeletePostV, setDeletePostV] = useState(false);
   const [SavePostV, setSavePostV] = useState(false);
   const [savedPost, setSavedPost] = useState(false);
-  const { ShowAlert, SetAlertText } = useGlobalState();
+  const { ShowAlert, SetAlertText, user } = useGlobalState();
+
+  const uid = user.uid;
 
   const hideDeletePost = () => {
     setDeletePostV(false);
@@ -97,20 +99,20 @@ const Post = ({ post, PostTime }) => {
   );
 
   const UndoPostHidden = async () => {
-    await deleteHiddenPost(post.uid, post.id);
+    await deleteHiddenPost(uid, post.id);
     setHidden(false);
     setToConfHide(false);
   };
 
   const hidePost = async () => {
-    await addHiddenPost(post.uid, post.id);
+    await addHiddenPost(uid, post.id);
     setHidden(true);
     setToConfHide(true);
   };
 
   const onSavePost = async () => {
     try {
-      await savePost(post.uid, post.id);
+      await savePost(uid, post);
       setSavedPost(true);
       SetAlertText(`Saved to Favoris`);
       ShowAlert();
@@ -119,7 +121,7 @@ const Post = ({ post, PostTime }) => {
 
   const unSavePostHandler = async () => {
     try {
-      await unSavePost(post.uid, post.id);
+      await unSavePost(uid, post.id);
       setSavedPost(false);
       SetAlertText("Unsaved Post");
       ShowAlert();
@@ -128,19 +130,19 @@ const Post = ({ post, PostTime }) => {
 
   useEffect(() => {
     const check = async () => {
-      const isHidden = await checkHiddenPost(post.uid, post.id);
+      const isHidden = await checkHiddenPost(uid, post.id);
       if (isHidden) setHidden(true);
     };
     check();
-  }, [post]);
+  }, [uid, post.id]);
 
   useEffect(() => {
     const isSavedPost = async () => {
-      const isSaved = await checkSavedPost(post.uid, post.id);
+      const isSaved = await checkSavedPost(uid, post.id);
       if (isSaved) setSavedPost(true);
     };
     isSavedPost();
-  }, [post]);
+  }, [uid, post]);
 
   //* Post is recently hidden
   if (toConfHide) return <PostHidden UndoPostHidden={UndoPostHidden} />;

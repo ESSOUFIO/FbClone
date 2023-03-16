@@ -40,18 +40,18 @@ export const checkHiddenPost = async (uid, postId) => {
   }
 };
 
-export const savePost = async (uid, postId) => {
-  const docRef = doc(db, "users", uid, "savePosts", postId);
-  await setDoc(docRef, { postId: postId });
+export const savePost = async (uid, post) => {
+  const docRef = doc(db, "users", uid, "savedPosts", post.id);
+  await setDoc(docRef, post);
 };
 
 export const unSavePost = async (uid, postId) => {
-  const docRef = doc(db, "users", uid, "savePosts", postId);
+  const docRef = doc(db, "users", uid, "savedPosts", postId);
   await deleteDoc(docRef);
 };
 
 export const checkSavedPost = async (uid, postId) => {
-  const docRef = doc(db, "users", uid, "savePosts", postId);
+  const docRef = doc(db, "users", uid, "savedPosts", postId);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     return true;
