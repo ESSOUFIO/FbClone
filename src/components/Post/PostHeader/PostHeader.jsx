@@ -13,6 +13,7 @@ import unSaveIcon from "../../../assets/images/unsave.png";
 import hideIcon from "../../../assets/images/hidden.png";
 import reportIcon from "../../../assets/images/report.png";
 import trashIcon from "../../../assets/images/trash.png";
+import editIcon from "../../../assets/images/edit.png";
 import { useGlobalState } from "../../../context/GlobalProvider";
 
 const UserProfile = ({ uid, UserName, PostTime }) => {
@@ -39,12 +40,12 @@ const UserProfile = ({ uid, UserName, PostTime }) => {
 
 export const PostHeader = ({
   uid,
-  postId,
   UserName,
   PostTime,
   hidePost,
   showDeletePost,
   showSavePost,
+  showEditPost,
   unSavePost,
   savedPost,
 }) => {
@@ -161,6 +162,29 @@ export const PostHeader = ({
                 <p>I'm concerned about this post.</p>
               </div>
             </div>
+
+            {myPost && (
+              <div>
+                <hr
+                  style={{
+                    borderTop: "1px solid var(--color-light)",
+                    margin: "5px 10px",
+                  }}
+                />
+                <div className="downdropItem" onClick={showEditPost}>
+                  <div>
+                    <img
+                      src={editIcon}
+                      alt=""
+                      style={{ filter: "invert(70%)" }}
+                    />
+                  </div>
+                  <div className="Center">
+                    <h6>Edit Post</h6>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {myPost && (
               <div>

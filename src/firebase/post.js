@@ -5,6 +5,7 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/config";
 
@@ -12,6 +13,12 @@ export const addPost = async (newPost) => {
   const collRef = collection(db, "posts");
   const resp = await addDoc(collRef, newPost);
   return resp;
+};
+
+export const updatePost = async (newPost) => {
+  const postRef = doc(db, "posts", newPost.id);
+  console.log(newPost);
+  await updateDoc(postRef, newPost);
 };
 
 export const addHiddenPost = async (uid, postId) => {
@@ -40,18 +47,18 @@ export const checkHiddenPost = async (uid, postId) => {
   }
 };
 
-export const savePost = async (uid, postId) => {
-  const docRef = doc(db, "users", uid, "savePosts", postId);
-  await setDoc(docRef, { postId: postId });
+export const savePost = async (uid, post) => {
+  const docRef = doc(db, "users", uid, "savedPosts", post.id);
+  await setDoc(docRef, post);
 };
 
 export const unSavePost = async (uid, postId) => {
-  const docRef = doc(db, "users", uid, "savePosts", postId);
+  const docRef = doc(db, "users", uid, "savedPosts", postId);
   await deleteDoc(docRef);
 };
 
 export const checkSavedPost = async (uid, postId) => {
-  const docRef = doc(db, "users", uid, "savePosts", postId);
+  const docRef = doc(db, "users", uid, "savedPosts", postId);
   const docSnap = await getDoc(docRef);
   if (docSnap.exists()) {
     return true;

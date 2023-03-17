@@ -5,6 +5,8 @@
   padding: 0px;
   margin: 0px;
   margin-top: var(--Navbar-height);
+  height: 100vh;
+  /* overflow: auto; */
 }
 
 .TopLeftWrapper {
