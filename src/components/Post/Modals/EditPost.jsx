@@ -1,5 +1,5 @@
 import "./PostModals.css";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 /** icons */
 import { MdOutlineClose } from "react-icons/md";
@@ -17,15 +17,15 @@ import flag from "../../../assets/images/flag.png";
 
 /** other */
 import { useGlobalState } from "../../../context/GlobalProvider";
-import { addPost } from "../../../firebase/post";
+import { addPost, updatePost } from "../../../firebase/post";
 import { uploadPostPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import MyModal from "../../MyModal/MyModal";
 
-const Icon = ({ image, openWindow }) => {
+const Icon = ({ image }) => {
   return (
-    <div className="Icon" onClick={openWindow}>
+    <div className="Icon">
       <img src={image} alt="" width={25} />
     </div>
   );
@@ -96,7 +96,7 @@ const InputArea = ({ postText, text, photoUrl }) => {
   );
 };
 
-const Menu = ({ getPhoto }) => {
+const Menu = () => {
   const inputRef = useRef();
 
   const openWindow = () => {
@@ -105,15 +105,8 @@ const Menu = ({ getPhoto }) => {
 
   return (
     <div id="Menu">
-      <input
-        type="file"
-        style={{ display: "none" }}
-        ref={inputRef}
-        onChange={(e) => {
-          getPhoto(e.target.files);
-        }}
-      />
-      <h6 className="pb-1" style={{ cursor: "pointer" }} onClick={openWindow}>
+      <input type="file" style={{ display: "none" }} ref={inputRef} />
+      <h6 className="pb-1" style={{ cursor: "pointer" }}>
         Add to your post
       </h6>
       <div className="d-flex">
@@ -142,12 +135,9 @@ const Menu = ({ getPhoto }) => {
   );
 };
 
-const PhotoWrap = ({ photoUrl, removePhoto }) => {
+const PhotoWrap = ({ photoUrl }) => {
   return (
     <div className="mb-2 p-2 photoWrap">
-      <div className="closeBtnPhoto" onClick={removePhoto}>
-        <MdOutlineClose />
-      </div>
       <img
         src={photoUrl}
         alt=""
@@ -158,56 +148,38 @@ const PhotoWrap = ({ photoUrl, removePhoto }) => {
   );
 };
 
-const AddPost = ({ addPostV, hideAddPost }) => {
+const EditPost = ({ editPostV, hideEditPost, post }) => {
   const [text, setText] = useState("");
   const [photo, setPhoto] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const { userDoc } = useGlobalState();
+  const [oldText, setOldText] = useState("");
 
-  const disab = text ? false : photoUrl ? false : true;
+  useEffect(() => {
+    setText(post.text);
+    setPhotoUrl(post.photo);
+    setOldText(post.text);
+  }, [post]);
+
+  const disab = text === oldText;
   const variant = disab ? "secondary" : "primary";
-
-  const removePhoto = () => {
-    setPhoto(null);
-    setPhotoUrl(null);
-  };
 
   const postText = (text) => {
     setText(text);
   };
 
-  const getPhoto = (file) => {
-    setPhoto(file[0]);
-    setPhotoUrl(URL.createObjectURL(file[0]));
-  };
-
   const onSubmit = async () => {
-    const d = new Date();
     document.body.style.cursor = "wait";
+
     try {
       const newPost = {
-        uid: userDoc.uid,
-        time: d.getTime(),
+        ...post,
         text: text,
-        photo: "",
-        nbrComments: 0,
       };
-      const resp = await addPost(newPost);
-      if (photo) {
-        uploadPostPhoto(resp.id, photo).then(async (downloadUrl) => {
-          //** Update post.picture */
-          const postRef = doc(db, "posts", resp.id);
-          await updateDoc(postRef, {
-            ...newPost,
-            photo: downloadUrl,
-          });
-        });
-      }
-      setText("");
-      setPhoto(null);
-      setPhotoUrl(null);
+      console.log(text);
+      await updatePost(newPost);
       document.body.style.cursor = "default";
-      hideAddPost();
+      hideEditPost();
     } catch (error) {
       console.log(error.message);
     }
@@ -215,14 +187,12 @@ const AddPost = ({ addPostV, hideAddPost }) => {
   };
 
   return (
-    <MyModal showModal={addPostV} hideFunc={hideAddPost} Title={"Create Post"}>
+    <MyModal showModal={editPostV} hideFunc={hideEditPost} Title={"Edit Post"}>
       <div className="AddPost p-3">
         <Profile userDoc={userDoc} />
         <InputArea postText={postText} text={text} photoUrl={photoUrl} />
-        {photoUrl && (
-          <PhotoWrap photoUrl={photoUrl} removePhoto={removePhoto} />
-        )}
-        <Menu getPhoto={getPhoto} />
+        {photoUrl && <PhotoWrap photoUrl={photoUrl} />}
+        <Menu />
         <Button
           variant={variant}
           className="mt-3 w-100"
@@ -230,11 +200,11 @@ const AddPost = ({ addPostV, hideAddPost }) => {
           disabled={disab}
           onClick={onSubmit}
         >
-          Post
+          Save
         </Button>
       </div>
     </MyModal>
   );
 };
 
-export default AddPost;
+export default EditPost;

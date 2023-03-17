@@ -109,14 +109,14 @@ const PostSaved = ({ post }) => {
 
             <p className="my-2" style={{ fontSize: "13px" }}>
               <span style={{ color: "var(--color-light)" }}>
-                Post <TbPoint /> Saved to{" "}
+                Post<span style={{ padding: "0 3px" }}>•</span>Saved to{" "}
               </span>
               Favoris
             </p>
 
             <div>
               <img
-                src={user?.profilePic}
+                src={user.picture}
                 alt=""
                 width={23}
                 style={{ borderRadius: "100%" }}
@@ -220,6 +220,7 @@ const DropDownUnSave = ({ showDropDown, unSavePostHandler }) => {
 /** Saved Cmponent */
 const Saved = () => {
   const { savedPosts } = useGlobalState();
+  console.log(savedPosts);
   return (
     <div className="Saved">
       <SideMenu />

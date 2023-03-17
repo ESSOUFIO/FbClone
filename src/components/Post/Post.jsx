@@ -16,6 +16,7 @@ import hideIcon from "../../assets/images/hidden.png";
 import DeletePost from "./Modals/DeletePost";
 import SavePost from "./Modals/SavePost";
 import { useGlobalState } from "../../context/GlobalProvider";
+import EditPost from "./Modals/EditPost";
 
 function PostClicked() {
   // console.log("PostClicked :");
@@ -75,6 +76,7 @@ const Post = ({ post, PostTime }) => {
   const [SavePostV, setSavePostV] = useState(false);
   const [savedPost, setSavedPost] = useState(false);
   const { ShowAlert, SetAlertText, user } = useGlobalState();
+  const [editPostV, setEditPostV] = useState(false);
 
   const uid = user.uid;
 
@@ -128,6 +130,14 @@ const Post = ({ post, PostTime }) => {
     } catch (error) {}
   };
 
+  const hideEditPost = () => {
+    setEditPostV(false);
+  };
+
+  const showEditPost = () => {
+    setEditPostV(true);
+  };
+
   useEffect(() => {
     const check = async () => {
       const isHidden = await checkHiddenPost(uid, post.id);
@@ -162,6 +172,7 @@ const Post = ({ post, PostTime }) => {
           hidePost={hidePost}
           showDeletePost={showDeletePost}
           showSavePost={showSavePost}
+          showEditPost={showEditPost}
           unSavePost={unSavePostHandler}
           savedPost={savedPost}
         />
@@ -180,6 +191,7 @@ const Post = ({ post, PostTime }) => {
         hideSavePost={hideSavePost}
         onSavePost={onSavePost}
       />
+      <EditPost editPostV={editPostV} hideEditPost={hideEditPost} post={post} />
     </>
   );
 };

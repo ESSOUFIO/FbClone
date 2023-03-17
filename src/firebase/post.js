@@ -5,6 +5,7 @@ import {
   getDoc,
   setDoc,
   deleteDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/config";
 
@@ -12,6 +13,12 @@ export const addPost = async (newPost) => {
   const collRef = collection(db, "posts");
   const resp = await addDoc(collRef, newPost);
   return resp;
+};
+
+export const updatePost = async (newPost) => {
+  const postRef = doc(db, "posts", newPost.id);
+  console.log(newPost);
+  await updateDoc(postRef, newPost);
 };
 
 export const addHiddenPost = async (uid, postId) => {

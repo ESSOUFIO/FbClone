@@ -77,7 +77,7 @@ const GlobalProvider = ({ children }) => {
         snap.forEach((doc) => {
           savedPosts.push(doc.data());
         });
-        setSavedContent({ savedPosts, isLoadding: false });
+        setSavedContent({ savedPosts });
       });
       return () => unsub();
     }
@@ -100,10 +100,7 @@ const GlobalProvider = ({ children }) => {
         ...savedContent,
       }}
     >
-      {!session.isLoadding &&
-        !content.isLoadding &&
-        !savedContent.isLoadding &&
-        children}
+      {!session.isLoadding && !content.isLoadding && children}
     </globalContext.Provider>
   );
 };
