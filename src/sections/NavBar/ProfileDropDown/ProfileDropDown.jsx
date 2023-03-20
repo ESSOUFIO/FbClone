@@ -11,8 +11,13 @@ import { useNavigate } from "react-router-dom";
 import { signout } from "../../../firebase/auth";
 
 const ProfileBtn = ({ img, username }) => {
+  const navigate = useNavigate();
+  const toProfilePage = () => {
+    navigate("/user/9999");
+  };
+
   return (
-    <div className="d-flex ProfileBtn">
+    <div className="d-flex ProfileBtn" onClick={toProfilePage}>
       <div className="ProfileDropDownImg">
         <img src={img} alt="" width={42} />
       </div>

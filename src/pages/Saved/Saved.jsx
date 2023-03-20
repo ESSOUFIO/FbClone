@@ -7,7 +7,6 @@ import shareIcon from "../../assets/images/share2.png";
 import unsaveIcon from "../../assets/images/unsave.png";
 import { Button } from "react-bootstrap";
 import { FiPlus } from "react-icons/fi";
-import { TbPoint } from "react-icons/tb";
 import { FiMoreHorizontal } from "react-icons/fi";
 import { useGlobalState } from "../../context/GlobalProvider";
 import { getUser } from "../../firebase/user";

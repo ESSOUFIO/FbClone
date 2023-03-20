@@ -10,6 +10,7 @@ import Home from "./pages/Home/Home";
 import ForgotAccount from "./pages/Login/ForgotAccount";
 import Saved from "./pages/Saved/Saved";
 import RootLayout from "./pages/RootLayout";
+import Profile from "./pages/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "saved",
         element: <Saved />,
+      },
+      {
+        path: "user/:id",
+        element: <Profile />,
       },
     ],
   },

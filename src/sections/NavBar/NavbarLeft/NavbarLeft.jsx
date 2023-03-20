@@ -9,7 +9,7 @@ const Search = () => {
       <div className="SearchIcon">
         <FiSearch />
       </div>
-      <input type="text" placeholder="Search Smile" />
+      <input type="text" placeholder="Search Facebook" />
     </div>
   );
 };

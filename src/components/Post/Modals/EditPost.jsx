@@ -2,7 +2,6 @@ import "./PostModals.css";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "react-bootstrap";
 /** icons */
-import { MdOutlineClose } from "react-icons/md";
 import { HiGlobe } from "react-icons/hi";
 import { IoIosArrowDown } from "react-icons/io";
 import { GrEmoji } from "react-icons/gr";
@@ -17,10 +16,7 @@ import flag from "../../../assets/images/flag.png";
 
 /** other */
 import { useGlobalState } from "../../../context/GlobalProvider";
-import { addPost, updatePost } from "../../../firebase/post";
-import { uploadPostPhoto } from "../../../firebase/user";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase/config";
+import { updatePost } from "../../../firebase/post";
 import MyModal from "../../MyModal/MyModal";
 
 const Icon = ({ image }) => {
@@ -150,7 +146,6 @@ const PhotoWrap = ({ photoUrl }) => {
 
 const EditPost = ({ editPostV, hideEditPost, post }) => {
   const [text, setText] = useState("");
-  const [photo, setPhoto] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const { userDoc } = useGlobalState();
   const [oldText, setOldText] = useState("");
