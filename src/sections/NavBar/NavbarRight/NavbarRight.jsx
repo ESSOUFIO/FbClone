@@ -11,7 +11,7 @@ import { db } from "../../../firebase/config";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 
 /** Internal Components */
-const ProfilePicture = ({ uid, toggleProfileDropDown }) => {
+const ProfilePicture = ({ uid }) => {
   const { userDoc } = useGlobalState();
   const fileRef = useRef();
   const [imageUrl, setImageUrl] = useState(null);
@@ -29,7 +29,13 @@ const ProfilePicture = ({ uid, toggleProfileDropDown }) => {
   };
 
   return (
-    <div className="position-relative">
+    <div
+      className="position-relative dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      data-bs-offset="-40,0"
+    >
       <input
         type="file"
         accept=".png,.jpg"
@@ -38,10 +44,9 @@ const ProfilePicture = ({ uid, toggleProfileDropDown }) => {
         onChange={(e) => fileChange(e.target.files)}
       />
       <img
-        className="NavbarRightImg"
+        className="NavbarRightImg "
         src={imageUrl ? imageUrl : userDoc.picture}
         alt=""
-        onClick={toggleProfileDropDown}
       />
     </div>
   );
@@ -74,41 +79,14 @@ const Menu = () => {
 /** ==== NavbarRight ===== */
 export const NavbarRight = () => {
   const { user } = useGlobalState();
-  const [profileDropD, setProfileDropD] = useState("hidden");
-
-  const toggleProfileDropDown = () => {
-    setProfileDropD(profileDropD === "hidden" ? "visible" : "hidden");
-  };
-
-  // const mobileMenuRef = useRef();
-
-  // const closeOpenMenus = useCallback(
-  //   (e) => {
-  //     if (
-  //       mobileMenuRef.current &&
-  //       toggleNav &&
-  //       !mobileMenuRef.current.contains(e.target)
-  //     ) {
-  //       setToggleNav(false);
-  //     }
-  //   },
-  //   [toggleNav]
-  // );
-
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", closeOpenMenus);
-  // }, [closeOpenMenus]);
 
   return (
     <div className="NavbarRight position-relative">
-      <ProfilePicture
-        uid={user?.uid}
-        toggleProfileDropDown={toggleProfileDropDown}
-      />
+      <ProfilePicture uid={user?.uid} />
       <Notifications />
       <Messenger />
       <Menu />
-      <ProfileDropDown show={profileDropD} />
+      <ProfileDropDown />
     </div>
   );
 };

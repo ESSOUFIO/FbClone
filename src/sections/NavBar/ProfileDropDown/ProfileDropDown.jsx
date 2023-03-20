@@ -10,10 +10,10 @@ import "./ProfileDropDown.css";
 import { useNavigate } from "react-router-dom";
 import { signout } from "../../../firebase/auth";
 
-const ProfileBtn = ({ img, username }) => {
+const ProfileBtn = ({ img, username, userId }) => {
   const navigate = useNavigate();
   const toProfilePage = () => {
-    navigate("/user/9999");
+    navigate(`user/${userId}`);
   };
 
   return (
@@ -61,7 +61,7 @@ const MenuBtn = ({ img, title, onClick, subMenu = false }) => {
   );
 };
 
-const ProfileDropDown = ({ show }) => {
+const ProfileDropDown = () => {
   const { userDoc } = useGlobalState();
   const userName = userDoc.firstName + " " + userDoc.lastName;
   const navigate = useNavigate();
@@ -74,8 +74,19 @@ const ProfileDropDown = ({ show }) => {
     }
   };
   return (
-    <div className="ProfileDropDown" style={{ visibility: show }}>
-      <ProfileBtn img={userDoc.picture} username={userName} />
+    <div
+      className="ProfileDropDown dropdown-menu"
+      style={{
+        width: "350px",
+        top: "10px",
+        right: "10px",
+      }}
+    >
+      <ProfileBtn
+        img={userDoc.picture}
+        username={userName}
+        userId={userDoc.uid}
+      />
       <hr
         style={{
           marginTop: "5px",
