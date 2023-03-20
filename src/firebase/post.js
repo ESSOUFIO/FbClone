@@ -17,7 +17,6 @@ export const addPost = async (newPost) => {
 
 export const updatePost = async (newPost) => {
   const postRef = doc(db, "posts", newPost.id);
-  console.log(newPost);
   await updateDoc(postRef, newPost);
 };
 

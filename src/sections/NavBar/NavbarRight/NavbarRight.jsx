@@ -1,6 +1,4 @@
 import "./NavbarRight.css";
-import { signout } from "../../../firebase/auth";
-import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 import { useGlobalState } from "../../../context/GlobalProvider";
 /** Icons from react-icons */
@@ -10,6 +8,7 @@ import { CgMenuGridR } from "react-icons/cg";
 import { uploadImage } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
+import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 
 /** Internal Components */
 const ProfilePicture = ({ uid }) => {
@@ -30,7 +29,13 @@ const ProfilePicture = ({ uid }) => {
   };
 
   return (
-    <div>
+    <div
+      className="position-relative dropdown-toggle"
+      type="button"
+      data-bs-toggle="dropdown"
+      aria-expanded="false"
+      data-bs-offset="-40,0"
+    >
       <input
         type="file"
         accept=".png,.jpg"
@@ -39,26 +44,17 @@ const ProfilePicture = ({ uid }) => {
         onChange={(e) => fileChange(e.target.files)}
       />
       <img
+        className="NavbarRightImg "
         src={imageUrl ? imageUrl : userDoc.picture}
         alt=""
-        onClick={() => fileRef.current.click()}
       />
     </div>
   );
 };
 
 const Notifications = () => {
-  const navigate = useNavigate();
-  const logoutHandler = async () => {
-    try {
-      await signout();
-      navigate("/login");
-    } catch (error) {
-      console.log("Error signout: ", error);
-    }
-  };
   return (
-    <div className="Icon" onClick={logoutHandler}>
+    <div className="Icon">
       <IoIosNotifications />
     </div>
   );
@@ -83,12 +79,14 @@ const Menu = () => {
 /** ==== NavbarRight ===== */
 export const NavbarRight = () => {
   const { user } = useGlobalState();
+
   return (
-    <div className="NavbarRight">
-      <ProfilePicture uid={user.uid} />
+    <div className="NavbarRight position-relative">
+      <ProfilePicture uid={user?.uid} />
       <Notifications />
       <Messenger />
       <Menu />
+      <ProfileDropDown />
     </div>
   );
 };

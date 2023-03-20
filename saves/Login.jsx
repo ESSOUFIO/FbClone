@@ -35,7 +35,6 @@ const FormCard = () => {
       setError(error.message);
     }
   };
-  console.log("Login: ", error);
   return (
     <>
       <div className="FormCard">

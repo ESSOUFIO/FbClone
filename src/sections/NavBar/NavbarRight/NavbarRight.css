@@ -5,17 +5,6 @@
   align-items: center;
 }
 
-.NavbarRight img {
-  width: var(--Navbar-logo-height);
-  height: var(--Navbar-logo-height);
-  border-radius: 100%;
-  margin-right: 25px;
-}
-
-.NavbarRight img:hover {
-  cursor: pointer;
-}
-
 .Icon {
   width: var(--Navbar-icons-div-height);
   height: var(--Navbar-icons-div-height);
@@ -36,4 +25,15 @@
 
 .Messenger {
   font-size: 19px;
+}
+
+.NavbarRightImg {
+  width: var(--Navbar-logo-height);
+  height: var(--Navbar-logo-height);
+  border-radius: 100%;
+  margin-right: 25px;
+}
+
+.NavbarRightImg:hover {
+  cursor: pointer;
 }
