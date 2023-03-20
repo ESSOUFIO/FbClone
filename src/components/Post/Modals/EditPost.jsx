@@ -176,7 +176,6 @@ const EditPost = ({ editPostV, hideEditPost, post }) => {
         ...post,
         text: text,
       };
-      console.log(text);
       await updatePost(newPost);
       document.body.style.cursor = "default";
       hideEditPost();

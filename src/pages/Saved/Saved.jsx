@@ -220,7 +220,6 @@ const DropDownUnSave = ({ showDropDown, unSavePostHandler }) => {
 /** Saved Cmponent */
 const Saved = () => {
   const { savedPosts } = useGlobalState();
-  console.log(savedPosts);
   return (
     <div className="Saved">
       <SideMenu />

@@ -1,0 +1,44 @@
+.ProfileDropDown {
+  position: fixed;
+  top: 40px;
+  right: 28px;
+  background: var(--color-darker);
+  padding: 15px;
+  min-height: 100px;
+  max-width: 350px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px rgba(0 0 0 / 50%);
+}
+
+.ProfileDropDownImg {
+  width: var(--Navbar-logo-height);
+  height: var(--Navbar-logo-height);
+  border-radius: 100%;
+  margin-right: 10px;
+  overflow: hidden;
+}
+
+.ProfileBtn {
+  border-radius: 5px;
+  padding: 7px 12px;
+}
+
+.ProfileBtn:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}
+
+.ProfileMenuBtn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+  border-radius: 10px;
+  padding: 8px;
+}
+
+.ProfileMenuBtn:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}

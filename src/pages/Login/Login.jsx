@@ -97,7 +97,6 @@ const FormWrapFooter = () => {
 };
 
 const Login = () => {
-  console.log("login");
   return (
     <div className="Login">
       <TitlesWrap />
