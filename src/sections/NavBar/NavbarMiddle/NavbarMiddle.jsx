@@ -6,12 +6,14 @@ import { MdOndemandVideo } from "react-icons/md";
 import { TbBuildingStore } from "react-icons/tb";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { SiFacebookgaming } from "react-icons/si";
+import { useNavigate } from "react-router-dom";
 
 /** =====  NavbarMiddle ===== */
 export const NavbarMiddle = () => {
+  const navigate = useNavigate();
   return (
     <div className="NavbarMiddle">
-      <div className="MainIcons">
+      <div className="MainIcons" onClick={() => navigate("/")}>
         <AiFillHome />
       </div>
       <div className="MainIcons">

@@ -75,7 +75,7 @@ export const PostHeader = ({
       <div className="d-flex me-2 position-relative">
         <Dropdown
           className="dropdownWrap"
-          style={{ right: myPost ? "85px" : "125px" }}
+          // style={{ right: myPost ? "85px" : "125px" }}
         >
           <Dropdown.Toggle
             id="dropdown-basic"
