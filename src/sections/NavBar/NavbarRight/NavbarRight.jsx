@@ -80,6 +80,25 @@ export const NavbarRight = () => {
     setProfileDropD(profileDropD === "hidden" ? "visible" : "hidden");
   };
 
+  // const mobileMenuRef = useRef();
+
+  // const closeOpenMenus = useCallback(
+  //   (e) => {
+  //     if (
+  //       mobileMenuRef.current &&
+  //       toggleNav &&
+  //       !mobileMenuRef.current.contains(e.target)
+  //     ) {
+  //       setToggleNav(false);
+  //     }
+  //   },
+  //   [toggleNav]
+  // );
+
+  // useEffect(() => {
+  //   document.addEventListener("mousedown", closeOpenMenus);
+  // }, [closeOpenMenus]);
+
   return (
     <div className="NavbarRight position-relative">
       <ProfilePicture
