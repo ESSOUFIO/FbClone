@@ -1,0 +1,6 @@
+.ProfilePage {
+  background: var(--color-darkest-plus);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

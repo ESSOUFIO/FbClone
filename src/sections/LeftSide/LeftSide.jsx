@@ -49,7 +49,6 @@ const FooterSide = ({ text }) => {
 export const LeftSide = () => {
   const { userDoc } = useGlobalState();
   const userName = userDoc.firstName + " " + userDoc.lastName;
-
   return (
     <div className="LeftSide col-3 text-left">
       <div className="GlobalSide">
@@ -61,6 +60,7 @@ export const LeftSide = () => {
             text={userName}
             height={"29px"}
             style={{ borderRadius: "100%" }}
+            page={`user/${userDoc.uid}`}
           />
           <SideButtons image={Friends} text={"Friends"} height={"23px"} />
           <SideButtons
