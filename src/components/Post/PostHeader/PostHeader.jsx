@@ -2,9 +2,8 @@ import "./PostHeader.css";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { VscChromeClose } from "react-icons/vsc";
 import { MdOutlinePublic } from "react-icons/md";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getUploadedProfilePic } from "../../../firebase/user";
-import { Dropdown } from "react-bootstrap";
 
 //** icons */
 import ProfilePic from "../../../assets/images/defProfile.jpg";
@@ -51,7 +50,6 @@ export const PostHeader = ({
 }) => {
   const [myPost, setMyPost] = useState(false);
   const { user } = useGlobalState();
-  const btnRef = useRef();
 
   useEffect(() => {
     if (user.uid === uid) {
@@ -60,12 +58,10 @@ export const PostHeader = ({
   }, [user, uid]);
 
   const savePostHandler = () => {
-    btnRef.current.click();
     showSavePost();
   };
 
   const unSavePostHandler = () => {
-    btnRef.current.click();
     unSavePost();
   };
   return (
@@ -73,146 +69,12 @@ export const PostHeader = ({
       <UserProfile uid={uid} UserName={UserName} PostTime={PostTime} />
 
       <div className="d-flex me-2 position-relative">
-        <Dropdown
-          className="dropdownWrap"
-          // style={{ right: myPost ? "85px" : "125px" }}
+        <div
+          className="Button "
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+          data-bs-offset="-270,0"
         >
-          <Dropdown.Toggle
-            id="dropdown-basic"
-            style={{ visibility: "hidden" }}
-            ref={btnRef}
-          >
-            Dropdown But --------------
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu className="downdropMenu">
-            <div>
-              {!savedPost && (
-                <div className="downdropItem" onClick={savePostHandler}>
-                  <div>
-                    <img
-                      src={saveIcon}
-                      alt=""
-                      style={{ filter: "invert(70%)" }}
-                    />
-                  </div>
-                  <div>
-                    <h6>Save post</h6>
-                    <p>Add this to your saved items</p>
-                  </div>
-                </div>
-              )}
-              {savedPost && (
-                <div className="downdropItem" onClick={unSavePostHandler}>
-                  <div>
-                    <img
-                      src={unSaveIcon}
-                      alt=""
-                      style={{ filter: "invert(70%)" }}
-                    />
-                  </div>
-                  <div>
-                    <h6>Unsave post</h6>
-                    <p>Remove this from your saved items</p>
-                  </div>
-                </div>
-              )}
-              <hr
-                style={{
-                  borderTop: "1px solid var(--color-light)",
-                  margin: "5px 10px",
-                }}
-              />
-            </div>
-
-            {!myPost && (
-              <div>
-                <div className="downdropItem" onClick={hidePost}>
-                  <div>
-                    <img
-                      src={hideIcon}
-                      alt=""
-                      style={{ filter: "invert(70%)" }}
-                    />
-                  </div>
-                  <div>
-                    <h6>Hide</h6>
-                    <p>See fewer posts like this.</p>
-                  </div>
-                </div>
-                <hr
-                  style={{
-                    borderTop: "1px solid var(--color-light)",
-                    margin: "5px 10px",
-                  }}
-                />
-              </div>
-            )}
-
-            <div className="downdropItem" onClick={() => console.log("report")}>
-              <div>
-                <img
-                  src={reportIcon}
-                  alt=""
-                  style={{ filter: "invert(70%)" }}
-                />
-              </div>
-              <div>
-                <h6>Report post</h6>
-                <p>I'm concerned about this post.</p>
-              </div>
-            </div>
-
-            {myPost && (
-              <div>
-                <hr
-                  style={{
-                    borderTop: "1px solid var(--color-light)",
-                    margin: "5px 10px",
-                  }}
-                />
-                <div className="downdropItem" onClick={showEditPost}>
-                  <div>
-                    <img
-                      src={editIcon}
-                      alt=""
-                      style={{ filter: "invert(70%)" }}
-                    />
-                  </div>
-                  <div className="Center">
-                    <h6>Edit Post</h6>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {myPost && (
-              <div>
-                <hr
-                  style={{
-                    borderTop: "1px solid var(--color-light)",
-                    margin: "5px 10px",
-                  }}
-                />
-                <div className="downdropItem" onClick={showDeletePost}>
-                  <div>
-                    <img
-                      src={trashIcon}
-                      alt=""
-                      style={{ filter: "invert(70%)" }}
-                    />
-                  </div>
-                  <div>
-                    <h6>Move to trash</h6>
-                    <p>Items in your trash are deleted after 30 days.</p>
-                  </div>
-                </div>
-              </div>
-            )}
-          </Dropdown.Menu>
-        </Dropdown>
-
-        <div className="Button" onClick={() => btnRef.current.click()}>
           <TfiMoreAlt />
         </div>
         {!myPost && (
@@ -220,6 +82,128 @@ export const PostHeader = ({
             <VscChromeClose />
           </div>
         )}
+
+        <div className="downdropMenu dropdown-menu">
+          <div>
+            {!savedPost && (
+              <div className="downdropItem" onClick={savePostHandler}>
+                <div>
+                  <img
+                    src={saveIcon}
+                    alt=""
+                    style={{ filter: "invert(70%)" }}
+                  />
+                </div>
+                <div>
+                  <h6>Save post</h6>
+                  <p>Add this to your saved items</p>
+                </div>
+              </div>
+            )}
+            {savedPost && (
+              <div className="downdropItem" onClick={unSavePostHandler}>
+                <div>
+                  <img
+                    src={unSaveIcon}
+                    alt=""
+                    style={{ filter: "invert(70%)" }}
+                  />
+                </div>
+                <div>
+                  <h6>Unsave post</h6>
+                  <p>Remove this from your saved items</p>
+                </div>
+              </div>
+            )}
+            <hr
+              style={{
+                borderTop: "1px solid var(--color-light)",
+                margin: "5px 10px",
+              }}
+            />
+          </div>
+
+          {!myPost && (
+            <div>
+              <div className="downdropItem" onClick={hidePost}>
+                <div>
+                  <img
+                    src={hideIcon}
+                    alt=""
+                    style={{ filter: "invert(70%)" }}
+                  />
+                </div>
+                <div>
+                  <h6>Hide</h6>
+                  <p>See fewer posts like this.</p>
+                </div>
+              </div>
+              <hr
+                style={{
+                  borderTop: "1px solid var(--color-light)",
+                  margin: "5px 10px",
+                }}
+              />
+            </div>
+          )}
+
+          <div className="downdropItem" onClick={() => console.log("report")}>
+            <div>
+              <img src={reportIcon} alt="" style={{ filter: "invert(70%)" }} />
+            </div>
+            <div>
+              <h6>Report post</h6>
+              <p>I'm concerned about this post.</p>
+            </div>
+          </div>
+
+          {myPost && (
+            <div>
+              <hr
+                style={{
+                  borderTop: "1px solid var(--color-light)",
+                  margin: "5px 10px",
+                }}
+              />
+              <div className="downdropItem" onClick={showEditPost}>
+                <div>
+                  <img
+                    src={editIcon}
+                    alt=""
+                    style={{ filter: "invert(70%)" }}
+                  />
+                </div>
+                <div className="Center">
+                  <h6>Edit Post</h6>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {myPost && (
+            <div>
+              <hr
+                style={{
+                  borderTop: "1px solid var(--color-light)",
+                  margin: "5px 10px",
+                }}
+              />
+              <div className="downdropItem" onClick={showDeletePost}>
+                <div>
+                  <img
+                    src={trashIcon}
+                    alt=""
+                    style={{ filter: "invert(70%)" }}
+                  />
+                </div>
+                <div>
+                  <h6>Move to trash</h6>
+                  <p>Items in your trash are deleted after 30 days.</p>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
