@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "./ProfileHead.module.css";
 import coverTest from "../../../assets/images/cover.jpg";
 import { ImCamera } from "react-icons/im";
-import UserPhoto from "../../../assets/images/omar.jpg";
 import { BiPlus } from "react-icons/bi";
 import { RiMoreFill } from "react-icons/ri";
 import { IoMdArrowDropdown } from "react-icons/io";
@@ -17,6 +16,24 @@ import icon5 from "../../../assets/images/friends/5.jpg";
 import icon6 from "../../../assets/images/friends/6.jpg";
 import icon7 from "../../../assets/images/friends/7.jpg";
 import icon8 from "../../../assets/images/friends/8.jpg";
+import { useGlobalState } from "../../../context/GlobalProvider";
+import { uploadImage } from "../../../firebase/user";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../../firebase/config";
+
+const Cover = () => {
+  return (
+    <div
+      className={styles.cover}
+      style={{ backgroundImage: `url(${coverTest})` }}
+    >
+      <div className={styles.btnCover}>
+        <ImCamera />
+        <span style={{ marginLeft: "6px" }}>Edit cover photo</span>
+      </div>
+    </div>
+  );
+};
 
 const FriendsPicture = ({ photo, index }) => {
   return (
@@ -50,77 +67,121 @@ const MoreBtn = () => {
   );
 };
 
+const Photo = () => {
+  const { userDoc } = useGlobalState();
+  const fileRef = useRef();
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const fileChange = async (files) => {
+    if (!files[0]) return;
+    const downloadUrl = await uploadImage(userDoc.uid, files[0]);
+    setImageUrl(downloadUrl);
+
+    //** Update user.picture */
+    const userRef = doc(db, "users", userDoc.uid);
+    await updateDoc(userRef, {
+      ...userDoc,
+      picture: downloadUrl,
+    });
+  };
+  return (
+    <>
+      <div className={styles.photo} onClick={() => fileRef.current.click()}>
+        <img
+          src={imageUrl ? imageUrl : userDoc.picture}
+          alt=""
+          width={"100%"}
+        />
+      </div>
+
+      <input
+        type="file"
+        accept=".png,.jpg"
+        style={{ display: "none" }}
+        ref={fileRef}
+        onChange={(e) => fileChange(e.target.files)}
+      />
+
+      <div
+        className={styles.uploadPhotoBtn}
+        onClick={() => fileRef.current.click()}
+      >
+        <ImCamera />
+      </div>
+    </>
+  );
+};
+
+const Titles = ({ photos }) => {
+  return (
+    <div className={styles.titles}>
+      <h2>Omar ESSOUFI</h2>
+      <h5>2.7K friends</h5>
+      <div
+        className="d-flex flex-row-reverse"
+        style={{ transform: "translate(-35px, 0)" }}
+      >
+        {photos.map((photo, i) => (
+          <FriendsPicture key={i} photo={photo} index={i} />
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Menu = () => {
+  return (
+    <div className={styles.Menu}>
+      <div className="d-flex">
+        <MenuBtn title={"Posts"} />
+        <MenuBtn title={"About"} />
+        <MenuBtn title={"Friends"} />
+        <MenuBtn title={"Photos"} />
+        <MenuBtn title={"Videos"} />
+        <MenuBtn title={"Check-ins"} />
+        <MenuBtn title={"More"} withArrow={true} />
+      </div>
+      <div className="d-flex align-items-center">
+        <MoreBtn />
+      </div>
+    </div>
+  );
+};
+
+const Buttons = () => {
+  return (
+    <div className="d-flex align-items-end" style={{ marginBottom: "30px" }}>
+      <Button
+        style={{
+          fontWeight: "600",
+          width: "150px",
+          marginRight: "10px",
+        }}
+      >
+        <BiPlus /> Add to story
+      </Button>
+      <Button className={styles.editBtn}>
+        <MdEdit /> Edit profile
+      </Button>
+    </div>
+  );
+};
+
 const ProfileHead = () => {
   const photos = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8];
   return (
     <>
       <div className={styles.ProfileHead}>
-        <div
-          className={styles.cover}
-          style={{ backgroundImage: `url(${coverTest})` }}
-        >
-          <div className={styles.btnCover}>
-            <ImCamera />
-            <span style={{ marginLeft: "6px" }}>Edit cover photo</span>
-          </div>
-        </div>
+        <Cover />
         <div className={styles.Wrapper}>
           <div className={styles.titlePhotoWrap}>
             <div className="position-relative">
-              <div className={styles.photo}>
-                <img src={UserPhoto} alt="" width={"100%"} />
-              </div>
-
-              <div className={styles.uploadPhotoBtn}>
-                <ImCamera />
-              </div>
-
-              <div className={styles.titles}>
-                <h2>Omar ESSOUFI</h2>
-                <h5>2.7K friends</h5>
-                <div
-                  className="d-flex flex-row-reverse"
-                  style={{ transform: "translate(-35px, 0)" }}
-                >
-                  {photos.map((photo, i) => (
-                    <FriendsPicture key={i} photo={photo} index={i} />
-                  ))}
-                </div>
-              </div>
+              <Photo />
+              <Titles photos={photos} />
             </div>
-            <div
-              className="d-flex align-items-end"
-              style={{ marginBottom: "30px" }}
-            >
-              <Button
-                style={{
-                  fontWeight: "600",
-                  width: "150px",
-                  marginRight: "10px",
-                }}
-              >
-                <BiPlus /> Add to story
-              </Button>
-              <Button className={styles.editBtn}>
-                <MdEdit /> Edit profile
-              </Button>
-            </div>
+            <Buttons />
           </div>
-
-          <div className={styles.Menu}>
-            <div className="d-flex">
-              <MenuBtn title={"Posts"} />
-              <MenuBtn title={"About"} />
-              <MenuBtn title={"Friends"} />
-              <MenuBtn title={"Photos"} />
-              <MenuBtn title={"Videos"} />
-              <MenuBtn title={"Check-ins"} />
-              <MenuBtn title={"More"} withArrow={true} />
-            </div>
-            <div className="d-flex align-items-center">
-              <MoreBtn />
-            </div>
-          </div>
+          <Menu />
         </div>
       </div>
 

@@ -6,7 +6,7 @@ export const addUserDocument = async (user) => {
   await setDoc(doc(db, "users", user.uid), user);
 };
 
-export const uploadImage = (userId, file, Progress) => {
+export const uploadImage = (userId, file) => {
   return new Promise((resolve, reject) => {
     // create file reference
     const filePath = `users/${userId}/profile-image`;
@@ -20,10 +20,9 @@ export const uploadImage = (userId, file, Progress) => {
       "state_changed",
       (snapshot) => {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        // const progress =
+        //   (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
 
-        Progress(progress);
         // console.log("Upload is " + progress + "% done");
         switch (snapshot.state) {
           case "paused":

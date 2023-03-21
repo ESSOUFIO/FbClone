@@ -1,32 +1,14 @@
 import "./NavbarRight.css";
-import { useRef, useState } from "react";
 import { useGlobalState } from "../../../context/GlobalProvider";
 /** Icons from react-icons */
 import { IoIosNotifications } from "react-icons/io";
 import { BsMessenger } from "react-icons/bs";
 import { CgMenuGridR } from "react-icons/cg";
-import { uploadImage } from "../../../firebase/user";
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../../../firebase/config";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 
 /** Internal Components */
 const ProfilePicture = ({ uid }) => {
   const { userDoc } = useGlobalState();
-  const fileRef = useRef();
-  const [imageUrl, setImageUrl] = useState(null);
-
-  const fileChange = async (files) => {
-    const downloadUrl = await uploadImage(uid, files[0]);
-    setImageUrl(downloadUrl);
-
-    //** Update user.picture */
-    const userRef = doc(db, "users", uid);
-    await updateDoc(userRef, {
-      ...userDoc,
-      picture: downloadUrl,
-    });
-  };
 
   return (
     <div
@@ -36,18 +18,7 @@ const ProfilePicture = ({ uid }) => {
       aria-expanded="false"
       data-bs-offset="-40,0"
     >
-      <input
-        type="file"
-        accept=".png,.jpg"
-        style={{ display: "none" }}
-        ref={fileRef}
-        onChange={(e) => fileChange(e.target.files)}
-      />
-      <img
-        className="NavbarRightImg "
-        src={imageUrl ? imageUrl : userDoc.picture}
-        alt=""
-      />
+      <img className="NavbarRightImg " src={userDoc.picture} alt="" />
     </div>
   );
 };
