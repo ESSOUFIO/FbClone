@@ -4,9 +4,9 @@ import NewPost from "../../../components/NewPost/NewPost";
 
 const RightSide = () => {
   return (
-    <>
+    <div className={styles.RightSideWrap}>
       <NewPost />
-    </>
+    </div>
   );
 };
 

@@ -48,7 +48,7 @@ const FriendsPicture = ({ photo, index }) => {
 
 const MenuBtn = ({ title, setActive, active = false, withArrow = false }) => {
   return (
-    <div className={active && styles.MenuBtnWrap}>
+    <div className={`${active ? styles.MenuBtnWrap : ""}`}>
       <div
         className={`${styles.MenuBtn} ${active && styles.MenuBtnActive}`}
         onClick={() => setActive(title)}
