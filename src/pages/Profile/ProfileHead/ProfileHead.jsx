@@ -39,22 +39,31 @@ const FriendsPicture = ({ photo, index }) => {
   return (
     <div
       className={styles.friendsPic}
-      style={{ zIndex: `${index}`, transform: `translate(${index * 5}px, 0)` }}
+      style={{
+        zIndex: `${index}`,
+        transform: `translate(${index * 5}px, 0)`,
+        backgroundImage: `url(${photo})`,
+      }}
     >
-      <img src={photo} alt="" width={"100%"} />
+      {/* <img src={photo} alt="" width={"100%"} /> */}
     </div>
   );
 };
 
-const MenuBtn = ({ title, withArrow = false }) => {
+const MenuBtn = ({ title, setActive, active = false, withArrow = false }) => {
   return (
-    <div className={styles.MenuBtn}>
-      {title}
-      {withArrow && (
-        <span style={{ marginLeft: "2px" }}>
-          <IoMdArrowDropdown />
-        </span>
-      )}
+    <div className={`${active ? styles.MenuBtnWrap : ""}`}>
+      <div
+        className={`${styles.MenuBtn} ${active && styles.MenuBtnActive}`}
+        onClick={() => setActive(title)}
+      >
+        {title}
+        {withArrow && (
+          <span style={{ marginLeft: "2px" }}>
+            <IoMdArrowDropdown />
+          </span>
+        )}
+      </div>
     </div>
   );
 };
@@ -130,16 +139,85 @@ const Titles = ({ photos }) => {
 };
 
 const Menu = () => {
+  const [menu, setMenu] = useState([
+    {
+      title: "Posts",
+      active: true,
+    },
+    {
+      title: "About",
+      active: false,
+    },
+    {
+      title: "Friends",
+      active: false,
+    },
+    {
+      title: "Photos",
+      active: false,
+    },
+    {
+      title: "Videos",
+      active: false,
+    },
+    {
+      title: "Check-ins",
+      active: false,
+    },
+    {
+      title: "More",
+      active: false,
+    },
+  ]);
+
+  const setActive = (btnClicked) => {
+    const menuUpdated = menu.map((btn) => {
+      if (btn.title === btnClicked) {
+        return { title: btn.title, active: true };
+      } else return { title: btn.title, active: false };
+    });
+    setMenu(menuUpdated);
+  };
+
   return (
     <div className={styles.Menu}>
       <div className="d-flex">
-        <MenuBtn title={"Posts"} />
-        <MenuBtn title={"About"} />
-        <MenuBtn title={"Friends"} />
-        <MenuBtn title={"Photos"} />
-        <MenuBtn title={"Videos"} />
-        <MenuBtn title={"Check-ins"} />
-        <MenuBtn title={"More"} withArrow={true} />
+        <MenuBtn
+          title={"Posts"}
+          setActive={setActive}
+          active={menu[0].active}
+        />
+        <MenuBtn
+          title={"About"}
+          setActive={setActive}
+          active={menu[1].active}
+        />
+        <MenuBtn
+          title={"Friends"}
+          setActive={setActive}
+          active={menu[2].active}
+        />
+        <MenuBtn
+          title={"Photos"}
+          setActive={setActive}
+          active={menu[3].active}
+        />
+        <MenuBtn
+          title={"Videos"}
+          setActive={setActive}
+          active={menu[4].active}
+        />
+        <MenuBtn
+          title={"Check-ins"}
+          setActive={setActive}
+          active={menu[5].active}
+        />
+        <MenuBtn
+          title={"More"}
+          setActive={setActive}
+          withArrow={true}
+          active={menu[6].active}
+        />
       </div>
       <div className="d-flex align-items-center">
         <MoreBtn />
@@ -156,6 +234,7 @@ const Buttons = () => {
           fontWeight: "600",
           width: "150px",
           marginRight: "10px",
+          border: "none",
         }}
       >
         <BiPlus /> Add to story
@@ -168,7 +247,16 @@ const Buttons = () => {
 };
 
 const ProfileHead = () => {
-  const photos = [icon1, icon2, icon3, icon4, icon5, icon6, icon7, icon8];
+  const friendsPhotos = [
+    icon1,
+    icon2,
+    icon3,
+    icon4,
+    icon5,
+    icon6,
+    icon7,
+    icon8,
+  ];
   return (
     <>
       <div className={styles.ProfileHead}>
@@ -177,7 +265,7 @@ const ProfileHead = () => {
           <div className={styles.titlePhotoWrap}>
             <div className="position-relative">
               <Photo />
-              <Titles photos={photos} />
+              <Titles photos={friendsPhotos} />
             </div>
             <Buttons />
           </div>
