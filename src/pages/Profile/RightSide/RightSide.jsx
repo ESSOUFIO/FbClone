@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./RightSide.module.css";
 import NewPost from "../../../components/NewPost/NewPost";
 
-const RightSide = () => {
+const RightSide = ({ showAddPost }) => {
   return (
     <div className={styles.RightSideWrap}>
-      <NewPost />
+      <NewPost showAddPost={showAddPost} />
     </div>
   );
 };

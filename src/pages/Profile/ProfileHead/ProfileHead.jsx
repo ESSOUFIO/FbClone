@@ -39,9 +39,13 @@ const FriendsPicture = ({ photo, index }) => {
   return (
     <div
       className={styles.friendsPic}
-      style={{ zIndex: `${index}`, transform: `translate(${index * 5}px, 0)` }}
+      style={{
+        zIndex: `${index}`,
+        transform: `translate(${index * 5}px, 0)`,
+        backgroundImage: `url(${photo})`,
+      }}
     >
-      <img src={photo} alt="" width={"100%"} />
+      {/* <img src={photo} alt="" width={"100%"} /> */}
     </div>
   );
 };
