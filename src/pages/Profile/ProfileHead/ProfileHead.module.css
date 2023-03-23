@@ -7,6 +7,10 @@
   background: var(--color-darker);
 }
 
+.Wrapper {
+  width: 900px;
+}
+
 .cover {
   position: relative;
   max-width: 1000px;
@@ -17,17 +21,19 @@
   background-size: cover;
   background-position: center;
   border-radius: 10px;
+  z-index: 1;
 }
 
 .background {
   position: absolute;
   width: 100%;
-  top: -430px;
+  top: -400px;
   height: 650px;
   background-size: cover;
   background-position: top;
-  filter: blur(100px);
-  z-index: -2;
+  filter: blur(150px);
+  opacity: 70%;
+  z-index: 0;
 }
 
 .btnCover {
@@ -164,7 +170,20 @@
 
 .MenuBtn:hover {
   cursor: pointer;
-  background: var(--color-darker);
+  background: var(--color-dark);
+}
+
+.MenuBtnActive {
+  color: var(--color-primary-text) !important;
+}
+
+.MenuBtnActive:hover {
+  background: var(--color-darker) !important;
+}
+
+.MenuBtnWrap {
+  padding-bottom: 3px;
+  border-bottom: 3px solid var(--color-primary-text);
 }
 
 .MoreBtn {
@@ -178,8 +197,4 @@
 .MoreBtn:hover {
   background: var(--color-dark-less);
   cursor: pointer;
-}
-
-.Wrapper {
-  width: 900px;
 }

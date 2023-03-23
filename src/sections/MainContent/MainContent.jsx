@@ -2,7 +2,7 @@ import "./MainContent.css";
 
 /** Local Components */
 import { StoriesSection } from "../../components/Stories";
-import { NewPost } from "../../components/NewPost/NewPost";
+import NewPost from "../../components/NewPost/NewPost";
 import { FillPosts } from "../../components/Post/FillPosts";
 import AddPost from "../../components/Post/Modals/AddPost";
 import { useState } from "react";

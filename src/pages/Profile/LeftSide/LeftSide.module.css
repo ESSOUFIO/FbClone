@@ -1,0 +1,35 @@
+.CardWrap {
+  position: relative;
+  width: 100%;
+  border-radius: 10px;
+  background: var(--color-darker);
+  padding: 13px;
+}
+
+.CardWrap h4 {
+  color: var(--color-lighter);
+  font-weight: 700;
+}
+.CardWrap h4:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.SeeAll {
+  position: absolute;
+  top: 11px;
+  right: 8px;
+  color: var(--color-primary-text);
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-size: 18px;
+}
+
+.SeeAll:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}
+
+.info {
+  color: var(--color-lighter);
+}

@@ -1,13 +1,21 @@
 import React from "react";
-import "./Profile.css";
+import LeftSide from "./LeftSide/LeftSide";
+import styles from "./Profile.module.css";
 import ProfileHead from "./ProfileHead/ProfileHead";
-import { NewPost } from "../../components/NewPost/NewPost";
+import RightSide from "./RightSide/RightSide";
+
+const ProfileBodyWrap = ({ children }) => {
+  return <div className={styles.ProfileBodyWrap}>{children}</div>;
+};
 
 const Profile = () => {
   return (
-    <div className="ProfilePage">
+    <div className={styles.ProfilePage}>
       <ProfileHead />
-      <NewPost />
+      <ProfileBodyWrap>
+        <LeftSide />
+        <RightSide />
+      </ProfileBodyWrap>
     </div>
   );
 };
