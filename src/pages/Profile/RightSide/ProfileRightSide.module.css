@@ -1,0 +1,59 @@
+.RightSideWrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 20px;
+}
+
+.FilterPosts {
+  background: var(--color-darker);
+  border-radius: 10px;
+  color: var(--color-lighter);
+}
+.FilterPosts h5 {
+  color: var(--color-lighter);
+  font-weight: 700;
+}
+
+.FilterBtn {
+  padding: 4px 12px;
+  background: var(--color-dark);
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-weight: 600;
+}
+
+.FilterBtn:hover {
+  cursor: pointer;
+  background: var(--color-dark-less);
+}
+
+.filterViewBtnWrap {
+  padding-top: 5px;
+  flex: 1 1 auto;
+}
+
+.activeWrap {
+  color: var(--color-primary-text);
+  border-bottom: 3px solid var(--color-primary-text);
+}
+
+.active:hover {
+  background: var(--color-darker) !important;
+}
+
+.filterViewBtn {
+  padding: 4px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+.filterViewBtn:hover {
+  background: var(--color-dark);
+  cursor: pointer;
+}

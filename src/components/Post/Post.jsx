@@ -68,7 +68,7 @@ const PostHidden = ({ UndoPostHidden }) => {
 };
 
 /** ========= MAIN ========== */
-const Post = ({ post, PostTime }) => {
+const Post = ({ post, PostTime, width }) => {
   const [userName, setUserName] = useState(null);
   const [hidden, setHidden] = useState(false);
   const [toConfHide, setToConfHide] = useState(false);
@@ -163,7 +163,7 @@ const Post = ({ post, PostTime }) => {
   //* Post wasn't hide
   return (
     <>
-      <div className="Post">
+      <div className="Post" style={{ width: width }}>
         <PostHeader
           uid={post.uid}
           postId={post.id}

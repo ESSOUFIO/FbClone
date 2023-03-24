@@ -18,6 +18,7 @@ const GlobalProvider = ({ children }) => {
     savedPosts: [],
     isLoadding: true,
   });
+  const [myContent, setMyContent] = useState({ myPosts: [], isLoadding: true });
   const [modalSignup, setModalSignup] = useState(false);
   const [userDoc, setUserDoc] = useState({});
   const [showAlert, setShowAlert] = useState(false);
@@ -68,6 +69,23 @@ const GlobalProvider = ({ children }) => {
     return () => unsub();
   }, []);
 
+  /** My Posts */
+  useEffect(() => {
+    if (session.user) {
+      const q = query(collection(db, "posts"), orderBy("time", "desc"));
+      const unsub = onSnapshot(q, (snap) => {
+        const myPosts = [];
+        snap.forEach((doc) => {
+          if (doc.data().uid === session.user.uid) {
+            myPosts.push({ id: doc.id, ...doc.data() });
+          }
+        });
+        setMyContent({ myPosts, isLoadding: false });
+      });
+      return () => unsub();
+    }
+  }, [session.user]);
+
   /** Saved Posts */
   useEffect(() => {
     if (session.user) {
@@ -98,6 +116,7 @@ const GlobalProvider = ({ children }) => {
         alertText,
         SetAlertText,
         ...savedContent,
+        ...myContent,
       }}
     >
       {!session.isLoadding && !content.isLoadding && children}

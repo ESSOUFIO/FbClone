@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./LeftSide.module.css";
+import styles from "./ProfileLeftSide.module.css";
 import livesIcon from "../../../assets/images/livesIn.png";
 import fromIcon from "../../../assets/images/from.png";
 import photo1 from "../../../assets/images/photos/1.jpg";
@@ -51,7 +51,8 @@ const FriendItem = ({ friendImg, name }) => {
     </div>
   );
 };
-const LeftSide = () => {
+
+const ProfileLeftSide = () => {
   return (
     <div className={styles.LeftSideWrap}>
       <CardWrap title={"Info"}>
@@ -102,11 +103,11 @@ const LeftSide = () => {
           <p>1,085 friends</p>
           <div className={styles.friends}>
             <FriendItem friendImg={friend1} name={"Ali Mdiri"} />
-            <FriendItem friendImg={friend2} name={"Maroua Dri"} />
-            <FriendItem friendImg={friend3} name={"Ibrahim A"} />
-            <FriendItem friendImg={friend4} name={"Malik Di"} />
-            <FriendItem friendImg={friend5} name={"Samir Ben"} />
-            <FriendItem friendImg={friend6} name={"Abir Mr"} />
+            <FriendItem friendImg={friend2} name={"Maroua Dridi"} />
+            <FriendItem friendImg={friend3} name={"Ibrahim Abser"} />
+            <FriendItem friendImg={friend4} name={"Malik Dibra"} />
+            <FriendItem friendImg={friend5} name={"Samir Bend"} />
+            <FriendItem friendImg={friend6} name={"Abir Mrige"} />
           </div>
         </div>
       </CardWrap>
@@ -119,4 +120,4 @@ const LeftSide = () => {
   );
 };
 
-export default LeftSide;
+export default ProfileLeftSide;
