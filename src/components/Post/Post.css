@@ -4,7 +4,7 @@
   font-size: 15px;
   font-weight: 500;
   min-height: 50px;
-  width: var(--MiddleContainer-witdh);
+  flex: 1 1 auto;
   border-radius: 7px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   padding: 10px 0px;

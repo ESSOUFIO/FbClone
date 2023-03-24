@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import AddPost from "../../components/Post/Modals/AddPost";
-import LeftSide from "./LeftSide/LeftSide";
+import ProfileLeftSide from "./LeftSide/ProfileLeftSide";
 import styles from "./Profile.module.css";
 import ProfileHead from "./ProfileHead/ProfileHead";
-import RightSide from "./RightSide/RightSide";
+import ProfileRightSide from "./RightSide/ProfileRightSide";
 
 const ProfileBodyWrap = ({ children }) => {
   return <div className={styles.ProfileBodyWrap}>{children}</div>;
@@ -19,8 +19,8 @@ const Profile = () => {
       <div className={styles.ProfilePage}>
         <ProfileHead />
         <ProfileBodyWrap>
-          <LeftSide />
-          <RightSide showAddPost={showAddPost} />
+          <ProfileLeftSide />
+          <ProfileRightSide showAddPost={showAddPost} />
         </ProfileBodyWrap>
       </div>
       <AddPost addPostV={addPostV} hideAddPost={hideAddPost} />

@@ -60,7 +60,7 @@ export const LeftSide = () => {
             text={userName}
             height={"29px"}
             style={{ borderRadius: "100%" }}
-            page={`user/${userDoc.uid}`}
+            page={"profile"}
           />
           <SideButtons image={Friends} text={"Friends"} height={"23px"} />
           <SideButtons

@@ -13,7 +13,7 @@ import { signout } from "../../../firebase/auth";
 const ProfileBtn = ({ img, username, userId }) => {
   const navigate = useNavigate();
   const toProfilePage = () => {
-    navigate(`user/${userId}`);
+    navigate("profile");
   };
 
   return (
