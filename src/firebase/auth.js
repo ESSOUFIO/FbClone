@@ -15,8 +15,14 @@ export const signup = async ({ username, email, pass, newUser }) => {
   await createUserWithEmailAndPassword(auth, email, pass);
   const user = auth.currentUser;
   await updateProfile(user, { displayName: username });
-  const ProfilePic = "../assets/images/defProfile.jpg";
-  await addUserDocument({ uid: user.uid, picture: ProfilePic, ...newUser });
+  const ProfilePic = "";
+  const CoverPhotoUrl = "";
+  await addUserDocument({
+    uid: user.uid,
+    picture: ProfilePic,
+    coverPhoto: CoverPhotoUrl,
+    ...newUser,
+  });
   return user;
 };
 

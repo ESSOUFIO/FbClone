@@ -5,9 +5,10 @@ import { IoIosNotifications } from "react-icons/io";
 import { BsMessenger } from "react-icons/bs";
 import { CgMenuGridR } from "react-icons/cg";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
+import defaultPic from "../../../assets/images/defProfile.jpg";
 
 /** Internal Components */
-const ProfilePicture = ({ uid }) => {
+const ProfilePicture = () => {
   const { userDoc } = useGlobalState();
 
   return (
@@ -18,7 +19,11 @@ const ProfilePicture = ({ uid }) => {
       aria-expanded="false"
       data-bs-offset="-40,0"
     >
-      <img className="NavbarRightImg " src={userDoc.picture} alt="" />
+      <img
+        className="NavbarRightImg "
+        src={userDoc.picture ? userDoc.picture : defaultPic}
+        alt=""
+      />
     </div>
   );
 };

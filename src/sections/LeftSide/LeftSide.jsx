@@ -20,6 +20,7 @@ import WorldCup from "../../assets/images/2022-WorldCup.jpg";
 import Flowers from "../../assets/images/flowers.jpg";
 import SavePage from "../../assets/images/save-page.png";
 import { useGlobalState } from "../../context/GlobalProvider";
+import defaultPic from "../../assets/images/defProfile.jpg";
 
 /** Internal Components */
 const TopLeftWrapper = (props) => {
@@ -56,7 +57,7 @@ export const LeftSide = () => {
 
         <TopLeftWrapper>
           <SideButtons
-            image={userDoc.picture}
+            image={userDoc.picture ? userDoc.picture : defaultPic}
             text={userName}
             height={"29px"}
             style={{ borderRadius: "100%" }}
