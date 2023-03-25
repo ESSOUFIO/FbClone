@@ -9,6 +9,7 @@ import logoutIcon from "../../../assets/images/logout.png";
 import "./ProfileDropDown.css";
 import { useNavigate } from "react-router-dom";
 import { signout } from "../../../firebase/auth";
+import defaultPic from "../../../assets/images/defProfile.jpg";
 
 const ProfileBtn = ({ img, username, userId }) => {
   const navigate = useNavigate();
@@ -73,6 +74,7 @@ const ProfileDropDown = () => {
       console.log("Error signout: ", error);
     }
   };
+
   return (
     <div
       className="ProfileDropDown dropdown-menu"
@@ -83,7 +85,7 @@ const ProfileDropDown = () => {
       }}
     >
       <ProfileBtn
-        img={userDoc.picture}
+        img={userDoc.picture ? userDoc.picture : defaultPic}
         username={userName}
         userId={userDoc.uid}
       />

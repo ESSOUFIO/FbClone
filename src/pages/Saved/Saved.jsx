@@ -68,18 +68,19 @@ const SideMenu = () => {
 };
 
 const PostSaved = ({ post }) => {
-  const [user, setUser] = useState(null);
+  const [userPost, setUserPost] = useState(null);
+  const { user } = useGlobalState();
   const [showDropDown, setShowDropDown] = useState(false);
-  const userName = user?.firstName + " " + user?.lastName;
+  const userName = userPost?.firstName + " " + userPost?.lastName;
 
   const unSavePostHandler = async () => {
     try {
-      await unSavePost(post.uid, post.id);
+      await unSavePost(user.uid, post.id);
     } catch (error) {}
   };
 
   useEffect(() => {
-    getUser(post.uid).then((user) => setUser(user));
+    getUser(post.uid).then((user) => setUserPost(user));
   }, [post.uid]);
 
   const toggleDropDown = () => {
@@ -88,7 +89,7 @@ const PostSaved = ({ post }) => {
 
   return (
     <>
-      {user && (
+      {userPost && (
         <div className="PostSaved" onClick={toggleDropDown}>
           {!!post.photo && (
             <div
@@ -115,7 +116,7 @@ const PostSaved = ({ post }) => {
 
             <div>
               <img
-                src={user.picture}
+                src={userPost.picture}
                 alt=""
                 width={23}
                 style={{ borderRadius: "100%" }}
@@ -219,6 +220,7 @@ const DropDownUnSave = ({ showDropDown, unSavePostHandler }) => {
 /** Saved Cmponent */
 const Saved = () => {
   const { savedPosts } = useGlobalState();
+
   return (
     <div className="Saved">
       <SideMenu />

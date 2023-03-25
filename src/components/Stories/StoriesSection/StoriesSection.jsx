@@ -5,6 +5,7 @@ import { BouttonsNavLeft } from "..";
 import { BouttonsNavRight } from "..";
 import { StorieElement } from "..";
 import { StorieFirstElement } from "..";
+import defaultPic from "../../../assets/images/defProfile.jpg";
 
 const ButtonsWrap = (props) => {
   return <div className="ButtonsWrap">{props.children}</div>;
@@ -66,7 +67,9 @@ export const StoriesSection = ({ uid }) => {
   //** Mapping Storie Elements */
 
   const StorieContentFirst = userDoc && (
-    <StorieFirstElement UserPhoto={userDoc.picture} />
+    <StorieFirstElement
+      UserPhoto={userDoc.picture ? userDoc.picture : defaultPic}
+    />
   );
   let StorieContent = StoriesList.map((item, i) => (
     <StorieElement

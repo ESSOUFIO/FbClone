@@ -47,7 +47,7 @@ const PostHidden = ({ UndoPostHidden }) => {
   return (
     <div
       className="Post px-3 d-flex justify-content-between"
-      style={{ height: "70px" }}
+      style={{ width: "var(--MiddleContainer-witdh)", height: "70px" }}
     >
       <div className="d-flex gap-3" style={{ color: "var(--color-lighter)" }}>
         <div className="">

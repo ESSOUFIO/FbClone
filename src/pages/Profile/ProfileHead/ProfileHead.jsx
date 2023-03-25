@@ -1,6 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./ProfileHead.module.css";
-import coverTest from "../../../assets/images/cover.jpg";
 import { ImCamera } from "react-icons/im";
 import { BiPlus } from "react-icons/bi";
 import { RiMoreFill } from "react-icons/ri";
@@ -16,22 +15,64 @@ import icon5 from "../../../assets/images/friends/5.jpg";
 import icon6 from "../../../assets/images/friends/6.jpg";
 import icon7 from "../../../assets/images/friends/7.jpg";
 import icon8 from "../../../assets/images/friends/8.jpg";
+import defaultPic from "../../../assets/images/defProfile.jpg";
+import defaultCover from "../../../assets/images/defCover.png";
 import { useGlobalState } from "../../../context/GlobalProvider";
 import { uploadImage } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
 const Cover = () => {
+  const fileRef = useRef();
+  const { userDoc } = useGlobalState();
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const fileChange = async (files) => {
+    if (!files[0]) return;
+    const downloadUrl = await uploadImage(userDoc.uid, files[0]);
+    setImageUrl(downloadUrl);
+
+    //** Update user.picture */
+    const userRef = doc(db, "users", userDoc.uid);
+    await updateDoc(userRef, {
+      ...userDoc,
+      coverPhoto: downloadUrl,
+    });
+  };
+
+  useEffect(() => {
+    if (userDoc?.coverPhoto) {
+      setImageUrl(userDoc.coverPhoto);
+    } else setImageUrl(defaultCover);
+  }, [userDoc]);
+
   return (
-    <div
-      className={styles.cover}
-      style={{ backgroundImage: `url(${coverTest})` }}
-    >
-      <div className={styles.btnCover}>
-        <ImCamera />
-        <span style={{ marginLeft: "6px" }}>Edit cover photo</span>
+    <>
+      <div
+        className={styles.cover}
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      >
+        <div
+          className={styles.btnCover}
+          onClick={() => fileRef.current.click()}
+        >
+          <ImCamera />
+          <span style={{ marginLeft: "6px" }}>Edit cover photo</span>
+        </div>
+
+        <input
+          type="file"
+          accept=".png,.jpg"
+          style={{ display: "none" }}
+          ref={fileRef}
+          onChange={(e) => fileChange(e.target.files)}
+        />
       </div>
-    </div>
+      <div
+        className={styles.background}
+        style={{ backgroundImage: `url(${imageUrl})` }}
+      ></div>
+    </>
   );
 };
 
@@ -93,14 +134,17 @@ const Photo = () => {
       picture: downloadUrl,
     });
   };
+
+  useEffect(() => {
+    if (userDoc?.picture) {
+      setImageUrl(userDoc.picture);
+    } else setImageUrl(defaultPic);
+  }, [userDoc]);
+
   return (
     <>
       <div className={styles.photo} onClick={() => fileRef.current.click()}>
-        <img
-          src={imageUrl ? imageUrl : userDoc.picture}
-          alt=""
-          width={"100%"}
-        />
+        <img src={imageUrl} alt="" width={"100%"} />
       </div>
 
       <input
@@ -274,11 +318,6 @@ const ProfileHead = () => {
       </div>
 
       <div className={styles.shadow}></div>
-
-      <div
-        className={styles.background}
-        style={{ backgroundImage: `url(${coverTest})` }}
-      ></div>
     </>
   );
 };
