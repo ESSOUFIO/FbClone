@@ -14,10 +14,6 @@
   font-size: 16px;
 }
 
-.PostButton > img {
-  filter: invert(70%);
-}
-
 .PostButton:hover {
   cursor: pointer;
   background: var(--color-dark);
