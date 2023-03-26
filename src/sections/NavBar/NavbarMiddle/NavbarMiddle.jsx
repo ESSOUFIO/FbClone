@@ -1,11 +1,11 @@
 import "./NavbarMiddle.css";
+import gameIcon from "../../../assets/images/game2.png";
+import marketplaceIcon from "../../../assets/images/marketplace2.png";
+import groupsIcon from "../../../assets/images/groups2.png";
+import watchIcon from "../../../assets/images/watch2.png";
+import homeIcon from "../../../assets/images/home-active.png";
 
 /** Icons from react-icons */
-import { AiFillHome } from "react-icons/ai";
-import { MdOndemandVideo } from "react-icons/md";
-import { TbBuildingStore } from "react-icons/tb";
-import { HiOutlineUserGroup } from "react-icons/hi";
-import { SiFacebookgaming } from "react-icons/si";
 import { useNavigate } from "react-router-dom";
 
 /** =====  NavbarMiddle ===== */
@@ -14,19 +14,39 @@ export const NavbarMiddle = () => {
   return (
     <div className="NavbarMiddle">
       <div className="MainIcons" onClick={() => navigate("/")}>
-        <AiFillHome />
+        <img src={homeIcon} alt="" width={23} />
       </div>
       <div className="MainIcons">
-        <MdOndemandVideo />
+        <img
+          src={watchIcon}
+          alt=""
+          width={23}
+          style={{ filter: "invert(70%)" }}
+        />
       </div>
       <div className="MainIcons">
-        <TbBuildingStore />
+        <img
+          src={marketplaceIcon}
+          alt=""
+          width={24}
+          style={{ filter: "invert(70%)" }}
+        />
       </div>
       <div className="MainIcons">
-        <HiOutlineUserGroup />
+        <img
+          src={groupsIcon}
+          alt=""
+          width={26}
+          style={{ filter: "invert(80%)" }}
+        />
       </div>
       <div className="MainIcons">
-        <SiFacebookgaming />
+        <img
+          src={gameIcon}
+          alt=""
+          width={29}
+          style={{ filter: "invert(80%)" }}
+        />
       </div>
     </div>
   );
