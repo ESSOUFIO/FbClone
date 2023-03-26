@@ -179,7 +179,7 @@ const Post = ({ post, PostTime, width }) => {
         <PostBody Text={post.text} />
         <PostImage image={post.photo} />
         <InteractionStat NbrComments={post.NbrComments} />
-        <PostFooter />
+        <PostFooter postId={post.id} uid={uid} />
       </div>
       <DeletePost
         DeletePostV={DeletePostV}

@@ -169,7 +169,7 @@ const Titles = ({ photos }) => {
   return (
     <div className={styles.titles}>
       <h2>Omar ESSOUFI</h2>
-      <h5>2.7K friends</h5>
+      <h5>1,085 friends</h5>
       <div
         className="d-flex flex-row-reverse"
         style={{ transform: "translate(-35px, 0)" }}
