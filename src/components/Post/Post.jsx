@@ -30,15 +30,6 @@ const PostImage = ({ image }) => {
   );
 };
 
-const InteractionStat = ({ NbrComments }) => {
-  const NbrCom = NbrComments ? NbrComments + " comments" : null;
-  return (
-    <div className="InteractionStat">
-      <span>{NbrCom}</span>
-    </div>
-  );
-};
-
 const PostBody = ({ Text }) => {
   return <div className="PostBody">{Text}</div>;
 };
@@ -75,7 +66,7 @@ const Post = ({ post, PostTime, width }) => {
   const [DeletePostV, setDeletePostV] = useState(false);
   const [SavePostV, setSavePostV] = useState(false);
   const [savedPost, setSavedPost] = useState(false);
-  const { ShowAlert, SetAlertText, user } = useGlobalState();
+  const { ShowAlert, SetAlertText, user, userDoc } = useGlobalState();
   const [editPostV, setEditPostV] = useState(false);
 
   const uid = user.uid;
@@ -178,8 +169,7 @@ const Post = ({ post, PostTime, width }) => {
         />
         <PostBody Text={post.text} />
         <PostImage image={post.photo} />
-        <InteractionStat NbrComments={post.NbrComments} />
-        <PostFooter postId={post.id} uid={uid} />
+        <PostFooter postId={post.id} uid={uid} picture={userDoc.picture} />
       </div>
       <DeletePost
         DeletePostV={DeletePostV}

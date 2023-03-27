@@ -18,7 +18,7 @@ import icon8 from "../../../assets/images/friends/8.jpg";
 import defaultPic from "../../../assets/images/defProfile.jpg";
 import defaultCover from "../../../assets/images/defCover.png";
 import { useGlobalState } from "../../../context/GlobalProvider";
-import { uploadImage } from "../../../firebase/user";
+import { uploadProfilePicture, uploadCoverPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
@@ -29,7 +29,7 @@ const Cover = () => {
 
   const fileChange = async (files) => {
     if (!files[0]) return;
-    const downloadUrl = await uploadImage(userDoc.uid, files[0]);
+    const downloadUrl = await uploadCoverPhoto(userDoc.uid, files[0]);
     setImageUrl(downloadUrl);
 
     //** Update user.picture */
@@ -124,7 +124,7 @@ const Photo = () => {
 
   const fileChange = async (files) => {
     if (!files[0]) return;
-    const downloadUrl = await uploadImage(userDoc.uid, files[0]);
+    const downloadUrl = await uploadProfilePicture(userDoc.uid, files[0]);
     setImageUrl(downloadUrl);
 
     //** Update user.picture */
@@ -165,10 +165,10 @@ const Photo = () => {
   );
 };
 
-const Titles = ({ photos }) => {
+const Titles = ({ photos, username }) => {
   return (
     <div className={styles.titles}>
-      <h2>Omar ESSOUFI</h2>
+      <h2>{username}</h2>
       <h5>1,085 friends</h5>
       <div
         className="d-flex flex-row-reverse"
@@ -291,6 +291,7 @@ const Buttons = () => {
 };
 
 const ProfileHead = () => {
+  const { userDoc } = useGlobalState();
   const friendsPhotos = [
     icon1,
     icon2,
@@ -301,6 +302,7 @@ const ProfileHead = () => {
     icon7,
     icon8,
   ];
+  const username = userDoc.firstName + " " + userDoc.lastName;
   return (
     <>
       <div className={styles.ProfileHead}>
@@ -309,7 +311,7 @@ const ProfileHead = () => {
           <div className={styles.titlePhotoWrap}>
             <div className="position-relative">
               <Photo />
-              <Titles photos={friendsPhotos} />
+              <Titles photos={friendsPhotos} username={username} />
             </div>
             <Buttons />
           </div>

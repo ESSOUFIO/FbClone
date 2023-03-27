@@ -18,3 +18,7 @@
   cursor: pointer;
   background: var(--color-dark);
 }
+
+.PostButton:active {
+  transform: scale(95%);
+}

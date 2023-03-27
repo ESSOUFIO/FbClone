@@ -1,8 +1,8 @@
-import "./PostButton.css";
+import styles from "./PostButton.module.css";
 
 export const PostButton = ({ icon, text, liked = false, btnClicked }) => {
   return (
-    <div className="PostButton" onClick={() => btnClicked(text)}>
+    <div className={styles.PostButton} onClick={() => btnClicked(text)}>
       <img
         src={icon}
         alt=""
