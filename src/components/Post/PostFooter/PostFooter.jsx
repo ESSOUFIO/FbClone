@@ -7,6 +7,7 @@ import ShareIco from "../../../assets/images/Share.png";
 import {
   addComment,
   disLikePost,
+  getLastComment,
   isLiked,
   likePost,
 } from "../../../firebase/interaction";
@@ -16,6 +17,7 @@ import { HiOutlineGif } from "react-icons/hi2";
 import { IoSendOutline, IoSend } from "react-icons/io5";
 import { BsCamera, BsEmojiSmile } from "react-icons/bs";
 import { MdOutlineMoreHoriz } from "react-icons/md";
+import { getUser } from "../../../firebase/user";
 
 export const InteractionsStats = () => {
   return <></>;
@@ -47,44 +49,64 @@ export const InteractionsButtons = ({ liked, btnClicked }) => {
   );
 };
 
-export const OtherComments = ({ picture }) => {
+export const OtherComments = ({ postId, lastComment }) => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (lastComment) {
+      getUser(lastComment.uid).then((user) => setUser(user));
+    }
+  }, [lastComment]);
+
+  const username = user?.firstName + " " + user?.lastName;
+
   return (
-    <div className={styles.OtherComments}>
-      <div className={styles.viewMoreComments}>View more comments</div>
-      <div className={styles.lastComment}>
-        <div
-          className={styles.userPicture}
-          style={{
-            backgroundImage: `url(${picture})`,
-          }}
-        ></div>
-        <div>
-          <div className={styles.lastCommentText}>
-            <b>Omar ESSOUFI</b>
-            <div> Test test Omar</div>
-          </div>
-          <div className={styles.lastCommentInteractions}>
-            <div>Like</div>
-            <div>Replay</div>
-            <div>3h</div>
+    <>
+      {lastComment && (
+        <div className={styles.OtherComments}>
+          <div className={styles.viewMoreComments}>View more comments</div>
+          <div className={styles.lastComment}>
+            <div
+              className={styles.userPicture}
+              style={{
+                backgroundImage: `url(${user?.picture})`,
+              }}
+            ></div>
+            <div>
+              <div className={styles.lastCommentText}>
+                <b>{username}</b>
+                <div> {lastComment?.text}</div>
+              </div>
+              <div className={styles.lastCommentInteractions}>
+                <div>Like</div>
+                <div>Replay</div>
+                <div>3h</div>
+              </div>
+            </div>
+            <div>
+              <div className={styles.lastCommentBtn}>
+                <MdOutlineMoreHoriz />
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          <div className={styles.lastCommentBtn}>
-            <MdOutlineMoreHoriz />
-          </div>
-        </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
 export const CommentsSection = ({ picture, postId, uid }) => {
   const [comment, setComment] = useState("");
+  const [lastComment, setLastComment] = useState();
+
+  useEffect(() => {
+    getLastComment(postId).then((doc) => setLastComment(doc));
+  }, [postId]);
 
   const addCommentHandler = useCallback(async () => {
     try {
       await addComment(postId, uid, comment);
+      getLastComment(postId).then((doc) => setLastComment(doc));
       setComment("");
     } catch (error) {}
   }, [comment, postId, uid]);
@@ -107,7 +129,11 @@ export const CommentsSection = ({ picture, postId, uid }) => {
 
   return (
     <div className={styles.CommentsSection}>
-      <OtherComments picture={picture} />
+      <OtherComments
+        postId={postId}
+        picture={picture}
+        lastComment={lastComment}
+      />
       <div className={styles.newComment}>
         <div
           className={styles.userPicture}
