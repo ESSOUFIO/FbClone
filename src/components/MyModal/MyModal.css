@@ -7,6 +7,11 @@
   color: var(--color-lighter);
 }
 
+.Large {
+  width: 650px;
+  transform: translate(-70px, 0);
+}
+
 .MyModal .closeBtn {
   color: rgb(198, 198, 198);
   width: 34px;

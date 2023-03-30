@@ -1,0 +1,60 @@
+.newComment {
+  background: var(--color-darker);
+  width: 100%;
+  bottom: 0;
+  left: 0;
+  padding: 10px;
+  margin-top: 5px;
+  display: flex;
+  gap: 5px;
+}
+
+.InputComment {
+  flex: 1;
+  display: flex;
+  background: var(--color-dark);
+  border-radius: 16px;
+  padding-left: 12px;
+  padding-right: 15px;
+}
+
+.InputComment input {
+  width: 100%;
+  height: 32px;
+  font-size: 15px;
+  color: var(--color-lighter);
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+.commentButtons {
+  display: flex;
+  align-items: center;
+  font-size: 17px;
+  gap: 6px;
+}
+.commentButtons div {
+  display: flex;
+  align-items: center;
+}
+
+.userPicture {
+  border-radius: 100%;
+  background-size: cover;
+  background-position: center;
+  width: 32px;
+  height: 32px;
+}
+
+.sendBtn {
+  color: var(--color-primary);
+}
+.sendBtn:hover {
+  cursor: pointer;
+  transform: scale(110%);
+}
+.sendBtn:active {
+  opacity: 70%;
+  transform: scale(100%);
+}

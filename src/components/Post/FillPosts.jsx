@@ -14,7 +14,7 @@ export const FillPosts = () => {
             key={post.id}
             post={post}
             PostTime={postTime}
-            width={"var(--MiddleContainer-witdh)"}
+            style={{ width: "var(--MiddleContainer-witdh)" }}
           />
         );
       })}

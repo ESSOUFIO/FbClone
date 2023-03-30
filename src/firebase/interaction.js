@@ -4,8 +4,13 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  getDocs,
+  onSnapshot,
+  orderBy,
+  query,
   setDoc,
 } from "firebase/firestore";
+import { useState } from "react";
 import { db } from "./config";
 
 export const likePost = async (postId, uid) => {
@@ -42,4 +47,20 @@ export const addComment = async (postId, uid, comment) => {
     "comments"
   );
   await addDoc(collectionRef, commentDoc);
+};
+
+export const getLastComment = (postId) => {
+  return new Promise(async (resolve, reject) => {
+    const q = query(
+      collection(db, "posts", postId, "interactions", "Comment", "comments"),
+      orderBy("time", "desc")
+    );
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      resolve(doc.data());
+      return;
+    });
+  });
 };

@@ -144,6 +144,7 @@ const PhotoWrap = ({ photoUrl }) => {
   );
 };
 
+//** ======== MAIN ====== */
 const EditPost = ({ editPostV, hideEditPost, post }) => {
   const [text, setText] = useState("");
   const [photoUrl, setPhotoUrl] = useState(null);

@@ -17,10 +17,10 @@ const Header = ({ hideModal, Title }) => {
   );
 };
 
-const MyModal = ({ children, showModal, hideFunc, Title }) => {
+const MyModal = ({ children, showModal, hideFunc, Title, Large = false }) => {
   return (
     <Modal className="MyModal" show={showModal} onHide={hideFunc} centered>
-      <Card>
+      <Card className={`${Large ? "Large" : ""}`}>
         <Header hideModal={hideFunc} Title={Title} />
         {children}
       </Card>
