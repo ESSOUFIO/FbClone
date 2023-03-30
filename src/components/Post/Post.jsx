@@ -17,14 +17,11 @@ import DeletePost from "./Modals/DeletePost";
 import SavePost from "./Modals/SavePost";
 import { useGlobalState } from "../../context/GlobalProvider";
 import EditPost from "./Modals/EditPost";
+import DetailsPost from "./Modals/DetailsPost";
 
-function PostClicked() {
-  // console.log("PostClicked :");
-}
-
-const PostImage = ({ image }) => {
+const PostImage = ({ image, showDetailsPost }) => {
   return (
-    <div className="PostImage" onClick={PostClicked}>
+    <div className="PostImage" onClick={showDetailsPost}>
       <img src={image} alt="" width={"100%"} />
     </div>
   );
@@ -59,33 +56,30 @@ const PostHidden = ({ UndoPostHidden }) => {
 };
 
 /** ========= MAIN ========== */
-const Post = ({ post, PostTime, width }) => {
+const Post = ({ post, PostTime, style }) => {
   const [userName, setUserName] = useState(null);
   const [hidden, setHidden] = useState(false);
   const [toConfHide, setToConfHide] = useState(false);
   const [DeletePostV, setDeletePostV] = useState(false);
   const [SavePostV, setSavePostV] = useState(false);
+  const [detailsPostV, setDetailsPostV] = useState(false);
   const [savedPost, setSavedPost] = useState(false);
   const { ShowAlert, SetAlertText, user, userDoc } = useGlobalState();
   const [editPostV, setEditPostV] = useState(false);
 
   const uid = user.uid;
 
-  const hideDeletePost = () => {
-    setDeletePostV(false);
-  };
+  const hideDeletePost = () => setDeletePostV(false);
+  const showDeletePost = () => setDeletePostV(true);
 
-  const showDeletePost = () => {
-    setDeletePostV(true);
-  };
+  const hideDetailsPost = () => setDetailsPostV(false);
+  const showDetailsPost = () => setDetailsPostV(true);
 
-  const hideSavePost = () => {
-    setSavePostV(false);
-  };
+  const hideSavePost = () => setSavePostV(false);
+  const showSavePost = () => setSavePostV(true);
 
-  const showSavePost = () => {
-    setSavePostV(true);
-  };
+  const hideEditPost = () => setEditPostV(false);
+  const showEditPost = () => setEditPostV(true);
 
   getUser(post.uid).then((user) =>
     setUserName(user.firstName + " " + user.lastName)
@@ -121,14 +115,6 @@ const Post = ({ post, PostTime, width }) => {
     } catch (error) {}
   };
 
-  const hideEditPost = () => {
-    setEditPostV(false);
-  };
-
-  const showEditPost = () => {
-    setEditPostV(true);
-  };
-
   useEffect(() => {
     const check = async () => {
       const isHidden = await checkHiddenPost(uid, post.id);
@@ -154,7 +140,7 @@ const Post = ({ post, PostTime, width }) => {
   //* Post wasn't hide
   return (
     <>
-      <div className="Post" style={{ width: width }}>
+      <div className="Post" style={style}>
         <PostHeader
           uid={post.uid}
           postId={post.id}
@@ -168,8 +154,13 @@ const Post = ({ post, PostTime, width }) => {
           savedPost={savedPost}
         />
         <PostBody Text={post.text} />
-        <PostImage image={post.photo} />
-        <PostFooter postId={post.id} uid={uid} picture={userDoc.picture} />
+        <PostImage image={post.photo} showDetailsPost={showDetailsPost} />
+        <PostFooter
+          postId={post.id}
+          uid={uid}
+          picture={userDoc.picture}
+          showDetailsPost={showDetailsPost}
+        />
       </div>
       <DeletePost
         DeletePostV={DeletePostV}
@@ -182,6 +173,15 @@ const Post = ({ post, PostTime, width }) => {
         onSavePost={onSavePost}
       />
       <EditPost editPostV={editPostV} hideEditPost={hideEditPost} post={post} />
+      <DetailsPost
+        detailsPostV={detailsPostV}
+        hideDetailsPost={hideDetailsPost}
+        userName={userName}
+        post={post}
+        PostTime={PostTime}
+        uid={uid}
+        picture={userDoc.picture}
+      />
     </>
   );
 };

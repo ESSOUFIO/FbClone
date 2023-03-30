@@ -1,0 +1,43 @@
+.Comment {
+  display: flex;
+  margin: 10px;
+  gap: 5px;
+}
+
+.userPicture {
+  border-radius: 100%;
+  background-size: cover;
+  background-position: center;
+  width: 32px;
+  height: 32px;
+}
+
+.CommentBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  border-radius: 100%;
+}
+.CommentBtn:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}
+
+.CommentText {
+  font-weight: 400;
+  color: var(--color-lighter);
+  background: var(--color-dark);
+  padding: 5px 10px;
+  border-radius: 10px;
+}
+
+.CommentInteractions {
+  display: flex;
+  gap: 10px;
+  margin-left: 10px;
+}
+.CommentInteractions div {
+  font-size: 12px;
+  cursor: pointer;
+}

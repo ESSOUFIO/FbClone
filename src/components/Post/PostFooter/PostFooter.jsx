@@ -1,9 +1,5 @@
 import styles from "./PostFooter.module.css";
-import { PostButton } from "../PostButton/PostButton";
-import CommentIco from "../../../assets/images/Comment.png";
-import LikeIco from "../../../assets/images/Like.png";
-import LikedIcon from "../../../assets/images/liked.png";
-import ShareIco from "../../../assets/images/Share.png";
+
 import {
   addComment,
   disLikePost,
@@ -13,44 +9,17 @@ import {
 } from "../../../firebase/interaction";
 import { useCallback, useState } from "react";
 import { useEffect } from "react";
-import { HiOutlineGif } from "react-icons/hi2";
-import { IoSendOutline, IoSend } from "react-icons/io5";
-import { BsCamera, BsEmojiSmile } from "react-icons/bs";
-import { MdOutlineMoreHoriz } from "react-icons/md";
+
 import { getUser } from "../../../firebase/user";
+import { calcTime } from "../../../utils/calcTime";
+import Comment from "../Comment/Comment";
+import AddComment from "../Comment/AddComment";
+import PostInteractionsButtons from "../Interactions/PostInteractionsButtons";
+import PostInteractionsStats from "../Interactions/PostInteractionsStats";
 
-export const InteractionsStats = () => {
-  return <></>;
-};
-
-export const InteractionsButtons = ({ liked, btnClicked }) => {
-  return (
-    <div className={styles.InteractionsButtons}>
-      <div className={styles.PostButtonWrap}>
-        {liked && (
-          <PostButton
-            icon={LikedIcon}
-            text="Like"
-            liked={true}
-            btnClicked={btnClicked}
-          />
-        )}
-        {!liked && (
-          <PostButton icon={LikeIco} text="Like" btnClicked={btnClicked} />
-        )}
-      </div>
-      <div className={styles.PostButtonWrap}>
-        <PostButton icon={CommentIco} text="Comment" btnClicked={btnClicked} />
-      </div>
-      <div className={styles.PostButtonWrap}>
-        <PostButton icon={ShareIco} text="Share" btnClicked={btnClicked} />
-      </div>
-    </div>
-  );
-};
-
-export const OtherComments = ({ postId, lastComment }) => {
+export const OtherComments = ({ lastComment, showDetailsPost }) => {
   const [user, setUser] = useState(null);
+  const postTime = calcTime(lastComment?.time);
 
   useEffect(() => {
     if (lastComment) {
@@ -59,45 +28,28 @@ export const OtherComments = ({ postId, lastComment }) => {
   }, [lastComment]);
 
   const username = user?.firstName + " " + user?.lastName;
-
   return (
     <>
       {lastComment && (
         <div className={styles.OtherComments}>
-          <div className={styles.viewMoreComments}>View more comments</div>
-          <div className={styles.lastComment}>
-            <div
-              className={styles.userPicture}
-              style={{
-                backgroundImage: `url(${user?.picture})`,
-              }}
-            ></div>
-            <div>
-              <div className={styles.lastCommentText}>
-                <b>{username}</b>
-                <div> {lastComment?.text}</div>
-              </div>
-              <div className={styles.lastCommentInteractions}>
-                <div>Like</div>
-                <div>Replay</div>
-                <div>3h</div>
-              </div>
-            </div>
-            <div>
-              <div className={styles.lastCommentBtn}>
-                <MdOutlineMoreHoriz />
-              </div>
-            </div>
+          <div className={styles.viewMoreComments} onClick={showDetailsPost}>
+            View more comments
           </div>
+          <Comment
+            userName={username}
+            userPicture={user?.picture}
+            text={lastComment?.text}
+            postTime={postTime}
+          />
         </div>
       )}
     </>
   );
 };
 
-export const CommentsSection = ({ picture, postId, uid }) => {
+export const CommentsSection = ({ picture, postId, uid, showDetailsPost }) => {
   const [comment, setComment] = useState("");
-  const [lastComment, setLastComment] = useState();
+  const [lastComment, setLastComment] = useState(null);
 
   useEffect(() => {
     getLastComment(postId).then((doc) => setLastComment(doc));
@@ -133,50 +85,21 @@ export const CommentsSection = ({ picture, postId, uid }) => {
         postId={postId}
         picture={picture}
         lastComment={lastComment}
+        showDetailsPost={showDetailsPost}
       />
-      <div className={styles.newComment}>
-        <div
-          className={styles.userPicture}
-          style={{
-            backgroundImage: `url(${picture})`,
-          }}
-        ></div>
-        <div className={styles.InputComment}>
-          <input
-            type="text"
-            placeholder="Write a comment..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-          />
-          <div className={styles.commentButtons}>
-            {!comment && (
-              <div>
-                <IoSendOutline />
-              </div>
-            )}
-            {comment && (
-              <div className={styles.sendBtn} onClick={addCommentHandler}>
-                <IoSend />
-              </div>
-            )}
-            <div>
-              <BsCamera />
-            </div>
-            <div style={{ fontSize: "15px" }}>
-              <BsEmojiSmile />
-            </div>
-            <div>
-              <HiOutlineGif />
-            </div>
-          </div>
-        </div>
-      </div>
+      <AddComment
+        picture={picture}
+        comment={comment}
+        setComment={setComment}
+        addCommentHandler={addCommentHandler}
+        isFixed={false}
+      />
     </div>
   );
 };
 
 /** ======== MAIN ======== */
-export const PostFooter = ({ postId, uid, picture }) => {
+export const PostFooter = ({ postId, uid, picture, showDetailsPost }) => {
   const [liked, setLiked] = useState(false);
 
   useEffect(() => {
@@ -200,7 +123,7 @@ export const PostFooter = ({ postId, uid, picture }) => {
           }
           break;
         case "Comment":
-          console.log("Comment");
+          showDetailsPost();
           break;
         case "Share":
           // code block
@@ -217,9 +140,14 @@ export const PostFooter = ({ postId, uid, picture }) => {
   return (
     <div className={styles.PostFooterWrap}>
       <div className={styles.PostFooter}>
-        <InteractionsStats />
-        <InteractionsButtons liked={liked} btnClicked={btnClicked} />
-        <CommentsSection picture={picture} postId={postId} uid={uid} />
+        <PostInteractionsStats />
+        <PostInteractionsButtons liked={liked} btnClicked={btnClicked} />
+        <CommentsSection
+          picture={picture}
+          postId={postId}
+          uid={uid}
+          showDetailsPost={showDetailsPost}
+        />
       </div>
     </div>
   );
