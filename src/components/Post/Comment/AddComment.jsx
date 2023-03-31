@@ -14,7 +14,10 @@ const AddComment = ({
   return (
     <div
       className={styles.newComment}
-      style={{ position: `${isFixed ? "fixed" : "absolute"}` }}
+      style={{
+        position: `${isFixed ? "fixed" : "absolute"}`,
+        width: `${isFixed ? "97%" : "100%"}`,
+      }}
     >
       <div
         className={styles.userPicture}

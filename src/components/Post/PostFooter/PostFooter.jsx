@@ -2,8 +2,6 @@ import styles from "./PostFooter.module.css";
 import {
   addComment,
   disLikePost,
-  getLastComment,
-  isLiked,
   likePost,
 } from "../../../firebase/interaction";
 import { useCallback, useState } from "react";
@@ -22,7 +20,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
-export const OtherComments = ({ lastComment, showDetailsPost }) => {
+export const OtherComments = ({ lastComment, showDetailsPost, postId }) => {
   const postTime = calcTime(lastComment?.time);
 
   return (
@@ -32,7 +30,7 @@ export const OtherComments = ({ lastComment, showDetailsPost }) => {
           <div className={styles.viewMoreComments} onClick={showDetailsPost}>
             View more comments
           </div>
-          <Comment comment={lastComment} postTime={postTime} />
+          <Comment comment={lastComment} postTime={postTime} postId={postId} />
         </div>
       )}
     </>
@@ -88,7 +86,6 @@ export const CommentsSection = ({ picture, postId, uid, showDetailsPost }) => {
       {lastComment && (
         <OtherComments
           postId={postId}
-          picture={picture}
           lastComment={lastComment}
           showDetailsPost={showDetailsPost}
         />
@@ -143,6 +140,7 @@ export const PostFooter = ({ postId, uid, picture, showDetailsPost }) => {
       console.log(error);
     }
   };
+
   return (
     <div className={styles.PostFooterWrap}>
       <div className={styles.PostFooter}>

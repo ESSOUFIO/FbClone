@@ -8,6 +8,7 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "./config";
 
@@ -21,16 +22,6 @@ export const likePost = async (postId, uid) => {
 export const disLikePost = async (postId, uid) => {
   const docRef = doc(db, "posts", postId, "interactions", "Like", "likes", uid);
   await deleteDoc(docRef);
-};
-
-export const isLiked = async (postId, uid) => {
-  const docRef = doc(db, "posts", postId, "interactions", "Like", "likes", uid);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    return true;
-  } else {
-    return false;
-  }
 };
 
 export const addComment = async (postId, uid, comment) => {
@@ -60,18 +51,16 @@ export const deleteComment = async (postId, commentId) => {
   await deleteDoc(docRef);
 };
 
-// export const getLastComment = (postId) => {
-//   return new Promise(async (resolve, reject) => {
-//     const q = query(
-//       collection(db, "posts", postId, "interactions", "Comment", "comments"),
-//       orderBy("time", "desc")
-//     );
-
-//     const querySnapshot = await getDocs(q);
-//     querySnapshot.forEach((doc) => {
-//       // doc.data() is never undefined for query doc snapshots
-//       resolve({ id: doc.id, ...doc.data() });
-//       return;
-//     });
-//   });
-// };
+export const updateComment = async (postId, commentId, newComment) => {
+  console.log("newComment: ", newComment);
+  const docRef = doc(
+    db,
+    "posts",
+    postId,
+    "interactions",
+    "Comment",
+    "comments",
+    commentId
+  );
+  await updateDoc(docRef, newComment);
+};

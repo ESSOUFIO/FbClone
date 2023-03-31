@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from "react";
 import {
   addComment,
   disLikePost,
-  isLiked,
   likePost,
 } from "../../../firebase/interaction";
 import MyModal from "../../MyModal/MyModal";
@@ -12,8 +11,13 @@ import PostInteractionsStats from "../Interactions/PostInteractionsStats";
 import { PostHeader } from "../PostHeader/PostHeader";
 import Comment from "../Comment/Comment";
 import { calcTime } from "../../../utils/calcTime";
-import { useGlobalState } from "../../../context/GlobalProvider";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
 const PostImage = ({ image, showDetailsPost }) => {
@@ -41,42 +45,6 @@ const DetailsPost = ({
   const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState(false);
   const postId = post.id;
-
-  useEffect(() => {
-    const checkLiked = async () => {
-      try {
-        const res = await isLiked(postId, uid);
-        res ? setLiked(true) : setLiked(false);
-      } catch (error) {}
-    };
-    checkLiked();
-  }, [postId, uid]);
-
-  const btnClicked = async (btn) => {
-    try {
-      switch (btn) {
-        case "Like":
-          if (!liked) {
-            await likePost(postId, uid);
-          } else {
-            await disLikePost(postId, uid);
-          }
-          break;
-        case "Comment":
-          //*
-          break;
-        case "Share":
-          // code block
-          break;
-        default:
-        // code block
-      }
-      const res = await isLiked(postId, uid);
-      res ? setLiked(true) : setLiked(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
   const addCommentHandler = useCallback(async () => {
     try {
@@ -118,7 +86,41 @@ const DetailsPost = ({
     return () => unsub();
   }, [postId]);
 
-  console.log("comments: ", comments);
+  /** listen Like */
+  useEffect(() => {
+    const unsub = onSnapshot(
+      doc(db, "posts", postId, "interactions", "Like", "likes", uid),
+      (doc) => {
+        doc.data() ? setLiked(true) : setLiked(false);
+      }
+    );
+    return unsub;
+  }, [postId, uid]);
+
+  /** Interactions handler */
+  const btnClicked = async (btn) => {
+    try {
+      switch (btn) {
+        case "Like":
+          if (!liked) {
+            await likePost(postId, uid);
+          } else {
+            await disLikePost(postId, uid);
+          }
+          break;
+        case "Comment":
+          break;
+        case "Share":
+          // code block
+          break;
+        default:
+        // code block
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <MyModal
       showModal={detailsPostV}
@@ -136,7 +138,11 @@ const DetailsPost = ({
         <PostBody Text={post.text} />
         <PostImage image={post.photo} />
         <PostInteractionsStats />
-        <PostInteractionsButtons liked={liked} btnClicked={btnClicked} />
+        <PostInteractionsButtons
+          liked={liked}
+          btnClicked={btnClicked}
+          style={{ margin: "10px 20px" }}
+        />
         {comments &&
           comments.map((cmt) => {
             const time = calcTime(cmt.time);
@@ -145,7 +151,6 @@ const DetailsPost = ({
                 key={cmt.id}
                 comment={cmt}
                 postTime={time}
-                commentId={cmt.id}
                 postId={postId}
               />
             );

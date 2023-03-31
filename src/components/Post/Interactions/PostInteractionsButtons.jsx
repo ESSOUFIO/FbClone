@@ -6,9 +6,9 @@ import LikeIco from "../../../assets/images/Like.png";
 import LikedIcon from "../../../assets/images/liked.png";
 import ShareIco from "../../../assets/images/Share.png";
 
-const PostInteractionsButtons = ({ liked, btnClicked }) => {
+const PostInteractionsButtons = ({ liked, btnClicked, style }) => {
   return (
-    <div className={styles.InteractionsButtons}>
+    <div className={styles.InteractionsButtons} style={style}>
       <div className={styles.PostButtonWrap}>
         {liked && (
           <PostButton

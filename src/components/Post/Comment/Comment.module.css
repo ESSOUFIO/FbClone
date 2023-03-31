@@ -1,6 +1,7 @@
 .Comment {
   display: flex;
   margin: 10px;
+  margin-right: 5px;
   gap: 5px;
 }
 
@@ -16,7 +17,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5px;
+  padding: 3px;
   border-radius: 100%;
 }
 .CommentBtn:hover {
@@ -40,4 +41,25 @@
 .CommentInteractions div {
   font-size: 12px;
   cursor: pointer;
+}
+
+.dropBtn {
+  padding: 7px;
+  color: var(--color-lighter);
+  border-radius: 5px;
+}
+
+.dropBtn:hover {
+  cursor: pointer;
+  background: var(--color-dark);
+}
+
+.cancelBtn {
+  font-size: 10px;
+  color: var(--color-primary-text);
+  padding-left: 10px;
+}
+.cancelBtn:hover {
+  cursor: pointer;
+  text-decoration: underline;
 }
