@@ -1,5 +1,4 @@
 import styles from "./PostFooter.module.css";
-
 import {
   addComment,
   disLikePost,
@@ -9,25 +8,23 @@ import {
 } from "../../../firebase/interaction";
 import { useCallback, useState } from "react";
 import { useEffect } from "react";
-
-import { getUser } from "../../../firebase/user";
 import { calcTime } from "../../../utils/calcTime";
 import Comment from "../Comment/Comment";
 import AddComment from "../Comment/AddComment";
 import PostInteractionsButtons from "../Interactions/PostInteractionsButtons";
 import PostInteractionsStats from "../Interactions/PostInteractionsStats";
+import {
+  collection,
+  doc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { db } from "../../../firebase/config";
 
 export const OtherComments = ({ lastComment, showDetailsPost }) => {
-  const [user, setUser] = useState(null);
   const postTime = calcTime(lastComment?.time);
 
-  useEffect(() => {
-    if (lastComment) {
-      getUser(lastComment.uid).then((user) => setUser(user));
-    }
-  }, [lastComment]);
-
-  const username = user?.firstName + " " + user?.lastName;
   return (
     <>
       {lastComment && (
@@ -35,12 +32,7 @@ export const OtherComments = ({ lastComment, showDetailsPost }) => {
           <div className={styles.viewMoreComments} onClick={showDetailsPost}>
             View more comments
           </div>
-          <Comment
-            userName={username}
-            userPicture={user?.picture}
-            text={lastComment?.text}
-            postTime={postTime}
-          />
+          <Comment comment={lastComment} postTime={postTime} />
         </div>
       )}
     </>
@@ -52,13 +44,25 @@ export const CommentsSection = ({ picture, postId, uid, showDetailsPost }) => {
   const [lastComment, setLastComment] = useState(null);
 
   useEffect(() => {
-    getLastComment(postId).then((doc) => setLastComment(doc));
+    const q = query(
+      collection(db, "posts", postId, "interactions", "Comment", "comments"),
+      orderBy("time", "asc")
+    );
+    const unsub = onSnapshot(q, (snap) => {
+      let cmt;
+      snap.forEach((doc) => {
+        cmt = { id: doc.id, ...doc.data() };
+        return;
+      });
+      setLastComment(cmt);
+    });
+    return () => unsub();
   }, [postId]);
 
   const addCommentHandler = useCallback(async () => {
     try {
       await addComment(postId, uid, comment);
-      getLastComment(postId).then((doc) => setLastComment(doc));
+      // getLastComment(postId).then((doc) => setLastComment(doc));
       setComment("");
     } catch (error) {}
   }, [comment, postId, uid]);
@@ -81,12 +85,14 @@ export const CommentsSection = ({ picture, postId, uid, showDetailsPost }) => {
 
   return (
     <div className={styles.CommentsSection}>
-      <OtherComments
-        postId={postId}
-        picture={picture}
-        lastComment={lastComment}
-        showDetailsPost={showDetailsPost}
-      />
+      {lastComment && (
+        <OtherComments
+          postId={postId}
+          picture={picture}
+          lastComment={lastComment}
+          showDetailsPost={showDetailsPost}
+        />
+      )}
       <AddComment
         picture={picture}
         comment={comment}
@@ -102,16 +108,18 @@ export const CommentsSection = ({ picture, postId, uid, showDetailsPost }) => {
 export const PostFooter = ({ postId, uid, picture, showDetailsPost }) => {
   const [liked, setLiked] = useState(false);
 
+  /** listen Like */
   useEffect(() => {
-    const checkLiked = async () => {
-      try {
-        const res = await isLiked(postId, uid);
-        res ? setLiked(true) : setLiked(false);
-      } catch (error) {}
-    };
-    checkLiked();
+    const unsub = onSnapshot(
+      doc(db, "posts", postId, "interactions", "Like", "likes", uid),
+      (doc) => {
+        doc.data() ? setLiked(true) : setLiked(false);
+      }
+    );
+    return unsub;
   }, [postId, uid]);
 
+  /** Interactions handler */
   const btnClicked = async (btn) => {
     try {
       switch (btn) {
@@ -131,8 +139,6 @@ export const PostFooter = ({ postId, uid, picture, showDetailsPost }) => {
         default:
         // code block
       }
-      const res = await isLiked(postId, uid);
-      res ? setLiked(true) : setLiked(false);
     } catch (error) {
       console.log(error);
     }

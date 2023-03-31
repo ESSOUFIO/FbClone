@@ -10,6 +10,11 @@ import AddComment from "../Comment/AddComment";
 import PostInteractionsButtons from "../Interactions/PostInteractionsButtons";
 import PostInteractionsStats from "../Interactions/PostInteractionsStats";
 import { PostHeader } from "../PostHeader/PostHeader";
+import Comment from "../Comment/Comment";
+import { calcTime } from "../../../utils/calcTime";
+import { useGlobalState } from "../../../context/GlobalProvider";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "../../../firebase/config";
 
 const PostImage = ({ image, showDetailsPost }) => {
   return (
@@ -33,6 +38,7 @@ const DetailsPost = ({
   picture,
 }) => {
   const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
   const [liked, setLiked] = useState(false);
   const postId = post.id;
 
@@ -75,9 +81,10 @@ const DetailsPost = ({
   const addCommentHandler = useCallback(async () => {
     try {
       await addComment(postId, uid, comment);
-      // getLastComment(postId).then((doc) => setLastComment(doc));
       setComment("");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, [comment, postId, uid]);
 
   useEffect(() => {
@@ -96,6 +103,22 @@ const DetailsPost = ({
     }
   }, [comment, addCommentHandler]);
 
+  useEffect(() => {
+    const q = query(
+      collection(db, "posts", postId, "interactions", "Comment", "comments"),
+      orderBy("time", "desc")
+    );
+    const unsub = onSnapshot(q, (snap) => {
+      const cmts = [];
+      snap.forEach((doc) => {
+        cmts.push({ id: doc.id, ...doc.data() });
+      });
+      setComments(cmts);
+    });
+    return () => unsub();
+  }, [postId]);
+
+  console.log("comments: ", comments);
   return (
     <MyModal
       showModal={detailsPostV}
@@ -114,6 +137,19 @@ const DetailsPost = ({
         <PostImage image={post.photo} />
         <PostInteractionsStats />
         <PostInteractionsButtons liked={liked} btnClicked={btnClicked} />
+        {comments &&
+          comments.map((cmt) => {
+            const time = calcTime(cmt.time);
+            return (
+              <Comment
+                key={cmt.id}
+                comment={cmt}
+                postTime={time}
+                commentId={cmt.id}
+                postId={postId}
+              />
+            );
+          })}
         <AddComment
           picture={picture}
           comment={comment}
