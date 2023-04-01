@@ -1,10 +1,6 @@
 import styles from "./PostFooter.module.css";
-import {
-  addComment,
-  disLikePost,
-  likePost,
-} from "../../../firebase/interaction";
-import { useCallback, useState } from "react";
+import { disLikePost, likePost } from "../../../firebase/interaction";
+import { useState } from "react";
 import { useEffect } from "react";
 import { calcTime } from "../../../utils/calcTime";
 import Comment from "../Comment/Comment";
@@ -38,7 +34,6 @@ export const OtherComments = ({ lastComment, showDetailsPost, postId }) => {
 };
 
 export const CommentsSection = ({ picture, postId, uid, showDetailsPost }) => {
-  const [comment, setComment] = useState("");
   const [lastComment, setLastComment] = useState(null);
 
   useEffect(() => {
@@ -57,30 +52,6 @@ export const CommentsSection = ({ picture, postId, uid, showDetailsPost }) => {
     return () => unsub();
   }, [postId]);
 
-  const addCommentHandler = useCallback(async () => {
-    try {
-      await addComment(postId, uid, comment);
-      // getLastComment(postId).then((doc) => setLastComment(doc));
-      setComment("");
-    } catch (error) {}
-  }, [comment, postId, uid]);
-
-  useEffect(() => {
-    if (comment !== "") {
-      const keyDownHandler = (event) => {
-        // console.log("User pressed: ", event.key);
-        if (event.key === "Enter") {
-          event.preventDefault();
-          addCommentHandler();
-        }
-      };
-      document.addEventListener("keydown", keyDownHandler);
-      return () => {
-        document.removeEventListener("keydown", keyDownHandler);
-      };
-    }
-  }, [comment, addCommentHandler]);
-
   return (
     <div className={styles.CommentsSection}>
       {lastComment && (
@@ -90,13 +61,7 @@ export const CommentsSection = ({ picture, postId, uid, showDetailsPost }) => {
           showDetailsPost={showDetailsPost}
         />
       )}
-      <AddComment
-        picture={picture}
-        comment={comment}
-        setComment={setComment}
-        addCommentHandler={addCommentHandler}
-        isFixed={false}
-      />
+      <AddComment postId={postId} uid={uid} picture={picture} isFixed={false} />
     </div>
   );
 };

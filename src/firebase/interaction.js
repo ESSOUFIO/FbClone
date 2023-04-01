@@ -64,3 +64,35 @@ export const updateComment = async (postId, commentId, newComment) => {
   );
   await updateDoc(docRef, newComment);
 };
+
+export const likeComment = async (postId, uid, commentId) => {
+  const d = new Date();
+  const likeDoc = { time: d.getTime() };
+  const docRef = doc(
+    db,
+    "posts",
+    postId,
+    "interactions",
+    "Comment",
+    "comments",
+    commentId,
+    "Like",
+    uid
+  );
+  await setDoc(docRef, likeDoc);
+};
+
+export const disLikeComment = async (postId, uid, commentId) => {
+  const docRef = doc(
+    db,
+    "posts",
+    postId,
+    "interactions",
+    "Comment",
+    "comments",
+    commentId,
+    "Like",
+    uid
+  );
+  await deleteDoc(docRef);
+};

@@ -63,3 +63,8 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+.likeComment:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}

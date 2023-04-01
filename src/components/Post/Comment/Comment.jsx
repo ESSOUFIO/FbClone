@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./Comment.module.css";
 import styles2 from "./AddComment.module.css";
 import { MdMoreHoriz } from "react-icons/md";
@@ -9,7 +9,13 @@ import DeleteComment from "../Modals/DeleteComment";
 import { HiOutlineGif } from "react-icons/hi2";
 import { IoSendOutline, IoSend } from "react-icons/io5";
 import { BsCamera, BsEmojiSmile } from "react-icons/bs";
-import { updateComment } from "../../../firebase/interaction";
+import {
+  disLikeComment,
+  likeComment,
+  updateComment,
+} from "../../../firebase/interaction";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../../firebase/config";
 
 const Comment = ({ comment, postTime, postId }) => {
   const [cmtOwner, setCmtOwner] = useState(null);
@@ -18,13 +24,42 @@ const Comment = ({ comment, postTime, postId }) => {
   const [deleteCommentV, setDeleteCommentV] = useState(false);
   const [edit, setEdit] = useState(false);
   const [commentEdit, setCommentEdit] = useState("");
+  const [liked, setLiked] = useState(false);
+
+  /** listen Like */
+  useEffect(() => {
+    const unsub = onSnapshot(
+      doc(
+        db,
+        "posts",
+        postId,
+        "interactions",
+        "Comment",
+        "comments",
+        comment.id,
+        "Like",
+        user.uid
+      ),
+      (doc) => {
+        doc.data() ? setLiked(true) : setLiked(false);
+      }
+    );
+    return unsub;
+  }, [postId, user, comment]);
 
   const hideCommentPost = () => setDeleteCommentV(false);
   const showCommentPost = () => setDeleteCommentV(true);
 
-  const editCommentHandler = async () => {
+  const likeCommentHandler = async () => {
     try {
-      console.log();
+      if (!liked) {
+        await likeComment(postId, user.uid, comment.id);
+      } else await disLikeComment(postId, user.uid, comment.id);
+    } catch (error) {}
+  };
+
+  const editCommentHandler = useCallback(async () => {
+    try {
       await updateComment(postId, comment.id, {
         ...comment,
         text: commentEdit,
@@ -33,7 +68,23 @@ const Comment = ({ comment, postTime, postId }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [comment, postId, commentEdit]);
+
+  useEffect(() => {
+    if (commentEdit !== "") {
+      const keyDownHandler = (event) => {
+        // console.log("User pressed: ", event.key);
+        if (event.key === "Enter") {
+          event.preventDefault();
+          editCommentHandler();
+        }
+      };
+      document.addEventListener("keydown", keyDownHandler);
+      return () => {
+        document.removeEventListener("keydown", keyDownHandler);
+      };
+    }
+  }, [commentEdit, editCommentHandler]);
 
   const editClicked = () => {
     setCommentEdit(comment.text);
@@ -51,7 +102,6 @@ const Comment = ({ comment, postTime, postId }) => {
   }, [comment]);
 
   const username = cmtOwner?.firstName + " " + cmtOwner?.lastName;
-
   return (
     <>
       <div className={styles.Comment}>
@@ -69,7 +119,15 @@ const Comment = ({ comment, postTime, postId }) => {
                 <div> {comment.text}</div>
               </div>
               <div className={styles.CommentInteractions}>
-                <div>Like</div>
+                <div
+                  className={styles.likeComment}
+                  style={{
+                    color: `${liked ? "var(--color-primary-text)" : ""}`,
+                  }}
+                  onClick={likeCommentHandler}
+                >
+                  Like
+                </div>
                 <div>Replay</div>
                 <div>{postTime}</div>
               </div>
