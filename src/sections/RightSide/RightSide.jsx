@@ -1,5 +1,4 @@
 import "./RightSide.css";
-
 //* ===  External Components ==== */
 import { TitleSection } from "../../components/Titles/TitleSection";
 import {
@@ -24,6 +23,8 @@ import PromoIco from "../.././assets/images/Promotions.png";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { FaSearch } from "react-icons/fa";
 import { RiVideoAddFill } from "react-icons/ri";
+
+import { useMediaQuery } from "react-responsive";
 
 //* ===  Internal Components ==== */
 const SponsoredWrap = (props) => {
@@ -65,63 +66,76 @@ const Contacts = [
 ];
 
 export const RightSide = () => {
+  const isTablet = useMediaQuery({
+    query: "(min-width: 900px)",
+  });
   return (
-    <div className="RightSide col-3">
-      {/* This div may used to add scrolls after*/}
-      <div className="GlobalSide">
-        {/* ==== SponsoredWrap === */}
-        <SponsoredWrap>
-          <TitleSection text="Sponsored" colour="var(--color-lighter)" />
-          <AdsButton title="Apply Now | Company" website="adscompany.com" />
-        </SponsoredWrap>
-        {/* ==== YourPagesWrap === */}
-        <YourPagesWrap>
-          <TitleSection
-            text="Your Pages and profiles"
-            colour="var(--color-light)"
-            more={<TfiMoreAlt />}
-          />
-          <SideButtons image={logoPage} height="30px" text="Creative D2H" />
-          <div className="d-flex flex-column justify-content-end">
-            <div>
-              <YourPageButton icon={MessageIco} text="13 Messages" />
-              <YourPageButton icon={NotificationIco} text="20+ Notifications" />
-              <YourPageButton icon={SwitchIco} text="Switch into Page" />
-              <YourPageButton icon={PromoIco} text="Create promotion" />
-            </div>
+    <>
+      {isTablet && (
+        <div className="RightSide">
+          {/* This div may used to add scrolls after*/}
+          <div className="GlobalSide">
+            {/* ==== SponsoredWrap === */}
+            <SponsoredWrap>
+              <TitleSection text="Sponsored" colour="var(--color-lighter)" />
+              <AdsButton title="Apply Now | Company" website="adscompany.com" />
+            </SponsoredWrap>
+            {/* ==== YourPagesWrap === */}
+            <YourPagesWrap>
+              <TitleSection
+                text="Your Pages and profiles"
+                colour="var(--color-light)"
+                more={<TfiMoreAlt />}
+              />
+              <SideButtons image={logoPage} height="30px" text="Creative D2H" />
+              <div className="d-flex flex-column justify-content-end">
+                <div>
+                  <YourPageButton icon={MessageIco} text="13 Messages" />
+                  <YourPageButton
+                    icon={NotificationIco}
+                    text="20+ Notifications"
+                  />
+                  <YourPageButton icon={SwitchIco} text="Switch into Page" />
+                  <YourPageButton icon={PromoIco} text="Create promotion" />
+                </div>
+              </div>
+            </YourPagesWrap>
+            {/* ==== FriendRequest === */}
+            <FriendRequest>
+              <TitleSection
+                text="Friend requests"
+                colour="var(--color-light)"
+              />
+              <FriendRequestBtn
+                image={ImageProfile}
+                text="Ali Benjalel"
+                height={"55px"}
+              />
+            </FriendRequest>
+            {/* ==== BirthdaysWrap === */}
+            <BirthdaysWrap>
+              <TitleSection text="Birthdays" colour="var(--color-light)" />
+              <BirthdayButton
+                image={BirthdayImg}
+                height="28px"
+                text="Med Sourad"
+                NbrOther="2 others"
+              />
+            </BirthdaysWrap>
+            {/* ==== ContactsWrap === */}
+            <ContactsWrap>
+              <TitleSection
+                text="Contacts"
+                colour="var(--color-light)"
+                more={<TfiMoreAlt />}
+                search={<FaSearch />}
+                newCall={<RiVideoAddFill />}
+              />
+              <ContactsList />
+            </ContactsWrap>
           </div>
-        </YourPagesWrap>
-        {/* ==== FriendRequest === */}
-        <FriendRequest>
-          <TitleSection text="Friend requests" colour="var(--color-light)" />
-          <FriendRequestBtn
-            image={ImageProfile}
-            text="Ali Benjalel"
-            height={"55px"}
-          />
-        </FriendRequest>
-        {/* ==== BirthdaysWrap === */}
-        <BirthdaysWrap>
-          <TitleSection text="Birthdays" colour="var(--color-light)" />
-          <BirthdayButton
-            image={BirthdayImg}
-            height="28px"
-            text="Med Sourad"
-            NbrOther="2 others"
-          />
-        </BirthdaysWrap>
-        {/* ==== ContactsWrap === */}
-        <ContactsWrap>
-          <TitleSection
-            text="Contacts"
-            colour="var(--color-light)"
-            more={<TfiMoreAlt />}
-            search={<FaSearch />}
-            newCall={<RiVideoAddFill />}
-          />
-          <ContactsList />
-        </ContactsWrap>
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 };

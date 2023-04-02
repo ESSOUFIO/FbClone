@@ -1,6 +1,7 @@
 .MainContent {
   margin-top: var(--Navbar-height);
   padding: 0px;
+  width: 650px;
 }
 
 .Container {

@@ -4,50 +4,79 @@ import marketplaceIcon from "../../../assets/images/marketplace2.png";
 import groupsIcon from "../../../assets/images/groups2.png";
 import watchIcon from "../../../assets/images/watch2.png";
 import homeIcon from "../../../assets/images/home-active.png";
+import menuIcon from "../../../assets/images/menu.png";
+
+import { useMediaQuery } from "react-responsive";
 
 /** Icons from react-icons */
 import { useNavigate } from "react-router-dom";
 
+const NavbarMiddleIcon = ({ icon, width, style, onClick }) => {
+  return (
+    <div className="MainIcons" onClick={onClick}>
+      <img src={icon} alt="" width={width} style={style} />
+    </div>
+  );
+};
+
 /** =====  NavbarMiddle ===== */
 export const NavbarMiddle = () => {
   const navigate = useNavigate();
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1100px)",
+  });
+  const isTablet = useMediaQuery({
+    query: "(min-width: 900px)",
+  });
+  const isMobile = useMediaQuery({
+    query: "(min-width: 700px)",
+  });
   return (
-    <div className="NavbarMiddle">
-      <div className="MainIcons" onClick={() => navigate("/")}>
-        <img src={homeIcon} alt="" width={23} />
-      </div>
-      <div className="MainIcons">
-        <img
-          src={watchIcon}
-          alt=""
-          width={23}
-          style={{ filter: "invert(70%)" }}
-        />
-      </div>
-      <div className="MainIcons">
-        <img
-          src={marketplaceIcon}
-          alt=""
-          width={24}
-          style={{ filter: "invert(70%)" }}
-        />
-      </div>
-      <div className="MainIcons">
-        <img
-          src={groupsIcon}
-          alt=""
-          width={26}
-          style={{ filter: "invert(80%)" }}
-        />
-      </div>
-      <div className="MainIcons">
-        <img
-          src={gameIcon}
-          alt=""
-          width={29}
-          style={{ filter: "invert(80%)" }}
-        />
-      </div>
-    </div>
+    <>
+      {isMobile && (
+        <div
+          className="NavbarMiddle"
+          style={{
+            maxWidth: `${isDesktop ? "700px" : isTablet ? "50vw" : "60vw"}`,
+            transform: `${isDesktop ? "" : "translate(-50px, 0px)"}`,
+          }}
+        >
+          <NavbarMiddleIcon
+            icon={homeIcon}
+            width={23}
+            onClick={() => navigate("/")}
+          />
+          <NavbarMiddleIcon
+            icon={watchIcon}
+            width={23}
+            style={{ filter: "invert(70%)" }}
+          />
+          <NavbarMiddleIcon
+            icon={marketplaceIcon}
+            width={24}
+            style={{ filter: "invert(70%)" }}
+          />
+          <NavbarMiddleIcon
+            icon={groupsIcon}
+            width={26}
+            style={{ filter: "invert(80%)" }}
+          />
+          {isTablet && (
+            <NavbarMiddleIcon
+              icon={gameIcon}
+              width={29}
+              style={{ filter: "invert(80%)" }}
+            />
+          )}
+          {!isTablet && (
+            <NavbarMiddleIcon
+              icon={menuIcon}
+              width={34}
+              style={{ filter: "invert(80%)" }}
+            />
+          )}
+        </div>
+      )}
+    </>
   );
 };
