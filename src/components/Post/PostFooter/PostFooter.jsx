@@ -109,7 +109,7 @@ export const PostFooter = ({ postId, uid, picture, showDetailsPost }) => {
   return (
     <div className={styles.PostFooterWrap}>
       <div className={styles.PostFooter}>
-        <PostInteractionsStats />
+        <PostInteractionsStats postId={postId} />
         <PostInteractionsButtons liked={liked} btnClicked={btnClicked} />
         <CommentsSection
           picture={picture}

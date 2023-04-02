@@ -21,9 +21,3 @@
   width: 85%;
   border-bottom: 1px solid var(--color-dark);
 }
-
-@media (max-width: 1100px) {
-  .RightSide {
-    display: none !important;
-  }
-}

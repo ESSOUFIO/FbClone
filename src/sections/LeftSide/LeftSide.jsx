@@ -21,6 +21,7 @@ import Flowers from "../../assets/images/flowers.jpg";
 import SavePage from "../../assets/images/save-page.png";
 import { useGlobalState } from "../../context/GlobalProvider";
 import defaultPic from "../../assets/images/defProfile.jpg";
+import { useMediaQuery } from "react-responsive";
 
 /** Internal Components */
 const TopLeftWrapper = (props) => {
@@ -50,76 +51,85 @@ const FooterSide = ({ text }) => {
 export const LeftSide = () => {
   const { userDoc } = useGlobalState();
   const userName = userDoc.firstName + " " + userDoc.lastName;
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1100px)",
+  });
   return (
-    <div className="LeftSide col-3 text-left">
-      <div className="GlobalSide">
-        {/* ==== First Section === */}
+    <>
+      {isDesktopOrLaptop && (
+        <div className="LeftSide col-3 text-left">
+          <div className="GlobalSide">
+            {/* ==== First Section === */}
+            <TopLeftWrapper>
+              <SideButtons
+                image={userDoc.picture ? userDoc.picture : defaultPic}
+                text={userName}
+                height={"29px"}
+                style={{ borderRadius: "100%" }}
+                page={"profile"}
+              />
+              <SideButtons image={Friends} text={"Friends"} height={"23px"} />
+              <SideButtons
+                image={SavePage}
+                text={"Saved"}
+                height={"23px"}
+                page={"/saved"}
+              />
+              <SideButtons image={Groups} text={"Groups"} height={"23px"} />
+              <SideButtons
+                image={MostRecents}
+                text={"Most Recents"}
+                height={"23px"}
+              />
+              <SideButtons
+                image={Marketplace}
+                text={"Marketplace"}
+                height={"23px"}
+              />
+              <SideButtons image={Watch} text={"Watch"} height={"23px"} />
+              <SeeMoreBtn />
+            </TopLeftWrapper>
 
-        <TopLeftWrapper>
-          <SideButtons
-            image={userDoc.picture ? userDoc.picture : defaultPic}
-            text={userName}
-            height={"29px"}
-            style={{ borderRadius: "100%" }}
-            page={"profile"}
-          />
-          <SideButtons image={Friends} text={"Friends"} height={"23px"} />
-          <SideButtons
-            image={SavePage}
-            text={"Saved"}
-            height={"23px"}
-            page={"/saved"}
-          />
-          <SideButtons image={Groups} text={"Groups"} height={"23px"} />
-          <SideButtons
-            image={MostRecents}
-            text={"Most Recents"}
-            height={"23px"}
-          />
-          <SideButtons
-            image={Marketplace}
-            text={"Marketplace"}
-            height={"23px"}
-          />
-          <SideButtons image={Watch} text={"Watch"} height={"23px"} />
-          <SeeMoreBtn />
-        </TopLeftWrapper>
+            {/* ==== Second Section === */}
 
-        {/* ==== Second Section === */}
-
-        <YourShortcutsWrap>
-          <TitleSection text={"Your shortcuts"} colour="var(--color-light)" />
-          <ShortcutButton
-            image={Aljazeera}
-            text={"Al Jazeera قناة الجزيرة"}
-            height={"26px"}
-          />
-          <ShortcutButton
-            image={WorldStreet}
-            text={"World Street English"}
-            height={"26px"}
-          />
-          <ShortcutButton
-            image={WorldCup}
-            text={"FIFA World Cup Qatar 2022"}
-            height={"26px"}
-          />
-          <ShortcutButton
-            image={Flowers}
-            text={"الكلم الطيب من القلب"}
-            height={"26px"}
-          />
-          <SeeMoreBtn />
-        </YourShortcutsWrap>
-        <div className="footerSideWrap">
-          <FooterSide text="Privacy" />
-          <FooterSide text="Terms" />
-          <FooterSide text="Advertising" />
-          <FooterSide text="Ad Choices" />
-          <FooterSide text="Cookies" />
-          <FooterSide text="Privacy" /> · Meta © 2023
+            <YourShortcutsWrap>
+              <TitleSection
+                text={"Your shortcuts"}
+                colour="var(--color-light)"
+              />
+              <ShortcutButton
+                image={Aljazeera}
+                text={"Al Jazeera قناة الجزيرة"}
+                height={"26px"}
+              />
+              <ShortcutButton
+                image={WorldStreet}
+                text={"World Street English"}
+                height={"26px"}
+              />
+              <ShortcutButton
+                image={WorldCup}
+                text={"FIFA World Cup Qatar 2022"}
+                height={"26px"}
+              />
+              <ShortcutButton
+                image={Flowers}
+                text={"الكلم الطيب من القلب"}
+                height={"26px"}
+              />
+              <SeeMoreBtn />
+            </YourShortcutsWrap>
+            <div className="footerSideWrap">
+              <FooterSide text="Privacy" />
+              <FooterSide text="Terms" />
+              <FooterSide text="Advertising" />
+              <FooterSide text="Ad Choices" />
+              <FooterSide text="Cookies" />
+              <FooterSide text="Privacy" /> · Meta © 2023
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };

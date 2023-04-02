@@ -3,7 +3,7 @@ import styles from "./Comment.module.css";
 import styles2 from "./AddComment.module.css";
 import { MdMoreHoriz } from "react-icons/md";
 import { getUser } from "../../../firebase/user";
-
+import likeCommentIcon from "../../../assets/images/like-comment.png";
 import { useGlobalState } from "../../../context/GlobalProvider";
 import DeleteComment from "../Modals/DeleteComment";
 import { HiOutlineGif } from "react-icons/hi2";
@@ -14,7 +14,7 @@ import {
   likeComment,
   updateComment,
 } from "../../../firebase/interaction";
-import { doc, onSnapshot } from "firebase/firestore";
+import { collection, doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
 const Comment = ({ comment, postTime, postId }) => {
@@ -25,6 +25,7 @@ const Comment = ({ comment, postTime, postId }) => {
   const [edit, setEdit] = useState(false);
   const [commentEdit, setCommentEdit] = useState("");
   const [liked, setLiked] = useState(false);
+  const [nbrLike, setNbrLikes] = useState(0);
 
   /** listen Like */
   useEffect(() => {
@@ -46,6 +47,26 @@ const Comment = ({ comment, postTime, postId }) => {
     );
     return unsub;
   }, [postId, user, comment]);
+
+  /** listen stats Likes */
+  useEffect(() => {
+    const unsub = onSnapshot(
+      collection(
+        db,
+        "posts",
+        postId,
+        "interactions",
+        "Comment",
+        "comments",
+        comment.id,
+        "Like"
+      ),
+      (snap) => {
+        setNbrLikes(snap.docs.length);
+      }
+    );
+    return unsub;
+  }, [postId, comment]);
 
   const hideCommentPost = () => setDeleteCommentV(false);
   const showCommentPost = () => setDeleteCommentV(true);
@@ -70,6 +91,7 @@ const Comment = ({ comment, postTime, postId }) => {
     }
   }, [comment, postId, commentEdit]);
 
+  /** listen Enter */
   useEffect(() => {
     if (commentEdit !== "") {
       const keyDownHandler = (event) => {
@@ -116,7 +138,17 @@ const Comment = ({ comment, postTime, postId }) => {
             <div>
               <div className={styles.CommentText}>
                 <b>{username}</b>
-                <div> {comment.text}</div>
+                <div>
+                  {comment.text}
+                  {nbrLike > 0 ? (
+                    <div className={styles.likeCommentIcon}>
+                      <img src={likeCommentIcon} alt="" />
+                      {nbrLike !== 1 ? (
+                        <span className="ps-1">{nbrLike}</span>
+                      ) : null}
+                    </div>
+                  ) : null}
+                </div>
               </div>
               <div className={styles.CommentInteractions}>
                 <div

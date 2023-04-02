@@ -137,12 +137,11 @@ const DetailsPost = ({
         />
         <PostBody Text={post.text} />
         <PostImage image={post.photo} />
-        <PostInteractionsStats />
-        <PostInteractionsButtons
-          liked={liked}
-          btnClicked={btnClicked}
+        <PostInteractionsStats
+          postId={postId}
           style={{ margin: "10px 20px" }}
         />
+        <PostInteractionsButtons liked={liked} btnClicked={btnClicked} />
         {comments &&
           comments.map((cmt) => {
             const time = calcTime(cmt.time);

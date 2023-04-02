@@ -26,10 +26,12 @@
 }
 
 .CommentText {
+  position: relative;
+  min-width: 200px;
   font-weight: 400;
   color: var(--color-lighter);
   background: var(--color-dark);
-  padding: 5px 10px;
+  padding: 5px 10px 8px 10px;
   border-radius: 10px;
 }
 
@@ -67,4 +69,13 @@
 .likeComment:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.likeCommentIcon {
+  position: absolute;
+  bottom: -12px;
+  right: 7px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 }

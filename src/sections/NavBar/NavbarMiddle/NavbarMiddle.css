@@ -1,10 +1,16 @@
 .NavbarMiddle {
+  position: fixed;
+  margin: 0 auto;
+  height: var(--Navbar-height);
   padding: 0px;
   display: flex;
-  justify-content: left;
+  justify-content: center;
   align-items: center;
   max-width: 700px;
   width: 100%;
+  z-index: 10;
+  left: 0;
+  right: 0;
 }
 
 .MainIcons {
