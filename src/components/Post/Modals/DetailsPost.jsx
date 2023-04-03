@@ -157,8 +157,8 @@ const DetailsPost = ({
         <AddComment
           picture={picture}
           comment={comment}
-          setComment={setComment}
-          addCommentHandler={addCommentHandler}
+          postId={postId}
+          uid={uid}
           isFixed={true}
         />
       </div>

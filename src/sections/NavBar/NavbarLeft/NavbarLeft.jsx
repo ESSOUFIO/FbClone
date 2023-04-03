@@ -60,6 +60,7 @@ export const NavbarLeft = ({ navBtn, btnClicked }) => {
           navigate("/");
           btnClicked(navBtn[1].name);
         }}
+        style={{ marginLeft: `${isMobile ? "10px" : "8px"}` }}
       />
       <Search />
       {!isMobile && (

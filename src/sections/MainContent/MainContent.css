@@ -1,11 +1,11 @@
 .MainContent {
   margin-top: var(--Navbar-height);
   padding: 0px;
-  width: 650px;
 }
 
 .Container {
   /* padding-left: 13%; */
+  margin: 0 auto;
   margin-top: 25px;
   display: flex;
   flex-direction: column;

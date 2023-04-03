@@ -53,7 +53,7 @@ const NavBar = () => {
     <div className="NavBar">
       <NavbarLeft navBtn={navBtn} btnClicked={btnClicked} />
       <NavbarMiddle navBtn={navBtn} btnClicked={btnClicked} />
-      <NavbarRight navBtn={navBtn} btnClicked={btnClicked} />
+      <NavbarRight btnClicked={btnClicked} />
     </div>
   );
 };

@@ -12,7 +12,9 @@ const AddComment = ({ postId, uid, picture, isFixed }) => {
     try {
       await addComment(postId, uid, comment);
       setComment("");
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   }, [comment, postId, uid]);
 
   useEffect(() => {
@@ -30,7 +32,6 @@ const AddComment = ({ postId, uid, picture, isFixed }) => {
       };
     }
   }, [comment, addCommentHandler]);
-
   return (
     <div
       className={styles.newComment}

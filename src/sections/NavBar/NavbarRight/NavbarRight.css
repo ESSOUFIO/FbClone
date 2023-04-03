@@ -31,7 +31,6 @@
   width: var(--Navbar-logo-height);
   height: var(--Navbar-logo-height);
   border-radius: 100%;
-  margin-right: 25px;
 }
 
 .NavbarRightImg:hover {

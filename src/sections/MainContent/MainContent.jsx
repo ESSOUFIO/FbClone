@@ -9,8 +9,17 @@ import { useState } from "react";
 import { useGlobalState } from "../../context/GlobalProvider";
 import { useMediaQuery } from "react-responsive";
 
-const Container = ({ children }) => {
-  return <div className="Container">{children}</div>;
+const Container = ({ children, isMobile }) => {
+  return (
+    <div
+      className="Container"
+      style={{
+        width: `${isMobile ? "var(--MiddleContainer-witdh)" : "97vw"}`,
+      }}
+    >
+      {children}
+    </div>
+  );
 };
 
 export const MainContent = () => {
@@ -21,13 +30,19 @@ export const MainContent = () => {
   const isTablet = useMediaQuery({
     query: "(min-width: 900px)",
   });
+  const isMobile = useMediaQuery({
+    query: "(min-width: 500px)",
+  });
   return (
     <>
       <div
         className="MainContent"
-        style={{ transform: `${isTablet ? "translate(-15px, 0px)" : ""}` }}
+        style={{
+          transform: `${isTablet ? "translate(-15px, 0px)" : ""}`,
+          width: `${isMobile ? "650px" : "97vw"}`,
+        }}
       >
-        <Container>
+        <Container isMobile={isMobile}>
           <StoriesSection uid={user.uid} />
           <NewPost
             showAddPost={showAddPost}

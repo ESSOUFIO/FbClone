@@ -6,10 +6,8 @@ import { BouttonsNavRight } from "..";
 import { StorieElement } from "..";
 import { StorieFirstElement } from "..";
 import defaultPic from "../../../assets/images/defProfile.jpg";
-
-const ButtonsWrap = (props) => {
-  return <div className="ButtonsWrap">{props.children}</div>;
-};
+import storiesIconActiv from "../../../assets/images/story-active.png";
+import reelsIcon from "../../../assets/images/reels.png";
 
 const StoriesWrap = (props) => {
   return <div className="StoriesWrap">{props.children}</div>;
@@ -17,17 +15,26 @@ const StoriesWrap = (props) => {
 
 const ButtonsNav = () => {
   return (
-    <>
-      <div>
-        <div className="StrButtonFirst">Stories</div>
+    <div className="ButtonsWrap">
+      <div className="StrButtonFirstWrap">
+        <div className="StrButtonFirst">
+          <img src={storiesIconActiv} alt="" width={22} className="me-2" />
+          Stories
+        </div>
       </div>
-      <div>
-        <div className="StrButton">Reels</div>
+      <div className="StrButtonWrap">
+        <div className="StrButton">
+          <img
+            src={reelsIcon}
+            alt=""
+            width={22}
+            style={{ filter: "invert(70%)" }}
+            className="me-2"
+          />
+          Reels
+        </div>
       </div>
-      <div>
-        <div className="StrButton">Rooms</div>
-      </div>
-    </>
+    </div>
   );
 };
 
@@ -71,6 +78,7 @@ export const StoriesSection = ({ uid }) => {
       UserPhoto={userDoc.picture ? userDoc.picture : defaultPic}
     />
   );
+
   let StorieContent = StoriesList.map((item, i) => (
     <StorieElement
       key={i}
@@ -82,15 +90,11 @@ export const StoriesSection = ({ uid }) => {
 
   return (
     <div className="StoriesSection">
-      <ButtonsWrap>
-        <ButtonsNav />
-      </ButtonsWrap>
-
+      <ButtonsNav />
       <StoriesWrap>
         {StorieContentFirst}
         {StorieContent}
       </StoriesWrap>
-
       <BouttonsNavRight />
       <BouttonsNavLeft visible={"hidden"} />
     </div>
