@@ -44,3 +44,31 @@
   /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: var(--color-light);
 }
+
+.MenuIconWrap,
+.MenuIconWrapActive {
+  height: var(--Navbar-height);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 3px solid transparent;
+  padding: 3px;
+  margin-left: 10px;
+}
+
+.MenuIconWrapActive {
+  border-bottom: 3px solid var(--color-primary);
+}
+
+.MenuIcon,
+.MenuIconActive {
+  padding: 0 5px;
+  border-radius: 5px;
+}
+.MenuIcon img,
+.MenuIconActive img {
+  margin: 0 !important;
+}
+.MenuIcon:hover {
+  background: var(--color-dark);
+}

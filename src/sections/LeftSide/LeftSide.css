@@ -3,6 +3,7 @@
   margin: 0px;
   margin-top: var(--Navbar-height);
   height: 100vh;
+  max-width: 300px;
   /* overflow: auto; */
 }
 

@@ -53,7 +53,7 @@ const Menu = () => {
 };
 
 /** ==== NavbarRight ===== */
-export const NavbarRight = () => {
+export const NavbarRight = ({ navBtn, btnClicked }) => {
   const { user } = useGlobalState();
 
   return (
@@ -62,7 +62,7 @@ export const NavbarRight = () => {
       <Notifications />
       <Messenger />
       <Menu />
-      <ProfileDropDown />
+      <ProfileDropDown btnClicked={btnClicked} />
     </div>
   );
 };

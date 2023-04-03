@@ -10,12 +10,15 @@ const Home = () => {
   const isTablet = useMediaQuery({
     query: "(min-width: 900px)",
   });
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1100px)",
+  });
   return (
     <div
       className="Home"
       style={{ justifyContent: `${isTablet ? "space-between" : "center"}` }}
     >
-      <LeftSide />
+      <LeftSide show={isDesktopOrLaptop} />
       <MainContent />
       <RightSide />
       <AlertAutoDismiss />

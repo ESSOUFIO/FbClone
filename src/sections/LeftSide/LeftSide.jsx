@@ -48,16 +48,14 @@ const FooterSide = ({ text }) => {
 };
 
 /** ======= LeftSide ======= */
-export const LeftSide = () => {
+export const LeftSide = ({ show }) => {
   const { userDoc } = useGlobalState();
   const userName = userDoc.firstName + " " + userDoc.lastName;
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1100px)",
-  });
+
   return (
     <>
-      {isDesktopOrLaptop && (
-        <div className="LeftSide col-3 text-left">
+      {show && (
+        <div className="LeftSide">
           <div className="GlobalSide">
             {/* ==== First Section === */}
             <TopLeftWrapper>
@@ -66,7 +64,7 @@ export const LeftSide = () => {
                 text={userName}
                 height={"29px"}
                 style={{ borderRadius: "100%" }}
-                page={"profile"}
+                page={"/profile"}
               />
               <SideButtons image={Friends} text={"Friends"} height={"23px"} />
               <SideButtons

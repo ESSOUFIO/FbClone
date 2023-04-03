@@ -11,6 +11,7 @@ import ForgotAccount from "./pages/Login/ForgotAccount";
 import Saved from "./pages/Saved/Saved";
 import RootLayout from "./pages/RootLayout";
 import Profile from "./pages/Profile/Profile";
+import Bookmarks from "./pages/Bookmarks/Bookmarks";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "profile",
         element: <Profile />,
+      },
+      {
+        path: "bookmarks",
+        element: <Bookmarks />,
       },
     ],
   },

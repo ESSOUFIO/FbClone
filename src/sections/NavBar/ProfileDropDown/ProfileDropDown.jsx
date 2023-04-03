@@ -11,10 +11,11 @@ import { useNavigate } from "react-router-dom";
 import { signout } from "../../../firebase/auth";
 import defaultPic from "../../../assets/images/defProfile.jpg";
 
-const ProfileBtn = ({ img, username, userId }) => {
+const ProfileBtn = ({ img, username, userId, btnClicked }) => {
   const navigate = useNavigate();
   const toProfilePage = () => {
     navigate("profile");
+    btnClicked("profile");
   };
 
   return (
@@ -62,7 +63,7 @@ const MenuBtn = ({ img, title, onClick, subMenu = false }) => {
   );
 };
 
-const ProfileDropDown = () => {
+const ProfileDropDown = ({ btnClicked }) => {
   const { userDoc } = useGlobalState();
   const userName = userDoc.firstName + " " + userDoc.lastName;
   const navigate = useNavigate();
@@ -88,6 +89,7 @@ const ProfileDropDown = () => {
         img={userDoc.picture ? userDoc.picture : defaultPic}
         username={userName}
         userId={userDoc.uid}
+        btnClicked={btnClicked}
       />
       <hr
         style={{
