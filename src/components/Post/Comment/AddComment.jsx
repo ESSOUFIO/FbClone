@@ -1,20 +1,44 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./AddComment.module.css";
 import { HiOutlineGif } from "react-icons/hi2";
 import { IoSendOutline, IoSend } from "react-icons/io5";
 import { BsCamera, BsEmojiSmile } from "react-icons/bs";
+import { addComment } from "../../../firebase/interaction";
 
-const AddComment = ({
-  picture,
-  comment,
-  setComment,
-  addCommentHandler,
-  isFixed,
-}) => {
+const AddComment = ({ postId, uid, picture, isFixed }) => {
+  const [comment, setComment] = useState("");
+
+  const addCommentHandler = useCallback(async () => {
+    try {
+      await addComment(postId, uid, comment);
+      setComment("");
+    } catch (error) {
+      console.log(error);
+    }
+  }, [comment, postId, uid]);
+
+  useEffect(() => {
+    if (comment !== "") {
+      const keyDownHandler = (event) => {
+        // console.log("User pressed: ", event.key);
+        if (event.key === "Enter") {
+          event.preventDefault();
+          addCommentHandler();
+        }
+      };
+      document.addEventListener("keydown", keyDownHandler);
+      return () => {
+        document.removeEventListener("keydown", keyDownHandler);
+      };
+    }
+  }, [comment, addCommentHandler]);
   return (
     <div
       className={styles.newComment}
-      style={{ position: `${isFixed ? "fixed" : "absolute"}` }}
+      style={{
+        position: `${isFixed ? "fixed" : "absolute"}`,
+        width: `${isFixed ? "97%" : "100%"}`,
+      }}
     >
       <div
         className={styles.userPicture}

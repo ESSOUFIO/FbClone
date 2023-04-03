@@ -4,11 +4,21 @@ import { MainContent } from "../../sections/index";
 import { RightSide } from "../../sections/index";
 import withGuard from "../../utils/withGuard";
 import AlertAutoDismiss from "../../components/Alerts/AlertAutoDismiss";
+import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
+  const isTablet = useMediaQuery({
+    query: "(min-width: 900px)",
+  });
+  const isDesktopOrLaptop = useMediaQuery({
+    query: "(min-width: 1100px)",
+  });
   return (
-    <div className="Home">
-      <LeftSide />
+    <div
+      className="Home"
+      style={{ justifyContent: `${isTablet ? "space-between" : "center"}` }}
+    >
+      <LeftSide show={isDesktopOrLaptop} />
       <MainContent />
       <RightSide />
       <AlertAutoDismiss />

@@ -162,26 +162,41 @@ const Post = ({ post, PostTime, style }) => {
           showDetailsPost={showDetailsPost}
         />
       </div>
-      <DeletePost
-        DeletePostV={DeletePostV}
-        hideDeletePost={hideDeletePost}
-        postId={post.id}
-      />
-      <SavePost
-        SavePostV={SavePostV}
-        hideSavePost={hideSavePost}
-        onSavePost={onSavePost}
-      />
-      <EditPost editPostV={editPostV} hideEditPost={hideEditPost} post={post} />
-      <DetailsPost
-        detailsPostV={detailsPostV}
-        hideDetailsPost={hideDetailsPost}
-        userName={userName}
-        post={post}
-        PostTime={PostTime}
-        uid={uid}
-        picture={userDoc.picture}
-      />
+      {DeletePostV && (
+        <DeletePost
+          DeletePostV={DeletePostV}
+          hideDeletePost={hideDeletePost}
+          postId={post.id}
+        />
+      )}
+
+      {SavePostV && (
+        <SavePost
+          SavePostV={SavePostV}
+          hideSavePost={hideSavePost}
+          onSavePost={onSavePost}
+        />
+      )}
+
+      {editPostV && (
+        <EditPost
+          editPostV={editPostV}
+          hideEditPost={hideEditPost}
+          post={post}
+        />
+      )}
+
+      {detailsPostV && (
+        <DetailsPost
+          detailsPostV={detailsPostV}
+          hideDetailsPost={hideDetailsPost}
+          userName={userName}
+          post={post}
+          PostTime={PostTime}
+          uid={uid}
+          picture={userDoc.picture}
+        />
+      )}
     </>
   );
 };

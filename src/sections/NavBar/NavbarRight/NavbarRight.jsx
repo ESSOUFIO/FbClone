@@ -6,9 +6,10 @@ import { BsMessenger } from "react-icons/bs";
 import { CgMenuGridR } from "react-icons/cg";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import defaultPic from "../../../assets/images/defProfile.jpg";
+import { useMediaQuery } from "react-responsive";
 
 /** Internal Components */
-const ProfilePicture = () => {
+const ProfilePicture = ({ isMobile }) => {
   const { userDoc } = useGlobalState();
 
   return (
@@ -23,6 +24,7 @@ const ProfilePicture = () => {
         className="NavbarRightImg "
         src={userDoc.picture ? userDoc.picture : defaultPic}
         alt=""
+        style={{ marginRight: `${isMobile ? "20px" : "0px"}` }}
       />
     </div>
   );
@@ -53,16 +55,20 @@ const Menu = () => {
 };
 
 /** ==== NavbarRight ===== */
-export const NavbarRight = () => {
-  const { user } = useGlobalState();
-
+export const NavbarRight = ({ btnClicked }) => {
+  const isMobile = useMediaQuery({
+    query: "(min-width: 500px)",
+  });
   return (
-    <div className="NavbarRight position-relative">
-      <ProfilePicture uid={user?.uid} />
+    <div
+      className="NavbarRight position-relative"
+      // style={{ marginRight: `${isMobile ? "10px" : "0px"}` }}
+    >
+      <ProfilePicture isMobile={isMobile} />
       <Notifications />
       <Messenger />
       <Menu />
-      <ProfileDropDown />
+      <ProfileDropDown btnClicked={btnClicked} />
     </div>
   );
 };

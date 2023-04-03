@@ -3,14 +3,9 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
-  getDocs,
-  onSnapshot,
-  orderBy,
-  query,
   setDoc,
+  updateDoc,
 } from "firebase/firestore";
-import { useState } from "react";
 import { db } from "./config";
 
 export const likePost = async (postId, uid) => {
@@ -23,16 +18,6 @@ export const likePost = async (postId, uid) => {
 export const disLikePost = async (postId, uid) => {
   const docRef = doc(db, "posts", postId, "interactions", "Like", "likes", uid);
   await deleteDoc(docRef);
-};
-
-export const isLiked = async (postId, uid) => {
-  const docRef = doc(db, "posts", postId, "interactions", "Like", "likes", uid);
-  const docSnap = await getDoc(docRef);
-  if (docSnap.exists()) {
-    return true;
-  } else {
-    return false;
-  }
 };
 
 export const addComment = async (postId, uid, comment) => {
@@ -49,18 +34,61 @@ export const addComment = async (postId, uid, comment) => {
   await addDoc(collectionRef, commentDoc);
 };
 
-export const getLastComment = (postId) => {
-  return new Promise(async (resolve, reject) => {
-    const q = query(
-      collection(db, "posts", postId, "interactions", "Comment", "comments"),
-      orderBy("time", "desc")
-    );
+export const deleteComment = async (postId, commentId) => {
+  const docRef = doc(
+    db,
+    "posts",
+    postId,
+    "interactions",
+    "Comment",
+    "comments",
+    commentId
+  );
+  await deleteDoc(docRef);
+};
 
-    const querySnapshot = await getDocs(q);
-    querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      resolve(doc.data());
-      return;
-    });
-  });
+export const updateComment = async (postId, commentId, newComment) => {
+  console.log("newComment: ", newComment);
+  const docRef = doc(
+    db,
+    "posts",
+    postId,
+    "interactions",
+    "Comment",
+    "comments",
+    commentId
+  );
+  await updateDoc(docRef, newComment);
+};
+
+export const likeComment = async (postId, uid, commentId) => {
+  const d = new Date();
+  const likeDoc = { time: d.getTime() };
+  const docRef = doc(
+    db,
+    "posts",
+    postId,
+    "interactions",
+    "Comment",
+    "comments",
+    commentId,
+    "Like",
+    uid
+  );
+  await setDoc(docRef, likeDoc);
+};
+
+export const disLikeComment = async (postId, uid, commentId) => {
+  const docRef = doc(
+    db,
+    "posts",
+    postId,
+    "interactions",
+    "Comment",
+    "comments",
+    commentId,
+    "Like",
+    uid
+  );
+  await deleteDoc(docRef);
 };

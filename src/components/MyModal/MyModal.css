@@ -7,6 +7,10 @@
   color: var(--color-lighter);
 }
 
+.MyModal .modal-content {
+  box-shadow: 5px 5px 5px rgba(0 0 0 / 20%);
+}
+
 .Large {
   width: 650px;
   transform: translate(-70px, 0);

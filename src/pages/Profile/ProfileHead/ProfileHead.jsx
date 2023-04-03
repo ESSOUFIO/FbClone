@@ -21,8 +21,9 @@ import { useGlobalState } from "../../../context/GlobalProvider";
 import { uploadProfilePicture, uploadCoverPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
+import { useMediaQuery } from "react-responsive";
 
-const Cover = () => {
+const Cover = ({ isDesktop }) => {
   const fileRef = useRef();
   const { userDoc } = useGlobalState();
   const [imageUrl, setImageUrl] = useState(null);
@@ -45,19 +46,24 @@ const Cover = () => {
       setImageUrl(userDoc.coverPhoto);
     } else setImageUrl(defaultCover);
   }, [userDoc]);
-
   return (
     <>
       <div
         className={styles.cover}
-        style={{ backgroundImage: `url(${imageUrl})` }}
+        style={{
+          backgroundImage: `url(${imageUrl})`,
+          height: `${isDesktop ? "400px" : "45vw"}`,
+        }}
       >
         <div
           className={styles.btnCover}
           onClick={() => fileRef.current.click()}
+          style={{ padding: `${isDesktop ? "7px 14px" : "10px 14px"}` }}
         >
           <ImCamera />
-          <span style={{ marginLeft: "6px" }}>Edit cover photo</span>
+          {isDesktop && (
+            <span style={{ marginLeft: "6px" }}>Edit cover photo</span>
+          )}
         </div>
 
         <input
@@ -117,7 +123,7 @@ const MoreBtn = () => {
   );
 };
 
-const Photo = () => {
+const Photo = ({ isDesktop }) => {
   const { userDoc } = useGlobalState();
   const fileRef = useRef();
   const [imageUrl, setImageUrl] = useState(null);
@@ -143,8 +149,20 @@ const Photo = () => {
 
   return (
     <>
-      <div className={styles.photo} onClick={() => fileRef.current.click()}>
-        <img src={imageUrl} alt="" width={"100%"} />
+      <div
+        className={styles.photoWrap}
+        onClick={() => fileRef.current.click()}
+        style={{ transform: `${isDesktop ? "translate(0, -30px)" : ""}` }}
+      >
+        <div className={styles.photo}>
+          <img src={imageUrl} alt="" width={"100%"} />
+        </div>
+        <div
+          className={styles.uploadPhotoBtn}
+          onClick={() => fileRef.current.click()}
+        >
+          <ImCamera />
+        </div>
       </div>
 
       <input
@@ -154,25 +172,25 @@ const Photo = () => {
         ref={fileRef}
         onChange={(e) => fileChange(e.target.files)}
       />
-
-      <div
-        className={styles.uploadPhotoBtn}
-        onClick={() => fileRef.current.click()}
-      >
-        <ImCamera />
-      </div>
     </>
   );
 };
 
-const Titles = ({ photos, username }) => {
+const Titles = ({ photos, username, isDesktop }) => {
   return (
-    <div className={styles.titles}>
+    <div
+      className={styles.titles}
+      style={{
+        textAlign: `${isDesktop ? "left" : "center"}`,
+        gap: "2px",
+        transform: `${isDesktop ? "translate(-50px, 25px)" : ""}`,
+      }}
+    >
       <h2>{username}</h2>
-      <h5>1,085 friends</h5>
+      <h5 style={{ fontSize: "19px", marginBottom: "5px" }}>1,085 friends</h5>
       <div
-        className="d-flex flex-row-reverse"
-        style={{ transform: "translate(-35px, 0)" }}
+        className={styles.friendsPicWrap}
+        style={{ transform: `${isDesktop ? "translate(-37px,0)" : ""}` }}
       >
         {photos.map((photo, i) => (
           <FriendsPicture key={i} photo={photo} index={i} />
@@ -303,16 +321,34 @@ const ProfileHead = () => {
     icon8,
   ];
   const username = userDoc.firstName + " " + userDoc.lastName;
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 950px)",
+  });
   return (
     <>
       <div className={styles.ProfileHead}>
-        <Cover />
-        <div className={styles.Wrapper}>
-          <div className={styles.titlePhotoWrap}>
-            <div className="position-relative">
-              <Photo />
-              <Titles photos={friendsPhotos} username={username} />
-            </div>
+        <Cover isDesktop={isDesktop} />
+        <div
+          className={styles.Wrapper}
+          style={{
+            transform: `${isDesktop ? "" : "translate(0, -80px)"}`,
+          }}
+        >
+          <div
+            className={styles.titlePhotoWrap}
+            style={{
+              flexDirection: `${isDesktop ? "row" : "column"}`,
+              justifyContent: `${isDesktop ? "space-between" : ""}`,
+              alignItems: `${isDesktop ? "" : "center"}`,
+              gap: `${isDesktop ? "" : "15px"}`,
+            }}
+          >
+            <Photo isDesktop={isDesktop} />
+            <Titles
+              photos={friendsPhotos}
+              username={username}
+              isDesktop={isDesktop}
+            />
             <Buttons />
           </div>
           <Menu />
