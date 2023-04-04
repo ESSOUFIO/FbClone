@@ -46,7 +46,7 @@ const FilterViewBtn = ({ icon, title, active, setActiveBtn }) => {
   );
 };
 
-const FilterPosts = () => {
+const FilterPosts = ({ isDesktopMedium, isMobile }) => {
   const [viewBtn, setViewBtn] = useState([
     {
       title: "List View",
@@ -93,7 +93,12 @@ const FilterPosts = () => {
   };
 
   return (
-    <div className={styles.FilterPosts}>
+    <div
+      className={styles.FilterPosts}
+      style={{
+        maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+      }}
+    >
       <div className="d-flex justify-content-between px-3 py-2">
         <h5>Posts</h5>
         <div className="d-flex gap-2">
@@ -125,16 +130,35 @@ const FilterPosts = () => {
   );
 };
 
-const ProfileRightSide = ({ showAddPost }) => {
+const ProfileRightSide = ({ showAddPost, isDesktopMedium, isMobile }) => {
   const { myPosts } = useGlobalState();
 
   return (
-    <div className={styles.RightSideWrap}>
-      <NewPost showAddPost={showAddPost} />
-      <FilterPosts />
+    <div
+      className={styles.RightSideWrap}
+      style={{
+        maxWidth: `${isDesktopMedium ? "" : "100vw"}`,
+        paddingRight: `${isDesktopMedium ? "0" : isMobile ? "35px" : "20px"}`,
+      }}
+    >
+      <NewPost
+        showAddPost={showAddPost}
+        isDesktopMedium={isDesktopMedium}
+        isMobile={isMobile}
+      />
+      <FilterPosts isDesktopMedium={isDesktopMedium} isMobile={isMobile} />
       {myPosts.map((post) => {
         const postTime = calcTime(post.time);
-        return <Post key={post.id} post={post} PostTime={postTime} />;
+        return (
+          <Post
+            key={post.id}
+            post={post}
+            PostTime={postTime}
+            style={{
+              maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+            }}
+          />
+        );
       })}
     </div>
   );

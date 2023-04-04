@@ -15,9 +15,14 @@ import friend4 from "../../../assets/images/friends/4.jpg";
 import friend5 from "../../../assets/images/friends/5.jpg";
 import friend6 from "../../../assets/images/friends/6.jpg";
 
-const CardWrap = ({ children, title, SeeAll }) => {
+const CardWrap = ({ children, title, SeeAll, isDesktopMedium, isMobile }) => {
   return (
-    <div className={styles.CardWrap}>
+    <div
+      className={styles.CardWrap}
+      style={{
+        maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+      }}
+    >
       <div className="d-flex justify-content-between">
         <h5>{title}</h5>
         {!!SeeAll && <div className={styles.SeeAll}>{SeeAll}</div>}
@@ -52,10 +57,20 @@ const FriendItem = ({ friendImg, name }) => {
   );
 };
 
-const ProfileLeftSide = () => {
+const ProfileLeftSide = ({ isDesktopMedium, isMobile }) => {
   return (
-    <div className={styles.LeftSideWrap}>
-      <CardWrap title={"Info"}>
+    <div
+      className={styles.LeftSideWrap}
+      style={{
+        maxWidth: `${isDesktopMedium ? "345px" : "100vw"}`,
+        paddingRight: `${isDesktopMedium ? "0" : isMobile ? "35px" : "20px"}`,
+      }}
+    >
+      <CardWrap
+        title={"Info"}
+        isDesktopMedium={isDesktopMedium}
+        isMobile={isMobile}
+      >
         <div className={styles.info}>
           <p className="text-center">Write a short personal bio.</p>
           <ButtonInfo title={"Edit bio"} />
@@ -87,7 +102,12 @@ const ProfileLeftSide = () => {
         </div>
       </CardWrap>
 
-      <CardWrap title={"Photos"} SeeAll={"See all photos"}>
+      <CardWrap
+        title={"Photos"}
+        SeeAll={"See all photos"}
+        isDesktopMedium={isDesktopMedium}
+        isMobile={isMobile}
+      >
         <div className={styles.photos}>
           <PhotoItem photo={photo1} />
           <PhotoItem photo={photo2} />
@@ -98,7 +118,12 @@ const ProfileLeftSide = () => {
         </div>
       </CardWrap>
 
-      <CardWrap title={"Friends"} SeeAll={"See all friends"}>
+      <CardWrap
+        title={"Friends"}
+        SeeAll={"See all friends"}
+        isDesktopMedium={isDesktopMedium}
+        isMobile={isMobile}
+      >
         <div className={styles.friendsWrap}>
           <p>1,085 friends</p>
           <div className={styles.friends}>

@@ -1,15 +1,17 @@
 .RightSideWrap {
-  flex: 1;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 15px;
-  padding-bottom: 20px;
+  margin-left: 10px;
 }
 
 .FilterPosts {
   background: var(--color-darker);
   border-radius: 10px;
   color: var(--color-lighter);
+  width: 100%;
 }
 .FilterPosts h5 {
   color: var(--color-lighter);

@@ -21,7 +21,6 @@ import { useGlobalState } from "../../../context/GlobalProvider";
 import { uploadProfilePicture, uploadCoverPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
-import { useMediaQuery } from "react-responsive";
 
 const Cover = ({ isDesktop, isMobile }) => {
   const fileRef = useRef();
@@ -251,7 +250,13 @@ const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile }) => {
   };
 
   return (
-    <div className={styles.Menu}>
+    <div
+      className={styles.Menu}
+      style={{
+        paddingRight: `${isMobile ? "25px" : "15px"}`,
+        paddingLeft: `${isMobile ? "10px" : "0"}`,
+      }}
+    >
       <div className="d-flex">
         <MenuBtn
           title={"Posts"}
@@ -263,11 +268,13 @@ const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile }) => {
           setActive={setActive}
           active={menu[1].active}
         />
-        <MenuBtn
-          title={"Friends"}
-          setActive={setActive}
-          active={menu[2].active}
-        />
+        {isMobile && (
+          <MenuBtn
+            title={"Friends"}
+            setActive={setActive}
+            active={menu[2].active}
+          />
+        )}
         {isMobile && (
           <MenuBtn
             title={"Photos"}
@@ -323,7 +330,12 @@ const Buttons = () => {
   );
 };
 
-const ProfileHead = () => {
+const ProfileHead = ({
+  isDesktop,
+  isLaptopLarge,
+  isLaptopMedium,
+  isMobile,
+}) => {
   const { userDoc } = useGlobalState();
   const friendsPhotos = [
     icon1,
@@ -336,18 +348,7 @@ const ProfileHead = () => {
     icon8,
   ];
   const username = userDoc.firstName + " " + userDoc.lastName;
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 950px)",
-  });
-  const isLaptopLarge = useMediaQuery({
-    query: "(min-width: 850px)",
-  });
-  const isLaptopMedium = useMediaQuery({
-    query: "(min-width: 750px)",
-  });
-  const isMobile = useMediaQuery({
-    query: "(min-width: 600px)",
-  });
+
   return (
     <>
       <div className={styles.ProfileHead}>
