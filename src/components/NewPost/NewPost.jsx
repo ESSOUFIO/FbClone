@@ -9,9 +9,9 @@ const NPButtonsWrap = (props) => {
   return <div className="NPButtonsWrap">{props.children}</div>;
 };
 
-const NewPost = ({ showAddPost, width }) => {
+const NewPost = ({ showAddPost, isMobile }) => {
   return (
-    <div className="NewPost" style={{ width: width }}>
+    <div className="NewPost">
       <NPInputWrap showAddPost={showAddPost} />
       <NPButtonsWrap>
         <NPButtons
@@ -26,12 +26,14 @@ const NewPost = ({ showAddPost, width }) => {
           height={"30px"}
           showAddPost={showAddPost}
         />
-        <NPButtons
-          image={PostFeeling}
-          text="Feeling/activity"
-          height={"30px"}
-          showAddPost={showAddPost}
-        />
+        {isMobile && (
+          <NPButtons
+            image={PostFeeling}
+            text="Feeling/activity"
+            height={"30px"}
+            showAddPost={showAddPost}
+          />
+        )}
       </NPButtonsWrap>
     </div>
   );

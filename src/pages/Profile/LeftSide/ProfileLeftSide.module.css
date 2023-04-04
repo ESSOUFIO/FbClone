@@ -1,8 +1,10 @@
 .LeftSideWrap {
-  flex: 0 1 345px;
+  flex: 0 1 auto;
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 15px;
+  margin-left: 10px;
 }
 
 .CardWrap {
@@ -51,6 +53,13 @@
   text-align: center;
   color: white;
   font-weight: 600;
+}
+.ButtonInfo:hover {
+  cursor: pointer;
+  background: var(--color-dark-less);
+}
+.ButtonInfo:active {
+  background: gray;
 }
 
 .photos {

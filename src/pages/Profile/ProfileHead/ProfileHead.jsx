@@ -21,9 +21,8 @@ import { useGlobalState } from "../../../context/GlobalProvider";
 import { uploadProfilePicture, uploadCoverPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
-import { useMediaQuery } from "react-responsive";
 
-const Cover = ({ isDesktop }) => {
+const Cover = ({ isDesktop, isMobile }) => {
   const fileRef = useRef();
   const { userDoc } = useGlobalState();
   const [imageUrl, setImageUrl] = useState(null);
@@ -58,7 +57,10 @@ const Cover = ({ isDesktop }) => {
         <div
           className={styles.btnCover}
           onClick={() => fileRef.current.click()}
-          style={{ padding: `${isDesktop ? "7px 14px" : "10px 14px"}` }}
+          style={{
+            padding: `${isDesktop ? "7px 14px" : "10px 14px"}`,
+            right: `${isMobile ? "36px" : "15px"}`,
+          }}
         >
           <ImCamera />
           {isDesktop && (
@@ -152,7 +154,9 @@ const Photo = ({ isDesktop }) => {
       <div
         className={styles.photoWrap}
         onClick={() => fileRef.current.click()}
-        style={{ transform: `${isDesktop ? "translate(0, -30px)" : ""}` }}
+        style={{
+          transform: `${isDesktop ? "translate(0, -30px)" : "translate(0, 0)"}`,
+        }}
       >
         <div className={styles.photo}>
           <img src={imageUrl} alt="" width={"100%"} />
@@ -183,14 +187,18 @@ const Titles = ({ photos, username, isDesktop }) => {
       style={{
         textAlign: `${isDesktop ? "left" : "center"}`,
         gap: "2px",
-        transform: `${isDesktop ? "translate(-50px, 25px)" : ""}`,
+        transform: `${
+          isDesktop ? "translate(-50px, 25px)" : "translate(0, 0)"
+        }`,
       }}
     >
       <h2>{username}</h2>
       <h5 style={{ fontSize: "19px", marginBottom: "5px" }}>1,085 friends</h5>
       <div
         className={styles.friendsPicWrap}
-        style={{ transform: `${isDesktop ? "translate(-37px,0)" : ""}` }}
+        style={{
+          transform: `${isDesktop ? "translate(-37px,0)" : "translate(0, 0)"}`,
+        }}
       >
         {photos.map((photo, i) => (
           <FriendsPicture key={i} photo={photo} index={i} />
@@ -200,7 +208,7 @@ const Titles = ({ photos, username, isDesktop }) => {
   );
 };
 
-const Menu = () => {
+const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile }) => {
   const [menu, setMenu] = useState([
     {
       title: "Posts",
@@ -242,7 +250,13 @@ const Menu = () => {
   };
 
   return (
-    <div className={styles.Menu}>
+    <div
+      className={styles.Menu}
+      style={{
+        paddingRight: `${isMobile ? "25px" : "15px"}`,
+        paddingLeft: `${isMobile ? "10px" : "0"}`,
+      }}
+    >
       <div className="d-flex">
         <MenuBtn
           title={"Posts"}
@@ -254,26 +268,34 @@ const Menu = () => {
           setActive={setActive}
           active={menu[1].active}
         />
-        <MenuBtn
-          title={"Friends"}
-          setActive={setActive}
-          active={menu[2].active}
-        />
-        <MenuBtn
-          title={"Photos"}
-          setActive={setActive}
-          active={menu[3].active}
-        />
-        <MenuBtn
-          title={"Videos"}
-          setActive={setActive}
-          active={menu[4].active}
-        />
-        <MenuBtn
-          title={"Check-ins"}
-          setActive={setActive}
-          active={menu[5].active}
-        />
+        {isMobile && (
+          <MenuBtn
+            title={"Friends"}
+            setActive={setActive}
+            active={menu[2].active}
+          />
+        )}
+        {isMobile && (
+          <MenuBtn
+            title={"Photos"}
+            setActive={setActive}
+            active={menu[3].active}
+          />
+        )}
+        {isLaptopMedium && (
+          <MenuBtn
+            title={"Videos"}
+            setActive={setActive}
+            active={menu[4].active}
+          />
+        )}
+        {isLaptopLarge && (
+          <MenuBtn
+            title={"Check-ins"}
+            setActive={setActive}
+            active={menu[5].active}
+          />
+        )}
         <MenuBtn
           title={"More"}
           setActive={setActive}
@@ -308,7 +330,12 @@ const Buttons = () => {
   );
 };
 
-const ProfileHead = () => {
+const ProfileHead = ({
+  isDesktop,
+  isLaptopLarge,
+  isLaptopMedium,
+  isMobile,
+}) => {
   const { userDoc } = useGlobalState();
   const friendsPhotos = [
     icon1,
@@ -321,17 +348,18 @@ const ProfileHead = () => {
     icon8,
   ];
   const username = userDoc.firstName + " " + userDoc.lastName;
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 950px)",
-  });
+
   return (
     <>
       <div className={styles.ProfileHead}>
-        <Cover isDesktop={isDesktop} />
+        <Cover isDesktop={isDesktop} isMobile={isMobile} />
         <div
           className={styles.Wrapper}
           style={{
-            transform: `${isDesktop ? "" : "translate(0, -80px)"}`,
+            transform: `${
+              isDesktop ? "translate(0, 0)" : "translate(0, -80px)"
+            }`,
+            width: `${isDesktop ? "900px" : "100vw"}`,
           }}
         >
           <div
@@ -351,7 +379,11 @@ const ProfileHead = () => {
             />
             <Buttons />
           </div>
-          <Menu />
+          <Menu
+            isLaptopLarge={isLaptopLarge}
+            isLaptopMedium={isLaptopMedium}
+            isMobile={isMobile}
+          />
         </div>
       </div>
 

@@ -7,14 +7,14 @@ import { FillPosts } from "../../components/Post/FillPosts";
 import AddPost from "../../components/Post/Modals/AddPost";
 import { useState } from "react";
 import { useGlobalState } from "../../context/GlobalProvider";
-import { useMediaQuery } from "react-responsive";
 
 const Container = ({ children, isMobile }) => {
   return (
     <div
       className="Container"
       style={{
-        width: `${isMobile ? "var(--MiddleContainer-witdh)" : "97vw"}`,
+        width: `${isMobile ? "var(--MiddleContainer-witdh)" : "100%"}`,
+        padding: `${isMobile ? "0 10px" : "0 5px"}`,
       }}
     >
       {children}
@@ -22,23 +22,20 @@ const Container = ({ children, isMobile }) => {
   );
 };
 
-export const MainContent = () => {
+export const MainContent = ({ isDesktopMedium, isMobile }) => {
   const [addPostV, setAddPostV] = useState(false);
   const showAddPost = () => setAddPostV(true);
   const hideAddPost = () => setAddPostV(false);
   const { user } = useGlobalState();
-  const isTablet = useMediaQuery({
-    query: "(min-width: 900px)",
-  });
-  const isMobile = useMediaQuery({
-    query: "(min-width: 500px)",
-  });
+
   return (
     <>
       <div
         className="MainContent"
         style={{
-          transform: `${isTablet ? "translate(-15px, 0px)" : ""}`,
+          transform: `${
+            isDesktopMedium ? "translate(-15px, 0px)" : "translate(0, 0)"
+          }`,
           width: `${isMobile ? "650px" : "97vw"}`,
         }}
       >
@@ -47,6 +44,8 @@ export const MainContent = () => {
           <NewPost
             showAddPost={showAddPost}
             width={"var(--MiddleContainer-witdh)"}
+            isDesktopMedium={isDesktopMedium}
+            isMobile={isMobile}
           />
           <FillPosts />
         </Container>

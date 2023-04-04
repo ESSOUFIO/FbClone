@@ -39,7 +39,7 @@ const ButtonsNav = () => {
 };
 
 //* ===  Stories List ==== */
-export const StoriesSection = ({ uid }) => {
+export const StoriesSection = () => {
   // const [imageUrl, setImageUrl] = useState(ProfilePic);
   const { userDoc } = useGlobalState();
 
