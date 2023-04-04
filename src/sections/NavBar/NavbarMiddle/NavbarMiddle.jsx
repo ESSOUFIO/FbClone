@@ -62,7 +62,9 @@ export const NavbarMiddle = ({ navBtn, btnClicked }) => {
                 ? "45vw"
                 : "60vw"
             }`,
-            transform: `${isDesktop ? "" : "translate(-50px, 0px)"}`,
+            transform: `${
+              isDesktop ? "translate(0, 0)" : "translate(-50px, 0px)"
+            }`,
           }}
         >
           <NavbarMiddleIcon

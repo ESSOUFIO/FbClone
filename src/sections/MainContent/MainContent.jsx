@@ -38,7 +38,9 @@ export const MainContent = () => {
       <div
         className="MainContent"
         style={{
-          transform: `${isTablet ? "translate(-15px, 0px)" : ""}`,
+          transform: `${
+            isTablet ? "translate(-15px, 0px)" : "translate(0, 0)"
+          }`,
           width: `${isMobile ? "650px" : "97vw"}`,
         }}
       >
