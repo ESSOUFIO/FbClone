@@ -7,19 +7,24 @@ import AlertAutoDismiss from "../../components/Alerts/AlertAutoDismiss";
 import { useMediaQuery } from "react-responsive";
 
 const Home = () => {
-  const isTablet = useMediaQuery({
+  const isDesktopMedium = useMediaQuery({
     query: "(min-width: 900px)",
   });
   const isDesktopOrLaptop = useMediaQuery({
     query: "(min-width: 1100px)",
   });
+  const isMobile = useMediaQuery({
+    query: "(min-width: 550px)",
+  });
   return (
     <div
       className="Home"
-      style={{ justifyContent: `${isTablet ? "space-between" : "center"}` }}
+      style={{
+        justifyContent: `${isDesktopMedium ? "space-between" : "center"}`,
+      }}
     >
       <LeftSide show={isDesktopOrLaptop} />
-      <MainContent />
+      <MainContent isDesktopMedium={isDesktopMedium} isMobile={isMobile} />
       <RightSide />
       <AlertAutoDismiss />
     </div>

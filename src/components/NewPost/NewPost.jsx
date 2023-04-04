@@ -9,15 +9,9 @@ const NPButtonsWrap = (props) => {
   return <div className="NPButtonsWrap">{props.children}</div>;
 };
 
-const NewPost = ({ showAddPost, width, isDesktopMedium, isMobile }) => {
+const NewPost = ({ showAddPost, isMobile }) => {
   return (
-    <div
-      className="NewPost"
-      style={{
-        width: width,
-        maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
-      }}
-    >
+    <div className="NewPost">
       <NPInputWrap showAddPost={showAddPost} />
       <NPButtonsWrap>
         <NPButtons
