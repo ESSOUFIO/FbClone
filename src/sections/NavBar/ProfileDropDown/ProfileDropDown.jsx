@@ -14,7 +14,7 @@ import defaultPic from "../../../assets/images/defProfile.jpg";
 const ProfileBtn = ({ img, username, userId, btnClicked }) => {
   const navigate = useNavigate();
   const toProfilePage = () => {
-    navigate("profile");
+    navigate(`profile/${userId}`);
     btnClicked("profile");
   };
 

@@ -4,15 +4,17 @@ import PostVideo from "../../assets/images/PostVideo.png";
 import PostPhoto from "../../assets/images/PostPhoto.png";
 import PostFeeling from "../../assets/images/PostFeeling.png";
 import { NPButtons } from "./NPButtons/NPButtons";
+import { useGlobalState } from "../../context/GlobalProvider";
 
 const NPButtonsWrap = (props) => {
   return <div className="NPButtonsWrap">{props.children}</div>;
 };
 
 const NewPost = ({ showAddPost, isMobile, style }) => {
+  const { user } = useGlobalState();
   return (
     <div className="NewPost" style={style}>
-      <NPInputWrap showAddPost={showAddPost} />
+      <NPInputWrap showAddPost={showAddPost} uid={user.uid} />
       <NPButtonsWrap>
         <NPButtons
           image={PostVideo}

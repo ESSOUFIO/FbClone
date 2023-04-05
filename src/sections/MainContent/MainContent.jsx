@@ -26,7 +26,7 @@ export const MainContent = ({ isDesktopMedium, isMobile }) => {
   const [addPostV, setAddPostV] = useState(false);
   const showAddPost = () => setAddPostV(true);
   const hideAddPost = () => setAddPostV(false);
-  const { user } = useGlobalState();
+  const { userDoc } = useGlobalState();
 
   return (
     <>
@@ -40,7 +40,7 @@ export const MainContent = ({ isDesktopMedium, isMobile }) => {
         }}
       >
         <Container isMobile={isMobile}>
-          <StoriesSection uid={user.uid} />
+          <StoriesSection userDoc={userDoc} />
           <NewPost
             showAddPost={showAddPost}
             width={"var(--MiddleContainer-witdh)"}

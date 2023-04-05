@@ -14,9 +14,11 @@ import reportIcon from "../../../assets/images/report.png";
 import trashIcon from "../../../assets/images/trash.png";
 import editIcon from "../../../assets/images/edit.png";
 import { useGlobalState } from "../../../context/GlobalProvider";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = ({ uid, UserName, PostTime }) => {
   const [imageUrl, setImageUrl] = useState(ProfilePic);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getUploadedProfilePic(uid).then((URL) => {
@@ -26,7 +28,7 @@ const UserProfile = ({ uid, UserName, PostTime }) => {
 
   return (
     <div className="UserProfile">
-      <img src={imageUrl} alt="" />
+      <img src={imageUrl} alt="" onClick={() => navigate(`/profile/${uid}`)} />
       <div className="Text">
         <h6>{UserName}</h6>
         <span>
