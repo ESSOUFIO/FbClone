@@ -63,7 +63,7 @@ const ProfileLeftSide = ({ isDesktopMedium, isMobile }) => {
       className={styles.LeftSideWrap}
       style={{
         maxWidth: `${isDesktopMedium ? "345px" : "100vw"}`,
-        paddingRight: `${isDesktopMedium ? "0" : isMobile ? "35px" : "20px"}`,
+        // paddingRight: `${isDesktopMedium ? "0" : isMobile ? "35px" : "20px"}`,
       }}
     >
       <CardWrap

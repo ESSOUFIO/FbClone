@@ -138,12 +138,14 @@ const ProfileRightSide = ({ showAddPost, isDesktopMedium, isMobile }) => {
       className={styles.RightSideWrap}
       style={{
         maxWidth: `${isDesktopMedium ? "" : "100vw"}`,
-        paddingRight: `${isDesktopMedium ? "0" : isMobile ? "35px" : "20px"}`,
+        // paddingRight: `${isDesktopMedium ? "0" : isMobile ? "35px" : "20px"}`,
       }}
     >
       <NewPost
         showAddPost={showAddPost}
-        isDesktopMedium={isDesktopMedium}
+        style={{
+          maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+        }}
         isMobile={isMobile}
       />
       <FilterPosts isDesktopMedium={isDesktopMedium} isMobile={isMobile} />

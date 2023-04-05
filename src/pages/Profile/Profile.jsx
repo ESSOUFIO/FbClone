@@ -18,7 +18,10 @@ const ProfileBodyWrap = ({ children, isDesktop, isDesktopMedium }) => {
     >
       <div
         className={styles.ProfileBodyWrap}
-        style={{ flexDirection: `${isDesktopMedium ? "row" : "column"}` }}
+        style={{
+          flexDirection: `${isDesktopMedium ? "row" : "column"}`,
+          width: `${isDesktopMedium ? "900px" : "100%"}`,
+        }}
       >
         {children}
       </div>
