@@ -1,9 +1,13 @@
 import "./BouttonsNavLeft.css";
 import { MdArrowBackIos } from "react-icons/md";
 
-export const BouttonsNavLeft = (props) => {
+export const BouttonsNavLeft = ({ visible, onClicked }) => {
   return (
-    <div className="BouttonsNavLeft" style={{ visibility: props.visible }}>
+    <div
+      className="BouttonsNavLeft"
+      onClick={onClicked}
+      style={{ visibility: visible }}
+    >
       <MdArrowBackIos />
     </div>
   );

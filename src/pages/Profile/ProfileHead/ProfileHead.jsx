@@ -17,14 +17,12 @@ import icon7 from "../../../assets/images/friends/7.jpg";
 import icon8 from "../../../assets/images/friends/8.jpg";
 import defaultPic from "../../../assets/images/defProfile.jpg";
 import defaultCover from "../../../assets/images/defCover.png";
-import { useGlobalState } from "../../../context/GlobalProvider";
 import { uploadProfilePicture, uploadCoverPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
-const Cover = ({ isDesktop, isMobile }) => {
+const Cover = ({ isDesktop, isMobile, userDoc, isMyProfile }) => {
   const fileRef = useRef();
-  const { userDoc } = useGlobalState();
   const [imageUrl, setImageUrl] = useState(null);
 
   const fileChange = async (files) => {
@@ -54,19 +52,21 @@ const Cover = ({ isDesktop, isMobile }) => {
           height: `${isDesktop ? "400px" : "45vw"}`,
         }}
       >
-        <div
-          className={styles.btnCover}
-          onClick={() => fileRef.current.click()}
-          style={{
-            padding: `${isDesktop ? "7px 14px" : "10px 14px"}`,
-            right: `${isMobile ? "36px" : "15px"}`,
-          }}
-        >
-          <ImCamera />
-          {isDesktop && (
-            <span style={{ marginLeft: "6px" }}>Edit cover photo</span>
-          )}
-        </div>
+        {isMyProfile && (
+          <div
+            className={styles.btnCover}
+            onClick={() => fileRef.current.click()}
+            style={{
+              padding: `${isDesktop ? "7px 14px" : "10px 14px"}`,
+              right: `${isMobile ? "36px" : "15px"}`,
+            }}
+          >
+            <ImCamera />
+            {isDesktop && (
+              <span style={{ marginLeft: "6px" }}>Edit cover photo</span>
+            )}
+          </div>
+        )}
 
         <input
           type="file"
@@ -125,8 +125,7 @@ const MoreBtn = () => {
   );
 };
 
-const Photo = ({ isDesktop }) => {
-  const { userDoc } = useGlobalState();
+const Photo = ({ isDesktop, userDoc, isMyProfile }) => {
   const fileRef = useRef();
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -161,21 +160,25 @@ const Photo = ({ isDesktop }) => {
         <div className={styles.photo}>
           <img src={imageUrl} alt="" width={"100%"} />
         </div>
-        <div
-          className={styles.uploadPhotoBtn}
-          onClick={() => fileRef.current.click()}
-        >
-          <ImCamera />
-        </div>
+        {isMyProfile && (
+          <div
+            className={styles.uploadPhotoBtn}
+            onClick={() => fileRef.current.click()}
+          >
+            <ImCamera />
+          </div>
+        )}
       </div>
 
-      <input
-        type="file"
-        accept=".png,.jpg"
-        style={{ display: "none" }}
-        ref={fileRef}
-        onChange={(e) => fileChange(e.target.files)}
-      />
+      {isMyProfile && (
+        <input
+          type="file"
+          accept=".png,.jpg"
+          style={{ display: "none" }}
+          ref={fileRef}
+          onChange={(e) => fileChange(e.target.files)}
+        />
+      )}
     </>
   );
 };
@@ -310,33 +313,42 @@ const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile }) => {
   );
 };
 
-const Buttons = () => {
+const Buttons = ({ isMyProfile }) => {
   return (
-    <div className="d-flex align-items-end" style={{ marginBottom: "30px" }}>
-      <Button
+    <>
+      <div
+        className="d-flex align-items-end"
         style={{
-          fontWeight: "600",
-          width: "150px",
-          marginRight: "10px",
-          border: "none",
+          marginBottom: "30px",
+          visibility: `${isMyProfile ? "visible" : "hidden"}`,
         }}
       >
-        <BiPlus /> Add to story
-      </Button>
-      <Button className={styles.editBtn}>
-        <MdEdit /> Edit profile
-      </Button>
-    </div>
+        <Button
+          style={{
+            fontWeight: "600",
+            width: "150px",
+            marginRight: "10px",
+            border: "none",
+          }}
+        >
+          <BiPlus /> Add to story
+        </Button>
+        <Button className={styles.editBtn}>
+          <MdEdit /> Edit profile
+        </Button>
+      </div>
+    </>
   );
 };
 
 const ProfileHead = ({
+  userDoc,
   isDesktop,
   isLaptopLarge,
   isLaptopMedium,
   isMobile,
+  isMyProfile,
 }) => {
-  const { userDoc } = useGlobalState();
   const friendsPhotos = [
     icon1,
     icon2,
@@ -347,12 +359,17 @@ const ProfileHead = ({
     icon7,
     icon8,
   ];
-  const username = userDoc.firstName + " " + userDoc.lastName;
+  const username = userDoc?.firstName + " " + userDoc?.lastName;
 
   return (
     <>
       <div className={styles.ProfileHead}>
-        <Cover isDesktop={isDesktop} isMobile={isMobile} />
+        <Cover
+          isDesktop={isDesktop}
+          isMobile={isMobile}
+          userDoc={userDoc}
+          isMyProfile={isMyProfile}
+        />
         <div
           className={styles.Wrapper}
           style={{
@@ -371,13 +388,17 @@ const ProfileHead = ({
               gap: `${isDesktop ? "" : "15px"}`,
             }}
           >
-            <Photo isDesktop={isDesktop} />
+            <Photo
+              isDesktop={isDesktop}
+              userDoc={userDoc}
+              isMyProfile={isMyProfile}
+            />
             <Titles
               photos={friendsPhotos}
               username={username}
               isDesktop={isDesktop}
             />
-            <Buttons />
+            <Buttons isMyProfile={isMyProfile} />
           </div>
           <Menu
             isLaptopLarge={isLaptopLarge}

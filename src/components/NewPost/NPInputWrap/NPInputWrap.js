@@ -3,7 +3,7 @@ import { useGlobalState } from "../../../context/GlobalProvider";
 import { useNavigate } from "react-router-dom";
 import defaultPic from "../../../assets/images/defProfile.jpg";
 
-export const NPInputWrap = ({ showAddPost }) => {
+export const NPInputWrap = ({ showAddPost, uid }) => {
   const { userDoc } = useGlobalState();
   const navigate = useNavigate();
   return (
@@ -11,7 +11,7 @@ export const NPInputWrap = ({ showAddPost }) => {
       <img
         src={userDoc.picture ? userDoc.picture : defaultPic}
         alt=""
-        onClick={() => navigate("profile")}
+        onClick={() => navigate(`/profile/${uid}`)}
       />
       <input
         type="text"

@@ -57,13 +57,12 @@ const FriendItem = ({ friendImg, name }) => {
   );
 };
 
-const ProfileLeftSide = ({ isDesktopMedium, isMobile }) => {
+const ProfileLeftSide = ({ isDesktopMedium, isMobile, isMyProfile }) => {
   return (
     <div
       className={styles.LeftSideWrap}
       style={{
         maxWidth: `${isDesktopMedium ? "345px" : "100vw"}`,
-        paddingRight: `${isDesktopMedium ? "0" : isMobile ? "35px" : "20px"}`,
       }}
     >
       <CardWrap
@@ -73,7 +72,7 @@ const ProfileLeftSide = ({ isDesktopMedium, isMobile }) => {
       >
         <div className={styles.info}>
           <p className="text-center">Write a short personal bio.</p>
-          <ButtonInfo title={"Edit bio"} />
+          {isMyProfile && <ButtonInfo title={"Edit bio"} />}
           <div className="my-3">
             <img
               src={livesIcon}
@@ -94,11 +93,13 @@ const ProfileLeftSide = ({ isDesktopMedium, isMobile }) => {
               From <b>Your hometown</b>
             </span>
           </div>
-          <div className="d-flex flex-column gap-4">
-            <ButtonInfo title={"Edit details"} />
-            <ButtonInfo title={"Add hobbies"} />
-            <ButtonInfo title={"Add featured"} />
-          </div>
+          {isMyProfile && (
+            <div className="d-flex flex-column gap-4">
+              <ButtonInfo title={"Edit details"} />
+              <ButtonInfo title={"Add hobbies"} />
+              <ButtonInfo title={"Add featured"} />
+            </div>
+          )}
         </div>
       </CardWrap>
 

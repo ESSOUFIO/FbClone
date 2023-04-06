@@ -3,6 +3,7 @@
   background: var(--color-back-login);
   height: 100vh;
   display: flex;
+  align-items: center;
 }
 
 /** === Background page === **/
@@ -17,32 +18,29 @@
 
 /** === LEFT Side === **/
 .TitlesWrap {
-  width: 110%;
+  margin-top: 25px;
+  padding-bottom: 25px;
+  width: 100%;
+  max-width: 500px;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.Title {
-  width: 500px;
-  margin-left: 120px;
-  margin-bottom: 70px;
-}
 .Title img {
   height: 55px;
 }
 .Title h2 {
-  margin-top: 15spx;
-  font-size: 28px;
+  margin-top: 15px;
   font-weight: 500;
 }
 
 /** === RIGHT Side === **/
 .FormWrap {
-  width: 90%;
+  width: 100%;
   display: flex;
+  padding: 10px;
   justify-content: center;
-  align-items: left;
   flex-direction: column;
 }
 
@@ -59,7 +57,8 @@
 }
 
 .FormCard {
-  width: 400px;
+  max-width: 400px;
+  width: 100%;
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0 0 0 / 10%);
 }
@@ -87,7 +86,7 @@ input:focus {
   box-shadow: 0 0 2px var(--color-primary);
 }
 .LoginBtn {
-  flex: 1 1 100%;
+  flex: 1 1 auto;
   border: none;
   border-radius: 5px;
   background: var(--color-primary);
@@ -127,7 +126,7 @@ hr {
 .FormWrapFooter {
   margin-top: 20px;
   text-align: center;
-  width: 400px;
+  /* width: 400px; */
   font-size: 14px;
 }
 

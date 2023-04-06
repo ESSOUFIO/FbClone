@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./ProfileRightSide.module.css";
 import NewPost from "../../../components/NewPost/NewPost";
 import Post from "../../../components/Post/Post";
-import { useGlobalState } from "../../../context/GlobalProvider";
 import { calcTime } from "../../../utils/calcTime";
 import filterIcon from "../../../assets/images/filter.png";
 import gridIcon from "../../../assets/images/grid.png";
 import listIcon from "../../../assets/images/list.png";
 import gridIconActive from "../../../assets/images/grid-active.png";
 import listIconActive from "../../../assets/images/list-active.png";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import { db } from "../../../firebase/config";
 
 const FilterBtn = ({ icon, title }) => {
   return (
@@ -130,24 +131,52 @@ const FilterPosts = ({ isDesktopMedium, isMobile }) => {
   );
 };
 
-const ProfileRightSide = ({ showAddPost, isDesktopMedium, isMobile }) => {
-  const { myPosts } = useGlobalState();
+const ProfileRightSide = ({
+  showAddPost,
+  isDesktopMedium,
+  isMobile,
+  uid,
+  isMyProfile,
+}) => {
+  const [myPosts, setMyPosts] = useState(null);
+
+  /** My Posts */
+  useEffect(() => {
+    if (uid) {
+      const q = query(collection(db, "posts"), orderBy("time", "desc"));
+      const unsub = onSnapshot(q, (snap) => {
+        const posts = [];
+        snap.forEach((doc) => {
+          if (doc.data().uid === uid) {
+            posts.push({ id: doc.id, ...doc.data() });
+          }
+        });
+        setMyPosts(posts);
+      });
+      return () => unsub();
+    }
+  }, [uid]);
 
   return (
     <div
       className={styles.RightSideWrap}
       style={{
         maxWidth: `${isDesktopMedium ? "" : "100vw"}`,
-        paddingRight: `${isDesktopMedium ? "0" : isMobile ? "35px" : "20px"}`,
       }}
     >
-      <NewPost
-        showAddPost={showAddPost}
-        isDesktopMedium={isDesktopMedium}
-        isMobile={isMobile}
-      />
-      <FilterPosts isDesktopMedium={isDesktopMedium} isMobile={isMobile} />
-      {myPosts.map((post) => {
+      {isMyProfile && (
+        <NewPost
+          showAddPost={showAddPost}
+          style={{
+            maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+          }}
+          isMobile={isMobile}
+        />
+      )}
+      {isMyProfile && (
+        <FilterPosts isDesktopMedium={isDesktopMedium} isMobile={isMobile} />
+      )}
+      {myPosts?.map((post) => {
         const postTime = calcTime(post.time);
         return (
           <Post
