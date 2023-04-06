@@ -8,13 +8,27 @@ import { signin } from "../../firebase/auth";
 import AlertMessage from "../../components/Alerts/AlertMessage";
 import { Form, Card, Button } from "react-bootstrap";
 import protectAfterLogin from "../../utils/protectAfterLogin";
+import { useMediaQuery } from "react-responsive";
 
-const TitlesWrap = () => {
+const TitlesWrap = ({ isDesktopMedium, isMobile }) => {
   return (
-    <div className="TitlesWrap">
+    <div
+      className="TitlesWrap"
+      style={{ textAlign: `${isDesktopMedium ? "left" : "center"}` }}
+    >
       <div className="Title">
-        <img src={logo} alt="" />
-        <h2>Connect with friends and the world around you on Facebook.</h2>
+        <img
+          src={logo}
+          alt=""
+          style={{
+            height: `${isDesktopMedium ? "55px" : isMobile ? "45px" : "35px"}`,
+          }}
+        />
+        {isMobile && (
+          <h2 style={{ fontSize: `${isDesktopMedium ? "28px" : "22px"}` }}>
+            Connect with friends and the world around you on Facebook.
+          </h2>
+        )}
       </div>
     </div>
   );
@@ -97,10 +111,24 @@ const FormWrapFooter = () => {
 };
 
 const Login = () => {
+  const isDesktopMedium = useMediaQuery({ query: "(min-width: 1000px)" });
+  const isMobile = useMediaQuery({ query: "(min-width: 550px)" });
   return (
-    <div className="Login">
-      <TitlesWrap />
-      <div className="FormWrap">
+    <div
+      className="Login"
+      style={{
+        flexDirection: `${isDesktopMedium ? "row" : "column"}`,
+        justifyContent: `${isDesktopMedium ? "space-evenly" : ""}`,
+      }}
+    >
+      <TitlesWrap isDesktopMedium={isDesktopMedium} isMobile={isMobile} />
+      <div
+        className="FormWrap"
+        style={{
+          maxWidth: `${isMobile ? "400px" : "100%"}`,
+          alignItems: `center`,
+        }}
+      >
         <FormCard />
         <FormWrapFooter />
       </div>

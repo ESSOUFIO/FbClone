@@ -9,6 +9,7 @@
   flex-wrap: nowrap;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
   position: relative;
+  overflow: hidden;
 }
 
 .ButtonsWrap {
@@ -53,6 +54,6 @@
 .StoriesWrap {
   display: flex;
   flex-wrap: nowrap;
-  overflow: hidden;
   margin: 15px 0 10px 7px;
+  transition: ease 1s;
 }
