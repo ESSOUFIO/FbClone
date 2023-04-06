@@ -5,7 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import { useGlobalState } from "../../context/GlobalProvider";
 import { RiCloseFill } from "react-icons/ri";
 import { IoMdHelpCircle } from "react-icons/io";
-import styles from "./Signup.module.css";
+import "./Signup.css";
 import { signup } from "../../firebase/auth";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -15,7 +15,7 @@ const Header = ({ closeModal }) => {
     <header className="position-relative">
       <div className="p-3 pb-0">
         <h3 className="m-0">Sign Up</h3>
-        <div className={styles.subTitleModal}>It’s quick and easy.</div>
+        <div className="subTitleModal">It’s quick and easy.</div>
       </div>
       <div
         className="position-absolute top-0 end-0 p-2 cursor-pointer"
@@ -30,26 +30,17 @@ const Header = ({ closeModal }) => {
 };
 
 const formSchema = Yup.object().shape({
-  firstName: Yup.string().required("What's your name?"),
-  lastName: Yup.string().required("What's your name?"),
-  email: Yup.string()
-    .email("Please enter a valid email adress")
-    .required("Please enter your email adress"),
+  firstName: Yup.string().min(2, "Too Short!").required("Required"),
+  lastName: Yup.string().min(2, "Too Short!").required("Required"),
+  email: Yup.email(),
   password: Yup.string().min(6, "Too Short!").required("Required"),
-  day: Yup.number().required("Required"),
-  month: Yup.string().required("Required"),
-  year: Yup.number().required("Required"),
 });
 
 const Signup = () => {
   const { modalSignup, hideModalSignup } = useGlobalState();
   const maleRef = useRef();
   const femaleRef = useRef();
-  // const [newUser, setNewUser] = useState(null);
-  const [gender, setGender] = useState({
-    male: false,
-    female: false,
-  });
+  const [newUser, setNewUser] = useState(null);
 
   const formik = useFormik({
     initialValues: {
@@ -57,104 +48,87 @@ const Signup = () => {
       lastName: "",
       email: "",
       password: "",
-      day: -1,
-      month: -1,
-      year: -1,
     },
     validationSchema: formSchema,
-    onSubmit: async (values, { resetForm }) => {
-      const newUser = {
-        ...values,
-        ...gender,
-      };
-      const username = newUser.firstName + " " + newUser.lastName;
-      const email = newUser.email;
-      const pass = newUser.password;
-
-      try {
-        signup({ username, email, pass, newUser }).then(() => {
-          resetForm();
-          hideModalSignup();
-        });
-      } catch (error) {
-        console.log("Error: ", error);
-      }
+    onSubmit: (values, { resetForm }) => {
+      console.log("values: ", values);
     },
   });
 
   const formHandler = ({ target }) => {
     if (target.id === "male") {
-      setGender({
+      setNewUser({
+        ...newUser,
         male: !!target.value,
         female: !target.value,
       });
     } else if (target.id === "female") {
-      setGender({
+      setNewUser({
+        ...newUser,
         male: !target.value,
         female: !!target.value,
       });
+    } else {
+      setNewUser({
+        ...newUser,
+        [target.id]: target.value,
+      });
     }
   };
+
+  const signupHandler = async (e) => {
+    e.preventDefault();
+    const username = newUser.firstName + " " + newUser.lastName;
+    const email = newUser.email;
+    const pass = newUser.password;
+
+    try {
+      await signup({ username, email, pass, newUser });
+    } catch (error) {
+      console.log("Error: ", error);
+    }
+  };
+
   return (
     <>
       <Modal show={modalSignup} onHide={hideModalSignup}>
         <Header closeModal={hideModalSignup} />
         <Modal.Body>
-          <Form>
+          <Form onSubmit={signupHandler}>
             <Row>
               <Form.Group className="col mb-3" controlId="firstName">
                 <Form.Control
                   type="text"
+                  name="firstName"
                   placeholder="First Name"
-                  onChange={formik.handleChange}
-                  value={formik.values.firstName}
+                  onChange={formHandler}
                   autoFocus
                 />
-                <div className={styles.errorText}>
-                  {formik.errors.firstName && formik.touched.firstName ? (
-                    <div>{formik.errors.firstName}</div>
-                  ) : null}
-                </div>
               </Form.Group>
               <Form.Group className="col" controlId="lastName">
                 <Form.Control
                   type="text"
+                  name="lastName"
                   placeholder="Last Name"
-                  onChange={formik.handleChange}
-                  value={formik.values.lastName}
+                  onChange={formHandler}
                 />
-                <div className={styles.errorText}>
-                  {formik.errors.lastName && formik.touched.lastName ? (
-                    <div>{formik.errors.lastName}</div>
-                  ) : null}
-                </div>
               </Form.Group>
             </Row>
             <Form.Group className="mb-3" controlId="email">
               <Form.Control
                 type="email"
+                name="email"
                 placeholder="Email"
-                onChange={formik.handleChange}
-                value={formik.values.email}
+                onChange={formHandler}
               />
-              <div className={styles.errorText}>
-                {formik.errors.email && formik.touched.email ? (
-                  <div>{formik.errors.email}</div>
-                ) : null}
-              </div>
             </Form.Group>
             <Form.Group className="mb-2" controlId="password">
               <Form.Control
                 type="password"
+                name="password"
                 placeholder="New Password"
-                onChange={formik.handleChange}
-                value={formik.values.password}
+                onChange={formHandler}
               />
-              <div className={styles.errorText}>
-                {formik.errors.password && formik.touched.password ? (
-                  <div>{formik.errors.password}</div>
-                ) : null}
-              </div>
             </Form.Group>
 
             {/* Birthday */}
@@ -174,8 +148,7 @@ const Signup = () => {
               <Form.Group
                 className="col mb-2"
                 controlId="day"
-                onChange={formik.handleChange}
-                value={formik.values.day}
+                onChange={formHandler}
               >
                 <Form.Select>
                   <option>Day</option>
@@ -211,17 +184,11 @@ const Signup = () => {
                   <option value="30">30</option>
                   <option value="31">31</option>
                 </Form.Select>
-                <div className={styles.errorText}>
-                  {formik.errors.day && formik.touched.day ? (
-                    <div>{formik.errors.day}</div>
-                  ) : null}
-                </div>
               </Form.Group>
               <Form.Group
                 className="col mb-2"
                 controlId="month"
-                onChange={formik.handleChange}
-                value={formik.values.month}
+                onChange={formHandler}
               >
                 <Form.Select>
                   <option>Month</option>
@@ -238,17 +205,11 @@ const Signup = () => {
                   <option value="11">November</option>
                   <option value="12">December</option>
                 </Form.Select>
-                <div className={styles.errorText}>
-                  {formik.errors.month && formik.touched.month ? (
-                    <div>{formik.errors.month}</div>
-                  ) : null}
-                </div>
               </Form.Group>
               <Form.Group
                 className="col mb-2"
                 controlId="year"
-                onChange={formik.handleChange}
-                value={formik.values.year}
+                onChange={formHandler}
               >
                 <Form.Select>
                   <option>Year</option>
@@ -337,11 +298,6 @@ const Signup = () => {
                   <option value="2022">2022</option>
                   <option value="2023">2023</option>
                 </Form.Select>
-                <div className={styles.errorText}>
-                  {formik.errors.year && formik.touched.year ? (
-                    <div>{formik.errors.year}</div>
-                  ) : null}
-                </div>
               </Form.Group>
             </Row>
 
@@ -434,10 +390,10 @@ const Signup = () => {
 
             <div className="text-center mt-4 mb-2">
               <Button
-                className={styles.btnSignup}
+                className="btnSignup"
                 variant="primary"
                 type="submit"
-                onClick={formik.handleSubmit}
+                onClick={hideModalSignup}
               >
                 Sign Up
               </Button>

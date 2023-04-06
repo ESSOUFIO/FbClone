@@ -10,3 +10,9 @@ header .subTitleModal {
   background: var(--color-secondary);
   border: none;
 }
+
+.errorText {
+  color: rgb(170, 3, 3);
+  font-size: 14px;
+  font-weight: 600;
+}

@@ -95,7 +95,7 @@ export const StoriesSection = ({ userDoc }) => {
     },
   ];
 
-  const [transX, setTransX] = useState(0);
+  const [transX, setTransX] = useState(-5);
 
   //** Mapping Storie Elements */
   const StorieContentFirst = userDoc && (
@@ -115,10 +115,10 @@ export const StoriesSection = ({ userDoc }) => {
   ));
 
   const navRightHandler = () => {
-    setTransX(transX - 360);
+    setTransX(transX - 356);
   };
   const navLeftHandler = () => {
-    setTransX(transX + 360);
+    setTransX(transX + 356);
   };
 
   return (
@@ -129,11 +129,11 @@ export const StoriesSection = ({ userDoc }) => {
         {StorieContent}
       </StoriesWrap>
       <BouttonsNavRight
-        visible={`${transX <= -720 ? "hidden" : "visible"}`}
+        visible={`${transX <= -715 ? "hidden" : "visible"}`}
         onClicked={navRightHandler}
       />
       <BouttonsNavLeft
-        visible={`${transX >= 0 ? "hidden" : "visible"}`}
+        visible={`${transX >= -5 ? "hidden" : "visible"}`}
         onClicked={navLeftHandler}
       />
     </div>

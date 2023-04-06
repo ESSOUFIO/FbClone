@@ -11,10 +11,10 @@ const NPButtonsWrap = (props) => {
 };
 
 const NewPost = ({ showAddPost, isMobile, style }) => {
-  const { user } = useGlobalState();
+  const { userDoc } = useGlobalState();
   return (
     <div className="NewPost" style={style}>
-      <NPInputWrap showAddPost={showAddPost} uid={user.uid} />
+      <NPInputWrap showAddPost={showAddPost} userDoc={userDoc} />
       <NPButtonsWrap>
         <NPButtons
           image={PostVideo}
