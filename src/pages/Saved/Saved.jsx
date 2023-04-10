@@ -135,8 +135,8 @@ const PostPhoto = ({ photo, isMobile }) => {
     <div
       className={styles.PostPhoto}
       style={{
-        width: `${isMobile ? "130px" : "90px"}`,
-        height: `${isMobile ? "130px" : "90px"}`,
+        width: isMobile ? "130px" : "90px",
+        height: isMobile ? "130px" : "90px",
       }}
     >
       <img src={photo} alt="" height={"100%"} />
@@ -190,7 +190,7 @@ const PostSaved = ({ post, isMobile, isDesktop }) => {
         <div
           className={styles.PostSaved}
           style={{
-            padding: `${isMobile ? "15px" : "10px"}`,
+            padding: isMobile ? "15px" : "10px",
           }}
         >
           {!!post.photo && <PostPhoto photo={post.photo} isMobile={isMobile} />}
@@ -198,7 +198,7 @@ const PostSaved = ({ post, isMobile, isDesktop }) => {
             <h5
               style={{
                 fontWeight: "700",
-                fontSize: `${isMobile ? "24px" : "20px"}`,
+                fontSize: isMobile ? "24px" : "20px",
               }}
             >
               {post.text}
@@ -310,7 +310,7 @@ const Saved = () => {
       <div
         className={styles.SavedPosts}
         style={{
-          padding: `${isDesktopMedium ? "25px" : isTablet ? "15px" : "8px"}`,
+          padding: isDesktopMedium ? "25px" : isTablet ? "15px" : "8px",
         }}
       >
         <SubTitle />

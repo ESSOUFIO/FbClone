@@ -7,7 +7,6 @@ import {
   orderBy,
   query,
   doc,
-  getDocs,
 } from "firebase/firestore";
 
 const globalContext = createContext();

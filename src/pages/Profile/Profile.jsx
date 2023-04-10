@@ -16,14 +16,14 @@ const ProfileBodyWrap = ({ children, isDesktop, isDesktopMedium }) => {
       style={{
         backgroundColor: "var(--color-darkest)",
         zIndex: "9",
-        transform: `${isDesktop ? "translate(0, 0)" : "translate(0, -80px)"}`,
+        transform: isDesktop ? "translate(0, 0)" : "translate(0, -80px)",
       }}
     >
       <div
         className={styles.ProfileBodyWrap}
         style={{
-          flexDirection: `${isDesktopMedium ? "row" : "column"}`,
-          width: `${isDesktopMedium ? "900px" : "100%"}`,
+          flexDirection: isDesktopMedium ? "row" : "column",
+          width: isDesktopMedium ? "900px" : "100%",
         }}
       >
         {children}

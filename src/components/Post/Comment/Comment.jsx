@@ -154,7 +154,7 @@ const Comment = ({ comment, postTime, postId }) => {
                 <div
                   className={styles.likeComment}
                   style={{
-                    color: `${liked ? "var(--color-primary-text)" : ""}`,
+                    color: liked ? "var(--color-primary-text)" : "",
                   }}
                   onClick={likeCommentHandler}
                 >

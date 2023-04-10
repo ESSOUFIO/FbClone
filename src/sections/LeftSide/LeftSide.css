@@ -4,7 +4,10 @@
   margin-top: var(--Navbar-height);
   height: 100vh;
   max-width: 300px;
-  /* overflow: auto; */
+  overflow: auto;
+  /* position: fixed;
+  top: 0;
+  left: 0; */
 }
 
 .TopLeftWrapper {
@@ -76,4 +79,31 @@
 .footerSide:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+/* Scrollbar modification */
+.Scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.Scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.Scroll::-webkit-scrollbar-thumb {
+  background-color: #616161;
+  border-radius: 100vw;
+  border: none;
+}
+
+.Scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #747474;
+}
+
+.hideScroll::-webkit-scrollbar-track {
+  visibility: hidden !important;
+}
+
+.hideScroll::-webkit-scrollbar-thumb {
+  visibility: hidden !important;
 }

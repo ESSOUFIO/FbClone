@@ -36,8 +36,8 @@ const AddComment = ({ postId, uid, picture, isFixed }) => {
     <div
       className={styles.newComment}
       style={{
-        position: `${isFixed ? "fixed" : "absolute"}`,
-        width: `${isFixed ? "97%" : "100%"}`,
+        position: isFixed ? "fixed" : "absolute",
+        width: isFixed ? "97%" : "100%",
       }}
     >
       <div

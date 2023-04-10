@@ -24,7 +24,7 @@ const ProfilePicture = ({ isMobile }) => {
         className="NavbarRightImg "
         src={userDoc.picture ? userDoc.picture : defaultPic}
         alt=""
-        style={{ marginRight: `${isMobile ? "20px" : "0px"}` }}
+        style={{ marginRight: isMobile ? "20px" : "0px" }}
       />
     </div>
   );
@@ -60,10 +60,7 @@ export const NavbarRight = ({ btnClicked }) => {
     query: "(min-width: 500px)",
   });
   return (
-    <div
-      className="NavbarRight position-relative"
-      // style={{ marginRight: `${isMobile ? "10px" : "0px"}` }}
-    >
+    <div className="NavbarRight position-relative">
       <ProfilePicture isMobile={isMobile} />
       <Notifications />
       <Messenger />

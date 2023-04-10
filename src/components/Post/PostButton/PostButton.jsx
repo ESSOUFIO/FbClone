@@ -6,11 +6,11 @@ export const PostButton = ({ icon, text, liked = false, btnClicked }) => {
       <img
         src={icon}
         alt=""
-        style={{ filter: `${!liked ? "invert(70%)" : "none"}` }}
+        style={{ filter: !liked ? "invert(70%)" : "none" }}
       />
       <span
         style={{
-          color: `${liked ? "var(--color-primary)" : "var(--color-light)"}`,
+          color: liked ? "var(--color-primary)" : "var(--color-light)",
         }}
       >
         {text}

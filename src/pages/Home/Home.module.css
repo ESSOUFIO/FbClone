@@ -1,0 +1,23 @@
+.Home {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Scrollbar modification */
+::-webkit-scrollbar {
+  width: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #616161;
+  border: 2px solid var(--color-dark);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #747474;
+}

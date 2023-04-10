@@ -13,8 +13,8 @@ const Container = ({ children, isMobile }) => {
     <div
       className="Container"
       style={{
-        width: `${isMobile ? "var(--MiddleContainer-witdh)" : "100%"}`,
-        padding: `${isMobile ? "0 10px" : "0 5px"}`,
+        width: isMobile ? "var(--MiddleContainer-witdh)" : "100%",
+        padding: isMobile ? "0 10px" : "0 5px",
       }}
     >
       {children}
@@ -33,10 +33,10 @@ export const MainContent = ({ isDesktopMedium, isMobile }) => {
       <div
         className="MainContent"
         style={{
-          transform: `${
-            isDesktopMedium ? "translate(-15px, 0px)" : "translate(0, 0)"
-          }`,
-          width: `${isMobile ? "650px" : "97vw"}`,
+          transform: isDesktopMedium
+            ? "translate(-15px, 0px)"
+            : "translate(0, 0)",
+          width: isMobile ? "650px" : "97vw",
         }}
       >
         <Container isMobile={isMobile}>

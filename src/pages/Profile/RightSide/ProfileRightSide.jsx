@@ -97,7 +97,7 @@ const FilterPosts = ({ isDesktopMedium, isMobile }) => {
     <div
       className={styles.FilterPosts}
       style={{
-        maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+        maxWidth: isDesktopMedium ? "" : isMobile ? "500px" : "100%",
       }}
     >
       <div className="d-flex justify-content-between px-3 py-2">
@@ -161,14 +161,14 @@ const ProfileRightSide = ({
     <div
       className={styles.RightSideWrap}
       style={{
-        maxWidth: `${isDesktopMedium ? "" : "100vw"}`,
+        maxWidth: isDesktopMedium ? "" : "100vw",
       }}
     >
       {isMyProfile && (
         <NewPost
           showAddPost={showAddPost}
           style={{
-            maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+            maxWidth: isDesktopMedium ? "" : isMobile ? "500px" : "100%",
           }}
           isMobile={isMobile}
         />
@@ -184,7 +184,7 @@ const ProfileRightSide = ({
             post={post}
             PostTime={postTime}
             style={{
-              maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+              maxWidth: isDesktopMedium ? "" : isMobile ? "500px" : "100%",
             }}
           />
         );
