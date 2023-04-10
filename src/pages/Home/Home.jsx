@@ -1,4 +1,4 @@
-import "./Home.css";
+import styles from "./Home.module.css";
 import { LeftSide } from "../../sections/index";
 import { MainContent } from "../../sections/index";
 import { RightSide } from "../../sections/index";
@@ -18,9 +18,9 @@ const Home = () => {
   });
   return (
     <div
-      className="Home"
+      className={`${styles.Home} ${styles.Scroll} `}
       style={{
-        justifyContent: `${isDesktopMedium ? "space-between" : "center"}`,
+        justifyContent: isDesktopMedium ? "space-between" : "center",
       }}
     >
       <LeftSide show={isDesktopOrLaptop} />

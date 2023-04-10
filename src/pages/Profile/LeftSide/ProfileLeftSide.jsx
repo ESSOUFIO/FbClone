@@ -20,7 +20,7 @@ const CardWrap = ({ children, title, SeeAll, isDesktopMedium, isMobile }) => {
     <div
       className={styles.CardWrap}
       style={{
-        maxWidth: `${isDesktopMedium ? "" : isMobile ? "500px" : "100%"}`,
+        maxWidth: isDesktopMedium ? "" : isMobile ? "500px" : "100%",
       }}
     >
       <div className="d-flex justify-content-between">
@@ -62,7 +62,7 @@ const ProfileLeftSide = ({ isDesktopMedium, isMobile, isMyProfile }) => {
     <div
       className={styles.LeftSideWrap}
       style={{
-        maxWidth: `${isDesktopMedium ? "345px" : "100vw"}`,
+        maxWidth: isDesktopMedium ? "345px" : "100vw",
       }}
     >
       <CardWrap

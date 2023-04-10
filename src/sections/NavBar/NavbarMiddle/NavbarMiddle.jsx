@@ -53,18 +53,14 @@ export const NavbarMiddle = ({ navBtn, btnClicked }) => {
         <div
           className="NavbarMiddle"
           style={{
-            width: `${
-              isDesktop
-                ? "600px"
-                : isTablet
-                ? "50vw"
-                : isMobile
-                ? "45vw"
-                : "60vw"
-            }`,
-            transform: `${
-              isDesktop ? "translate(0, 0)" : "translate(-50px, 0px)"
-            }`,
+            width: isDesktop
+              ? "600px"
+              : isTablet
+              ? "50vw"
+              : isMobile
+              ? "45vw"
+              : "60vw",
+            transform: isDesktop ? "translate(0, 0)" : "translate(-50px, 0px)",
           }}
         >
           <NavbarMiddleIcon

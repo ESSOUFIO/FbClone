@@ -21,7 +21,7 @@ import Flowers from "../../assets/images/flowers.jpg";
 import SavePage from "../../assets/images/save-page.png";
 import { useGlobalState } from "../../context/GlobalProvider";
 import defaultPic from "../../assets/images/defProfile.jpg";
-import { useMediaQuery } from "react-responsive";
+import { useCallback, useState } from "react";
 
 /** Internal Components */
 const TopLeftWrapper = (props) => {
@@ -49,13 +49,25 @@ const FooterSide = ({ text }) => {
 
 /** ======= LeftSide ======= */
 export const LeftSide = ({ show }) => {
+  const [hovering, setHovering] = useState(false);
+
+  const handleMouseOver = useCallback(() => {
+    setHovering(true);
+  }, []);
+  const handleMouseOut = useCallback(() => {
+    setHovering(false);
+  }, []);
   const { userDoc } = useGlobalState();
   const userName = userDoc.firstName + " " + userDoc.lastName;
 
   return (
     <>
       {show && (
-        <div className="LeftSide">
+        <div
+          className={`LeftSide Scroll ${hovering ? "" : "hideScroll"}`}
+          onMouseOver={handleMouseOver}
+          onMouseOut={handleMouseOut}
+        >
           <div className="GlobalSide">
             {/* ==== First Section === */}
             <TopLeftWrapper>

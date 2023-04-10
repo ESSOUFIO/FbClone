@@ -49,7 +49,7 @@ const Cover = ({ isDesktop, isMobile, userDoc, isMyProfile }) => {
         className={styles.cover}
         style={{
           backgroundImage: `url(${imageUrl})`,
-          height: `${isDesktop ? "400px" : "45vw"}`,
+          height: isDesktop ? "400px" : "45vw",
         }}
       >
         {isMyProfile && (
@@ -57,8 +57,8 @@ const Cover = ({ isDesktop, isMobile, userDoc, isMyProfile }) => {
             className={styles.btnCover}
             onClick={() => fileRef.current.click()}
             style={{
-              padding: `${isDesktop ? "7px 14px" : "10px 14px"}`,
-              right: `${isMobile ? "36px" : "15px"}`,
+              padding: isDesktop ? "7px 14px" : "10px 14px",
+              right: isMobile ? "36px" : "15px",
             }}
           >
             <ImCamera />
@@ -89,7 +89,7 @@ const FriendsPicture = ({ photo, index }) => {
     <div
       className={styles.friendsPic}
       style={{
-        zIndex: `${index}`,
+        zIndex: index,
         transform: `translate(${index * 5}px, 0)`,
         backgroundImage: `url(${photo})`,
       }}
@@ -154,7 +154,7 @@ const Photo = ({ isDesktop, userDoc, isMyProfile }) => {
         className={styles.photoWrap}
         onClick={() => fileRef.current.click()}
         style={{
-          transform: `${isDesktop ? "translate(0, -30px)" : "translate(0, 0)"}`,
+          transform: isDesktop ? "translate(0, -30px)" : "translate(0, 0)",
         }}
       >
         <div className={styles.photo}>
@@ -188,11 +188,9 @@ const Titles = ({ photos, username, isDesktop }) => {
     <div
       className={styles.titles}
       style={{
-        textAlign: `${isDesktop ? "left" : "center"}`,
+        textAlign: isDesktop ? "left" : "center",
         gap: "2px",
-        transform: `${
-          isDesktop ? "translate(-50px, 25px)" : "translate(0, 0)"
-        }`,
+        transform: isDesktop ? "translate(-50px, 25px)" : "translate(0, 0)",
       }}
     >
       <h2>{username}</h2>
@@ -200,7 +198,7 @@ const Titles = ({ photos, username, isDesktop }) => {
       <div
         className={styles.friendsPicWrap}
         style={{
-          transform: `${isDesktop ? "translate(-37px,0)" : "translate(0, 0)"}`,
+          transform: isDesktop ? "translate(-37px,0)" : "translate(0, 0)",
         }}
       >
         {photos.map((photo, i) => (
@@ -256,8 +254,8 @@ const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile }) => {
     <div
       className={styles.Menu}
       style={{
-        paddingRight: `${isMobile ? "25px" : "15px"}`,
-        paddingLeft: `${isMobile ? "10px" : "0"}`,
+        paddingRight: isMobile ? "25px" : "15px",
+        paddingLeft: isMobile ? "10px" : "0",
       }}
     >
       <div className="d-flex">
@@ -320,7 +318,7 @@ const Buttons = ({ isMyProfile }) => {
         className="d-flex align-items-end"
         style={{
           marginBottom: "30px",
-          visibility: `${isMyProfile ? "visible" : "hidden"}`,
+          visibility: isMyProfile ? "visible" : "hidden",
         }}
       >
         <Button
@@ -373,19 +371,17 @@ const ProfileHead = ({
         <div
           className={styles.Wrapper}
           style={{
-            transform: `${
-              isDesktop ? "translate(0, 0)" : "translate(0, -80px)"
-            }`,
-            width: `${isDesktop ? "900px" : "100vw"}`,
+            transform: isDesktop ? "translate(0, 0)" : "translate(0, -80px)",
+            width: isDesktop ? "900px" : "100vw",
           }}
         >
           <div
             className={styles.titlePhotoWrap}
             style={{
-              flexDirection: `${isDesktop ? "row" : "column"}`,
-              justifyContent: `${isDesktop ? "space-between" : ""}`,
-              alignItems: `${isDesktop ? "" : "center"}`,
-              gap: `${isDesktop ? "" : "15px"}`,
+              flexDirection: isDesktop ? "row" : "column",
+              justifyContent: isDesktop ? "space-between" : "",
+              alignItems: isDesktop ? "" : "center",
+              gap: isDesktop ? "" : "15px",
             }}
           >
             <Photo
