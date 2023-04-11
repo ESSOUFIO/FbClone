@@ -8,13 +8,15 @@ import AddPost from "../../components/Post/Modals/AddPost";
 import { useState } from "react";
 import { useGlobalState } from "../../context/GlobalProvider";
 
-const Container = ({ children, isMobile }) => {
+const Container = ({ children, isMobile, isMobileSmall }) => {
   return (
     <div
       className="Container"
       style={{
         width: isMobile ? "var(--MiddleContainer-witdh)" : "100%",
-        padding: isMobile ? "0 10px" : "0 5px",
+        padding: isMobile ? "0 10px" : isMobileSmall ? "0 5px" : "0",
+        gap: isMobileSmall ? "15px" : "8px",
+        marginTop: isMobileSmall ? "25px" : "10px",
       }}
     >
       {children}
@@ -22,11 +24,12 @@ const Container = ({ children, isMobile }) => {
   );
 };
 
-export const MainContent = ({ isDesktopMedium, isMobile }) => {
+export const MainContent = () => {
   const [addPostV, setAddPostV] = useState(false);
   const showAddPost = () => setAddPostV(true);
   const hideAddPost = () => setAddPostV(false);
-  const { userDoc } = useGlobalState();
+  const { userDoc, isMobile, isMobileSmall, isDesktopMedium } =
+    useGlobalState();
 
   return (
     <>
@@ -39,13 +42,11 @@ export const MainContent = ({ isDesktopMedium, isMobile }) => {
           width: isMobile ? "650px" : "97vw",
         }}
       >
-        <Container isMobile={isMobile}>
+        <Container isMobile={isMobile} isMobileSmall={isMobileSmall}>
           <StoriesSection userDoc={userDoc} />
           <NewPost
             showAddPost={showAddPost}
             width={"var(--MiddleContainer-witdh)"}
-            isDesktopMedium={isDesktopMedium}
-            isMobile={isMobile}
           />
           <FillPosts />
         </Container>

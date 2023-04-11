@@ -23,8 +23,8 @@ import PromoIco from "../.././assets/images/Promotions.png";
 import { TfiMoreAlt } from "react-icons/tfi";
 import { FaSearch } from "react-icons/fa";
 import { RiVideoAddFill } from "react-icons/ri";
-import { useMediaQuery } from "react-responsive";
 import { useCallback, useState } from "react";
+import { useGlobalState } from "../../context/GlobalProvider";
 
 //* ===  Internal Components ==== */
 const SponsoredWrap = (props) => {
@@ -67,10 +67,7 @@ const Contacts = [
 
 export const RightSide = () => {
   const [hovering, setHovering] = useState(false);
-
-  const isTablet = useMediaQuery({
-    query: "(min-width: 900px)",
-  });
+  const { isDesktopMedium } = useGlobalState();
 
   const handleMouseOver = useCallback(() => {
     setHovering(true);
@@ -81,7 +78,7 @@ export const RightSide = () => {
 
   return (
     <>
-      {isTablet && (
+      {isDesktopMedium && (
         <div
           className={`RightSide Scroll ${hovering ? "" : "hideScroll"}`}
           onMouseOver={handleMouseOver}

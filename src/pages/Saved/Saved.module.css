@@ -160,3 +160,10 @@
   background: var(--color-dark);
   cursor: pointer;
 }
+
+.PostSavedText {
+  display: block;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

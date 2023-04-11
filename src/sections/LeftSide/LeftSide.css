@@ -2,12 +2,12 @@
   padding: 0px;
   margin: 0px;
   margin-top: var(--Navbar-height);
-  height: 100vh;
-  max-width: 300px;
+  height: calc(100vh - var(--Navbar-height));
+  max-width: 290px;
   overflow: auto;
-  /* position: fixed;
+  position: fixed;
   top: 0;
-  left: 0; */
+  left: 0;
 }
 
 .TopLeftWrapper {

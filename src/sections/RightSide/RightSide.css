@@ -1,11 +1,12 @@
 .RightSide {
   margin-top: var(--Navbar-height);
-  height: 100vh;
+  height: calc(100vh - var(--Navbar-height));
   width: 300px;
   overflow: auto;
   margin-right: 3px;
-  /* position: fixed;
-  right: 0; */
+  position: fixed;
+  top: 0;
+  right: 0;
 }
 
 .SponsoredWrap,

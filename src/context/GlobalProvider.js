@@ -8,6 +8,7 @@ import {
   query,
   doc,
 } from "firebase/firestore";
+import { useMediaQuery } from "react-responsive";
 
 const globalContext = createContext();
 
@@ -101,6 +102,26 @@ const GlobalProvider = ({ children }) => {
     }
   }, [session.user]);
 
+  /** Media Query */
+  const isDesktopLarge = useMediaQuery({
+    query: "(min-width: 1100px)",
+  });
+
+  const isDesktopMedium = useMediaQuery({
+    query: "(min-width: 900px)",
+  });
+
+  const isTablet = useMediaQuery({
+    query: "(min-width: 900px)",
+  });
+
+  const isMobile = useMediaQuery({
+    query: "(min-width: 550px)",
+  });
+  const isMobileSmall = useMediaQuery({
+    query: "(min-width: 350px)",
+  });
+
   return (
     <globalContext.Provider
       value={{
@@ -117,6 +138,11 @@ const GlobalProvider = ({ children }) => {
         SetAlertText,
         ...savedContent,
         ...myContent,
+        isDesktopLarge,
+        isDesktopMedium,
+        isTablet,
+        isMobile,
+        isMobileSmall,
       }}
     >
       {!session.isLoadding && !content.isLoadding && children}

@@ -1,7 +1,5 @@
 .NPInputWrap {
   display: flex;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--color-dark);
 }
 
 .NPInputWrap > img {
@@ -16,7 +14,6 @@
   border-radius: 20px;
   border: none;
   background: var(--color-dark);
-  margin-left: 10px;
   padding-left: 13px;
   color: var(--color-light);
   font-size: 17px;

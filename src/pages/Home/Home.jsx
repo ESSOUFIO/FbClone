@@ -4,27 +4,24 @@ import { MainContent } from "../../sections/index";
 import { RightSide } from "../../sections/index";
 import withGuard from "../../utils/withGuard";
 import AlertAutoDismiss from "../../components/Alerts/AlertAutoDismiss";
-import { useMediaQuery } from "react-responsive";
+import { useGlobalState } from "../../context/GlobalProvider";
 
 const Home = () => {
-  const isDesktopMedium = useMediaQuery({
-    query: "(min-width: 900px)",
-  });
-  const isDesktopOrLaptop = useMediaQuery({
-    query: "(min-width: 1100px)",
-  });
-  const isMobile = useMediaQuery({
-    query: "(min-width: 550px)",
-  });
+  const { isDesktopLarge, isDesktopMedium } = useGlobalState();
+
   return (
     <div
       className={`${styles.Home} ${styles.Scroll} `}
       style={{
-        justifyContent: isDesktopMedium ? "space-between" : "center",
+        justifyContent: isDesktopLarge
+          ? "center"
+          : isDesktopMedium
+          ? "left"
+          : "center",
       }}
     >
-      <LeftSide show={isDesktopOrLaptop} />
-      <MainContent isDesktopMedium={isDesktopMedium} isMobile={isMobile} />
+      <LeftSide show={isDesktopLarge} />
+      <MainContent />
       <RightSide />
       <AlertAutoDismiss />
     </div>

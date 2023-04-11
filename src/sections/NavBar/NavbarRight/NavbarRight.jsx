@@ -6,11 +6,10 @@ import { BsMessenger } from "react-icons/bs";
 import { CgMenuGridR } from "react-icons/cg";
 import ProfileDropDown from "../ProfileDropDown/ProfileDropDown";
 import defaultPic from "../../../assets/images/defProfile.jpg";
-import { useMediaQuery } from "react-responsive";
 
 /** Internal Components */
-const ProfilePicture = ({ isMobile }) => {
-  const { userDoc } = useGlobalState();
+const ProfilePicture = () => {
+  const { userDoc, isMobile } = useGlobalState();
 
   return (
     <div
@@ -56,15 +55,17 @@ const Menu = () => {
 
 /** ==== NavbarRight ===== */
 export const NavbarRight = ({ btnClicked }) => {
-  const isMobile = useMediaQuery({
-    query: "(min-width: 500px)",
-  });
+  const { isMobile, isMobileSmall } = useGlobalState();
   return (
     <div className="NavbarRight position-relative">
       <ProfilePicture isMobile={isMobile} />
       <Notifications />
-      <Messenger />
-      <Menu />
+      {isMobileSmall && (
+        <>
+          <Messenger />
+          <Menu />
+        </>
+      )}
       <ProfileDropDown btnClicked={btnClicked} />
     </div>
   );

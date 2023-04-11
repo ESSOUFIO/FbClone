@@ -13,7 +13,6 @@ import { useGlobalState } from "../../context/GlobalProvider";
 import { getUser } from "../../firebase/user";
 import { useEffect, useState } from "react";
 import { unSavePost } from "../../firebase/post";
-import { useMediaQuery } from "react-responsive";
 
 const SideMenu = ({ isTablet }) => {
   return (
@@ -130,13 +129,13 @@ const PostButtons = ({ unSavePostHandler, isDesktop, isMobile }) => {
   );
 };
 
-const PostPhoto = ({ photo, isMobile }) => {
+const PostPhoto = ({ photo, isMobile, isMobileSmall }) => {
   return (
     <div
       className={styles.PostPhoto}
       style={{
-        width: isMobile ? "130px" : "90px",
-        height: isMobile ? "130px" : "90px",
+        width: isMobile ? "130px" : isMobileSmall ? "90px" : "65px",
+        height: isMobile ? "130px" : isMobileSmall ? "90px" : "65px",
       }}
     >
       <img src={photo} alt="" height={"100%"} />
@@ -148,7 +147,15 @@ const PostMobileBtn = ({ unSavePostHandler, isMobile }) => {
   return (
     <>
       {!isMobile && (
-        <div style={{ position: "absolute", right: "-3px", top: "-3px" }}>
+        <div
+          style={{
+            position: "absolute",
+            right: "-3px",
+            top: "-3px",
+            zIndex: 5,
+            background: "var(--color-darker)",
+          }}
+        >
           <div
             className={`${styles.PostMobileBtn} Center rounded`}
             style={{
@@ -168,7 +175,7 @@ const PostMobileBtn = ({ unSavePostHandler, isMobile }) => {
   );
 };
 
-const PostSaved = ({ post, isMobile, isDesktop }) => {
+const PostSaved = ({ post, isDesktopMedium, isMobile, isMobileSmall }) => {
   const [userPost, setUserPost] = useState(null);
   const { user } = useGlobalState();
 
@@ -190,15 +197,17 @@ const PostSaved = ({ post, isMobile, isDesktop }) => {
         <div
           className={styles.PostSaved}
           style={{
-            padding: isMobile ? "15px" : "10px",
+            padding: isMobile ? "15px" : isMobileSmall ? "10px" : "5px",
           }}
         >
           {!!post.photo && <PostPhoto photo={post.photo} isMobile={isMobile} />}
           <div className="w-100 position-relative">
             <h5
+              className={styles.PostSavedText}
               style={{
-                fontWeight: "700",
-                fontSize: isMobile ? "24px" : "20px",
+                width: isMobileSmall ? "100%" : "50vw",
+                fontSize: isMobile ? "21px" : "17px",
+                whiteSpace: isMobileSmall ? "normal" : "nowrap",
               }}
             >
               {post.text}
@@ -216,30 +225,34 @@ const PostSaved = ({ post, isMobile, isDesktop }) => {
               Favoris
             </p>
 
-            <div>
-              <img
-                src={userPost.picture}
-                alt=""
-                width={23}
-                style={{ borderRadius: "100%", marginRight: "10px" }}
-              />
-              {isMobile && (
-                <span
-                  style={{
-                    fontSize: "13px",
-                    color: "var(--color-light)",
-                  }}
-                >
-                  Saved from{" "}
-                </span>
-              )}
-              <span>{userName}</span>
-              <span style={{ fontWeight: "400" }}>'s Post</span>
-            </div>
+            {isMobileSmall && (
+              <div>
+                {
+                  <img
+                    src={userPost.picture}
+                    alt=""
+                    width={23}
+                    style={{ borderRadius: "100%", marginRight: "10px" }}
+                  />
+                }
+                {isMobile && (
+                  <span
+                    style={{
+                      fontSize: "13px",
+                      color: "var(--color-light)",
+                    }}
+                  >
+                    Saved from{" "}
+                  </span>
+                )}
+                <span>{userName}</span>
+                <span style={{ fontWeight: "400" }}>'s Post</span>
+              </div>
+            )}
 
             <PostButtons
               unSavePostHandler={unSavePostHandler}
-              isDesktop={isDesktop}
+              isDesktop={isDesktopMedium}
               isMobile={isMobile}
             />
           </div>
@@ -287,23 +300,15 @@ const DropDownUnSave = ({ unSavePostHandler }) => {
 
 /** Saved Cmponent */
 const Saved = () => {
-  const { savedPosts } = useGlobalState();
+  const {
+    savedPosts,
+    isDesktopLarge,
+    isDesktopMedium,
+    isTablet,
+    isMobile,
+    isMobileSmall,
+  } = useGlobalState();
 
-  const isDesktop = useMediaQuery({
-    query: "(min-width: 1020px)",
-  });
-
-  const isDesktopMedium = useMediaQuery({
-    query: "(min-width: 900px)",
-  });
-
-  const isTablet = useMediaQuery({
-    query: "(min-width: 700px)",
-  });
-
-  const isMobile = useMediaQuery({
-    query: "(min-width: 550px)",
-  });
   return (
     <div className={styles.Saved}>
       <SideMenu isTablet={isTablet} />
@@ -320,9 +325,10 @@ const Saved = () => {
               <PostSaved
                 key={post.id}
                 post={post}
-                isDesktop={isDesktop}
+                isDesktopLarge={isDesktopLarge}
                 isTablet={isTablet}
                 isMobile={isMobile}
+                isMobileSmall={isMobileSmall}
               />
             );
           })}
