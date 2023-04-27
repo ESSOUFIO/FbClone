@@ -47,7 +47,7 @@ const FilterViewBtn = ({ icon, title, active, setActiveBtn }) => {
   );
 };
 
-const FilterPosts = ({ isDesktopMedium, isMobile }) => {
+const FilterPosts = ({ isDesktopMedium, isMobile, isMobileSmall }) => {
   const [viewBtn, setViewBtn] = useState([
     {
       title: "List View",
@@ -100,8 +100,11 @@ const FilterPosts = ({ isDesktopMedium, isMobile }) => {
         maxWidth: isDesktopMedium ? "" : isMobile ? "500px" : "100%",
       }}
     >
-      <div className="d-flex justify-content-between px-3 py-2">
-        <h5>Posts</h5>
+      <div
+        className="d-flex px-3 py-2"
+        style={{ justifyContent: isMobileSmall ? "space-between" : "center" }}
+      >
+        {isMobileSmall && <h5>Posts</h5>}
         <div className="d-flex gap-2">
           <FilterBtn title={"Filters"} icon={filterIcon} />
           <FilterBtn title={"Manage Posts"} />
@@ -135,6 +138,7 @@ const ProfileRightSide = ({
   showAddPost,
   isDesktopMedium,
   isMobile,
+  isMobileSmall,
   uid,
   isMyProfile,
 }) => {
@@ -174,7 +178,11 @@ const ProfileRightSide = ({
         />
       )}
       {isMyProfile && (
-        <FilterPosts isDesktopMedium={isDesktopMedium} isMobile={isMobile} />
+        <FilterPosts
+          isDesktopMedium={isDesktopMedium}
+          isMobile={isMobile}
+          isMobileSmall={isMobileSmall}
+        />
       )}
       {myPosts?.map((post) => {
         const postTime = calcTime(post.time);

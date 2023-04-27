@@ -1,6 +1,8 @@
+import { useGlobalState } from "../../../context/GlobalProvider";
 import styles from "./PostButton.module.css";
 
 export const PostButton = ({ icon, text, liked = false, btnClicked }) => {
+  const { isMobileSmall } = useGlobalState();
   return (
     <div className={styles.PostButton} onClick={() => btnClicked(text)}>
       <img
@@ -13,7 +15,7 @@ export const PostButton = ({ icon, text, liked = false, btnClicked }) => {
           color: liked ? "var(--color-primary)" : "var(--color-light)",
         }}
       >
-        {text}
+        {isMobileSmall ? text : ""}
       </span>
     </div>
   );

@@ -15,17 +15,13 @@ const PostInteractionsButtons = ({ liked, btnClicked, style }) => {
         {liked && (
           <PostButton
             icon={LikedIcon}
-            text={isMobileSmall ? "Like" : ""}
+            text="Like"
             liked={true}
             btnClicked={btnClicked}
           />
         )}
         {!liked && (
-          <PostButton
-            icon={LikeIco}
-            text={isMobileSmall ? "Like" : ""}
-            btnClicked={btnClicked}
-          />
+          <PostButton icon={LikeIco} text="Like" btnClicked={btnClicked} />
         )}
       </div>
       <div className={styles.PostButtonWrap}>

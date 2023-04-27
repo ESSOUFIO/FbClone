@@ -40,7 +40,7 @@ const Profile = () => {
   const [isMyProfile, setIsMyProfile] = useState(false);
 
   let { userId } = useParams();
-  const { user, userDoc } = useGlobalState();
+  const { user, userDoc, isMobileSmall } = useGlobalState();
 
   useEffect(() => {
     const getUserFunc = async () => {
@@ -91,6 +91,7 @@ const Profile = () => {
           isLaptopLarge={isLaptopLarge}
           isLaptopMedium={isLaptopMedium}
           isMobile={isMobile}
+          isMobileSmall={isMobileSmall}
           isMyProfile={isMyProfile}
         />
         <ProfileBodyWrap
@@ -107,6 +108,7 @@ const Profile = () => {
             showAddPost={showAddPost}
             isDesktopMedium={isDesktopMedium}
             isMobile={isMobile}
+            isMobileSmall={isMobileSmall}
             isMyProfile={isMyProfile}
           />
         </ProfileBodyWrap>

@@ -21,7 +21,13 @@ import { uploadProfilePicture, uploadCoverPhoto } from "../../../firebase/user";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
-const Cover = ({ isDesktop, isMobile, userDoc, isMyProfile }) => {
+const Cover = ({
+  isDesktop,
+  isMobile,
+  userDoc,
+  isMyProfile,
+  isMobileSmall,
+}) => {
   const fileRef = useRef();
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -57,8 +63,12 @@ const Cover = ({ isDesktop, isMobile, userDoc, isMyProfile }) => {
             className={styles.btnCover}
             onClick={() => fileRef.current.click()}
             style={{
-              padding: isDesktop ? "7px 14px" : "10px 14px",
-              right: isMobile ? "36px" : "15px",
+              padding: isDesktop
+                ? "7px 14px"
+                : isMobileSmall
+                ? "10px 14px"
+                : "8px 12px",
+              right: isMobile ? "36px" : isMobileSmall ? "15px" : "8px",
             }}
           >
             <ImCamera />
@@ -198,7 +208,7 @@ const Titles = ({ photos, username, isDesktop }) => {
       <div
         className={styles.friendsPicWrap}
         style={{
-          transform: isDesktop ? "translate(-37px,0)" : "translate(0, 0)",
+          transform: isDesktop ? "translate(-37px,0)" : "translate(-15px, 0)",
         }}
       >
         {photos.map((photo, i) => (
@@ -209,7 +219,7 @@ const Titles = ({ photos, username, isDesktop }) => {
   );
 };
 
-const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile }) => {
+const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile, isMobileSmall }) => {
   const [menu, setMenu] = useState([
     {
       title: "Posts",
@@ -264,11 +274,13 @@ const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile }) => {
           setActive={setActive}
           active={menu[0].active}
         />
-        <MenuBtn
-          title={"About"}
-          setActive={setActive}
-          active={menu[1].active}
-        />
+        {isMobileSmall && (
+          <MenuBtn
+            title={"About"}
+            setActive={setActive}
+            active={menu[1].active}
+          />
+        )}
         {isMobile && (
           <MenuBtn
             title={"Friends"}
@@ -311,7 +323,7 @@ const Menu = ({ isLaptopLarge, isLaptopMedium, isMobile }) => {
   );
 };
 
-const Buttons = ({ isMyProfile }) => {
+const Buttons = ({ isMyProfile, isMobileSmall }) => {
   return (
     <>
       <div
@@ -319,19 +331,26 @@ const Buttons = ({ isMyProfile }) => {
         style={{
           marginBottom: "30px",
           visibility: isMyProfile ? "visible" : "hidden",
+          flexDirection: isMobileSmall ? "row" : "column",
+          gap: isMobileSmall ? "0" : "10px",
         }}
       >
         <Button
           style={{
             fontWeight: "600",
-            width: "150px",
-            marginRight: "10px",
+            width: isMobileSmall ? "150px" : "180px",
+            marginRight: isMobileSmall ? "10px" : "0",
             border: "none",
           }}
         >
           <BiPlus /> Add to story
         </Button>
-        <Button className={styles.editBtn}>
+        <Button
+          className={styles.editBtn}
+          style={{
+            width: isMobileSmall ? "150px" : "180px",
+          }}
+        >
           <MdEdit /> Edit profile
         </Button>
       </div>
@@ -345,6 +364,7 @@ const ProfileHead = ({
   isLaptopLarge,
   isLaptopMedium,
   isMobile,
+  isMobileSmall,
   isMyProfile,
 }) => {
   const friendsPhotos = [
@@ -365,6 +385,7 @@ const ProfileHead = ({
         <Cover
           isDesktop={isDesktop}
           isMobile={isMobile}
+          isMobileSmall={isMobileSmall}
           userDoc={userDoc}
           isMyProfile={isMyProfile}
         />
@@ -394,12 +415,13 @@ const ProfileHead = ({
               username={username}
               isDesktop={isDesktop}
             />
-            <Buttons isMyProfile={isMyProfile} />
+            <Buttons isMyProfile={isMyProfile} isMobileSmall={isMobileSmall} />
           </div>
           <Menu
             isLaptopLarge={isLaptopLarge}
             isLaptopMedium={isLaptopMedium}
             isMobile={isMobile}
+            isMobileSmall={isMobileSmall}
           />
         </div>
       </div>
