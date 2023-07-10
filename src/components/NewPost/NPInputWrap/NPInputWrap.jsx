@@ -26,12 +26,14 @@ export const NPInputWrap = ({ showAddPost, userDoc, isMobileSmall }) => {
         onClick={showAddPost}
         style={{ marginLeft: isMobileSmall ? "10px" : "5px" }}
       />
-      <NPButtons
-        image={PostPhoto}
-        text=""
-        height={"30px"}
-        showAddPost={showAddPost}
-      />
+      {!isMobileSmall && (
+        <NPButtons
+          image={PostPhoto}
+          text=""
+          height={"30px"}
+          showAddPost={showAddPost}
+        />
+      )}
     </div>
   );
 };

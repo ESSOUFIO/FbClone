@@ -10,7 +10,7 @@ export const NPButtons = ({ image, text, height, showAddPost }) => {
       style={{ padding: isMobileSmall ? "7px 10px" : "0" }}
     >
       <img src={image} alt="" height={height} />
-      <span style={{ marginLight: "10px" }}>{text}</span>
+      <span style={{ marginLeft: "7px" }}>{text}</span>
     </div>
   );
 };

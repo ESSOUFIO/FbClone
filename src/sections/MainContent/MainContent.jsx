@@ -43,7 +43,7 @@ export const MainContent = () => {
         }}
       >
         <Container isMobile={isMobile} isMobileSmall={isMobileSmall}>
-          <StoriesSection userDoc={userDoc} />
+          <StoriesSection userDoc={userDoc} showAddPost={showAddPost} />
           <NewPost
             showAddPost={showAddPost}
             width={"var(--MiddleContainer-witdh)"}

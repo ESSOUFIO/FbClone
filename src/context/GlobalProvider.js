@@ -122,6 +122,7 @@ const GlobalProvider = ({ children }) => {
     query: "(min-width: 350px)",
   });
 
+  console.log("Loading: ", session.isLoadding);
   return (
     <globalContext.Provider
       value={{

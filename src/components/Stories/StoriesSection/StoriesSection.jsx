@@ -46,7 +46,7 @@ const ButtonsNav = () => {
 };
 
 //* ===  Stories List ==== */
-export const StoriesSection = ({ userDoc }) => {
+export const StoriesSection = ({ userDoc, showAddPost }) => {
   const StoriesList = [
     {
       name: "Atiel Ompore",
@@ -102,6 +102,7 @@ export const StoriesSection = ({ userDoc }) => {
     <StorieFirstElement
       uid={userDoc.uid}
       UserPhoto={userDoc.picture ? userDoc.picture : defaultPic}
+      showAddPost={showAddPost}
     />
   );
 
@@ -115,10 +116,10 @@ export const StoriesSection = ({ userDoc }) => {
   ));
 
   const navRightHandler = () => {
-    setTransX(transX - 356);
+    setTransX(transX - 349);
   };
   const navLeftHandler = () => {
-    setTransX(transX + 356);
+    setTransX(transX + 349);
   };
 
   return (
@@ -129,7 +130,7 @@ export const StoriesSection = ({ userDoc }) => {
         {StorieContent}
       </StoriesWrap>
       <BouttonsNavRight
-        visible={`${transX <= -715 ? "hidden" : "visible"}`}
+        visible={`${transX <= -700 ? "hidden" : "visible"}`}
         onClicked={navRightHandler}
       />
       <BouttonsNavLeft
