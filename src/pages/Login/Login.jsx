@@ -35,8 +35,8 @@ const TitlesWrap = ({ isDesktopMedium, isMobile }) => {
 };
 
 const FormCard = () => {
-  const [email, SetEmail] = useState("omar.essoufi@gmail.com");
-  const [password, SetPassword] = useState("111222");
+  const [email, SetEmail] = useState("");
+  const [password, SetPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
