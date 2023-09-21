@@ -9,3 +9,9 @@
   top: 0;
   z-index: 99;
 }
+
+@media screen and (max-width: 550px) {
+  .NavBar {
+    padding-right: 12px;
+  }
+}
